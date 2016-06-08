@@ -1,0 +1,283 @@
+
+<!DOCTYPE html>
+<html >
+  <head>
+    <meta charset="UTF-8">
+
+
+    <title>Carousel3D</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    
+    
+        <style>
+      * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #000;
+}
+
+.container {
+  position: relative;
+  width: 100%;
+}
+.container .carousel {
+  background: -webkit-radial-gradient(50% 0% circle, #b0bec5 0%, #455a64 50%);
+  background: radial-gradient(circle at 50% 0%, #b0bec5 0%, #455a64 50%);
+  width: 100%;
+  max-width: 900px;
+  height: 600px;
+  margin: 50px auto;
+  position: relative;
+  overflow: hidden;
+  -webkit-transform-origin: center;
+          transform-origin: center;
+  -webkit-transform-style: preserve-3d;
+          transform-style: preserve-3d;
+  -webkit-perspective-origin: center 25%;
+          perspective-origin: center 25%;
+  -webkit-perspective: 2000px;
+          perspective: 2000px;
+}
+.container .carousel .carousel-wraper {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  right: -100%;
+  top: 0;
+  -webkit-transform-origin: left;
+          transform-origin: left;
+  -webkit-transform-style: preserve-3d;
+          transform-style: preserve-3d;
+  -webkit-transition: all 2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  transition: all 2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+.container .carousel .carousel-wraper .carousel-item {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  -webkit-transform-origin: right;
+          transform-origin: right;
+  left: -100%;
+  top: 0;
+}
+.container .carousel .carousel-wraper .carousel-item:nth-child(1) {
+  -webkit-transform: rotateY(70deg) rotateX(5deg) translateY(0%);
+          transform: rotateY(70deg) rotateX(5deg) translateY(0%);
+}
+.container .carousel .carousel-wraper .carousel-item:nth-child(2) {
+  -webkit-transform: rotateY(130deg) rotateX(5deg) translateY(0%);
+          transform: rotateY(130deg) rotateX(5deg) translateY(0%);
+}
+.container .carousel .carousel-wraper .carousel-item:nth-child(3) {
+  -webkit-transform: rotateY(190deg) rotateX(5deg) translateY(0%);
+          transform: rotateY(190deg) rotateX(5deg) translateY(0%);
+}
+.container .carousel .carousel-wraper .carousel-item:nth-child(4) {
+  -webkit-transform: rotateY(250deg) rotateX(5deg) translateY(0%);
+          transform: rotateY(250deg) rotateX(5deg) translateY(0%);
+}
+.container .carousel .carousel-wraper .carousel-item:nth-child(5) {
+  -webkit-transform: rotateY(310deg) rotateX(5deg) translateY(0%);
+          transform: rotateY(310deg) rotateX(5deg) translateY(0%);
+}
+.container .carousel .carousel-wraper .carousel-item:nth-child(6) {
+  -webkit-transform: rotateY(370deg) rotateX(5deg) translateY(0%);
+          transform: rotateY(370deg) rotateX(5deg) translateY(0%);
+}
+.container .carousel .carousel-wraper .carousel-item .img-wrap {
+  position: absolute;
+  display: block;
+  left: 50%;
+  top: 50%;
+  border: 8px solid white;
+  background-color: #fff;
+  -webkit-backface-visibility: hidden;
+          backface-visibility: hidden;
+  -webkit-transform: translateY(-50%) translateX(-70%) translateZ(0);
+          transform: translateY(-50%) translateX(-70%) translateZ(0);
+}
+.container .carousel .carousel-wraper .carousel-item .reflection {
+  position: absolute;
+  background-color: #fff;
+  -webkit-backface-visibility: hidden;
+          backface-visibility: hidden;
+  display: block;
+  left: 50%;
+  top: 50%;
+  border: 8px solid white;
+  border-top: none;
+  opacity: 0.7;
+  -webkit-transform: translateY(50%) translateX(-70%) translateZ(0) scaleY(-1);
+          transform: translateY(50%) translateX(-70%) translateZ(0) scaleY(-1);
+}
+.container .carousel .carousel-wraper .carousel-item .reflection:after {
+  content: "";
+  width: 110%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: -5%;
+  background: -webkit-linear-gradient(90deg, rgba(69, 90, 100, 0) 0%, #455a64 50%);
+  background: linear-gradient(0deg, rgba(69, 90, 100, 0) 0%, #455a64 50%);
+}
+.container .carousel .carousel-wraper .carousel-item img {
+  -webkit-filter: url(#blur);
+          filter: url(#blur);
+}
+
+.hidden {
+  position: absolute;
+  overflow: hidden;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+}
+
+.filter-in img {
+  -webkit-filter: url(#blur-in) !important;
+          filter: url(#blur-in) !important;
+}
+
+.filter-out img {
+  -webkit-filter: url(#blur-out) !important;
+          filter: url(#blur-out) !important;
+}
+
+    </style>
+
+    <script>
+  window.console = window.console || function(t) {};
+</script>
+
+    
+    
+  </head>
+
+  <body translate="no" >
+
+    
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" class="hidden">
+  <defs>
+    <filter id="blur-in" x="0" y="0">
+      <fegaussianblur in="SourceGraphic" stddeviation="8,8"></fegaussianblur>
+    </filter>
+    <filter id="blur-out" x="0" y="0">
+      <fegaussianblur in="SourceGraphic" stddeviation="0,0"></fegaussianblur>
+    </filter>
+    <filter id="blur" x="0" y="0">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="8,8"></feGaussianBlur>
+    </filter>
+  </defs>
+</svg>
+<div class="container">
+  <div class="carousel">
+    <div class="carousel-wraper">
+      <div class="carousel-item"> 
+        <div class="img-wrap"><img src="https://unsplash.it/600/400?image=823"/></div>
+        <div class="reflection"><img src="https://unsplash.it/600/400?image=823"/></div>
+      </div>
+      <div class="carousel-item"> 
+        <div class="img-wrap"><img src="https://unsplash.it/600/400?image=832"/></div>
+        <div class="reflection"><img src="https://unsplash.it/600/400?image=832"/></div>
+      </div>
+      <div class="carousel-item"> 
+        <div class="img-wrap"><img src="https://unsplash.it/600/400?image=839"/></div>
+        <div class="reflection"><img src="https://unsplash.it/600/400?image=839"/></div>
+      </div>
+      <div class="carousel-item"> 
+        <div class="img-wrap"><img src="https://unsplash.it/600/400?image=883"/></div>
+        <div class="reflection"><img src="https://unsplash.it/600/400?image=883"/></div>
+      </div>
+      <div class="carousel-item"> 
+        <div class="img-wrap"><img src="https://unsplash.it/600/400?image=1006"/></div>
+        <div class="reflection"><img src="https://unsplash.it/600/400?image=1006"/></div>
+      </div>
+      <div class="carousel-item"> 
+        <div class="img-wrap"><img src="https://unsplash.it/600/400?image=1011"/></div>
+        <div class="reflection"><img src="https://unsplash.it/600/400?image=1011"/></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+    
+        <script>
+      var numItems = 6;
+var rotationAngle = 0;
+var diffAngle = 360/numItems;
+
+var items = document.querySelectorAll(".carousel-item");
+var cw = document.querySelector(".carousel-wraper");
+//filters
+var blurIn = document.querySelector("#blur-in").firstElementChild
+var blurOut = document.querySelector("#blur-out").firstElementChild
+
+
+var current = 0;
+var currentBlur = 0;
+var maxBlur = 8;
+var delay = 2000;
+var dBlur = maxBlur*139/delay;
+var db = 1;
+
+//start
+next();
+
+function next(){
+  rotationAngle += diffAngle;
+  //real current and next 
+  var cr = (numItems-current+5)%numItems;
+  var nx = (numItems-current+4)%numItems;
+  //set filters
+  items[cr].classList.remove("filter-in");
+  items[cr].classList.add("filter-out"); 
+  items[nx].classList.remove("filter-out");
+  items[nx].classList.add("filter-in");
+  //animate blur-in filter
+  blur();
+  //rotate carousel
+  cw.style.transform = "translateZ(-100px) rotateY("+ (rotationAngle) +"deg)";
+  //set next item
+  current = (current+1) % numItems;
+  window.setTimeout(next, delay*2);
+}
+
+//animate blur filters
+function blur(){
+  //reeduce blur ammount untill blur is close to 0
+  if(currentBlur > 1){
+    currentBlur -= dBlur;
+    //increasing blur-in and decreasing blur-out
+    blurIn.setAttribute("stdDeviation", [currentBlur, currentBlur]);
+    blurOut.setAttribute("stdDeviation",[maxBlur-currentBlur,maxBlur-currentBlur]);
+    //go to next drame
+    window.requestAnimationFrame(blur);
+  }else{
+    //reset if blur amount is ~ 0
+    currentBlur = 8;
+    blurIn.setAttribute("stdDeviation","0,0");
+    blurOut.setAttribute("stdDeviation",[maxBlur,maxBlur]); 
+    var nx = (numItems-current)%numItems;
+    items[nx].classList.remove("filter-out")       
+  }
+}
+      //# sourceURL=pen.js
+    </script>
+
+    
+    <script>
+  if (document.location.search.match(/type=embed/gi)) {
+    window.parent.postMessage("resize", "*");
+  }
+</script>
+
+    
+  </body>
+</html>
+ 
