@@ -1,0 +1,299 @@
+
+<!DOCTYPE html>
+<html >
+  <head>
+    <meta charset="UTF-8">
+
+
+    <title> pyramid </title>
+    
+    
+    
+    
+        <style>
+      body {
+  overflow: hidden;
+  height: 100vh;
+  -webkit-perspective: 32em;
+          perspective: 32em;
+  -webkit-perspective-origin: 50% calc(50% - 13em);
+          perspective-origin: 50% calc(50% - 13em);
+  background: -webkit-linear-gradient(#000, #222);
+  background: linear-gradient(#000, #222);
+}
+
+.a3d {
+  -webkit-animation: r 5s linear infinite;
+          animation: r 5s linear infinite;
+}
+
+@-webkit-keyframes r {
+  to {
+    -webkit-transform: rotateY(1turn);
+            transform: rotateY(1turn);
+  }
+}
+
+@keyframes r {
+  to {
+    -webkit-transform: rotateY(1turn);
+            transform: rotateY(1turn);
+  }
+}
+div, :before {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform-style: preserve-3d;
+          transform-style: preserve-3d;
+}
+
+.s3d:nth-child(1) .s2d:last-child {
+  margin: -4.33333em;
+  width: 8.66667em;
+  height: 8.66667em;
+  -webkit-transform: translateY(0.68865em) rotateX(90deg);
+          transform: translateY(0.68865em) rotateX(90deg);
+}
+.s3d:nth-child(1) .s2d:nth-child(-n + 4) {
+  -webkit-clip-path: url(#c1);
+          clip-path: url(#c1);
+}
+.s3d:nth-child(2) {
+  -webkit-animation: split2 10s ease-in infinite alternate;
+          animation: split2 10s ease-in infinite alternate;
+}
+@-webkit-keyframes split2 {
+  0%, 25% {
+    -webkit-transform: none;
+            transform: none;
+  }
+  75%, 100% {
+    -webkit-transform: translateY(-4em);
+            transform: translateY(-4em);
+  }
+}
+@keyframes split2 {
+  0%, 25% {
+    -webkit-transform: none;
+            transform: none;
+  }
+  75%, 100% {
+    -webkit-transform: translateY(-4em);
+            transform: translateY(-4em);
+  }
+}
+.s3d:nth-child(2) .s2d:last-child {
+  margin: -2.16667em;
+  width: 4.33333em;
+  height: 4.33333em;
+  -webkit-transform: translateY(-2.37548em) rotateX(90deg);
+          transform: translateY(-2.37548em) rotateX(90deg);
+}
+.s3d:nth-child(2) .s2d:nth-child(-n + 4) {
+  -webkit-clip-path: url(#c2);
+          clip-path: url(#c2);
+}
+.s3d:nth-child(3) {
+  -webkit-animation: split3 10s ease-in infinite alternate;
+          animation: split3 10s ease-in infinite alternate;
+}
+@-webkit-keyframes split3 {
+  0%, 25% {
+    -webkit-transform: none;
+            transform: none;
+  }
+  75%, 100% {
+    -webkit-transform: translateY(-6em);
+            transform: translateY(-6em);
+  }
+}
+@keyframes split3 {
+  0%, 25% {
+    -webkit-transform: none;
+            transform: none;
+  }
+  75%, 100% {
+    -webkit-transform: translateY(-6em);
+            transform: translateY(-6em);
+  }
+}
+.s3d:nth-child(3) .s2d:nth-child(-n + 4) {
+  -webkit-clip-path: url(#c3);
+          clip-path: url(#c3);
+}
+
+.s2d {
+  overflow: hidden;
+  -webkit-backface-visibility: hidden;
+          backface-visibility: hidden;
+  background: url(https://upload.wikimedia.org/wikipedia/commons/2/20/Light_brown_stone_texture.jpg) 50%/cover;
+}
+.s2d:before {
+  margin: inherit;
+  width: inherit;
+  height: inherit;
+  background: #000;
+  content: '';
+}
+.s2d:nth-child(-n + 4) {
+  margin: -7.50555em;
+  width: 15.01111em;
+  height: 15.01111em;
+  -webkit-transform-origin: 50% 11.25833em;
+          transform-origin: 50% 11.25833em;
+  background: url(https://upload.wikimedia.org/wikipedia/commons/2/20/Light_brown_stone_texture.jpg) 50%/cover, url(https://upload.wikimedia.org/wikipedia/commons/a/a7/Stone_gimp.png) 0/13em, url(https://upload.wikimedia.org/wikipedia/commons/a/a7/Stone_gimp.png) 0/13em;
+  background-blend-mode: lighten;
+  -webkit-animation: shine 1.25s linear infinite;
+          animation: shine 1.25s linear infinite;
+}
+.s2d:nth-child(-n + 4):before {
+  opacity: .01;
+  -webkit-animation: shade 2.5s linear infinite alternate;
+          animation: shade 2.5s linear infinite alternate;
+}
+.s2d:nth-child(5):before {
+  opacity: .85;
+  -webkit-transform: scale(0.95);
+          transform: scale(0.95);
+  -webkit-animation: shadow 10s ease-in infinite alternate;
+          animation: shadow 10s ease-in infinite alternate;
+}
+.s2d:nth-child(1) {
+  -webkit-transform: rotateY(0deg) translateZ(6.5em) rotateX(35.26439deg);
+          transform: rotateY(0deg) translateZ(6.5em) rotateX(35.26439deg);
+}
+.s2d:nth-child(1):before {
+  -webkit-animation-delay: 0s;
+          animation-delay: 0s;
+}
+.s2d:nth-child(2) {
+  -webkit-transform: rotateY(90deg) translateZ(6.5em) rotateX(35.26439deg);
+          transform: rotateY(90deg) translateZ(6.5em) rotateX(35.26439deg);
+}
+.s2d:nth-child(2):before {
+  -webkit-animation-delay: -1.25s;
+          animation-delay: -1.25s;
+}
+.s2d:nth-child(3) {
+  -webkit-transform: rotateY(180deg) translateZ(6.5em) rotateX(35.26439deg);
+          transform: rotateY(180deg) translateZ(6.5em) rotateX(35.26439deg);
+}
+.s2d:nth-child(3):before {
+  -webkit-animation-delay: -2.5s;
+          animation-delay: -2.5s;
+}
+.s2d:nth-child(4) {
+  -webkit-transform: rotateY(270deg) translateZ(6.5em) rotateX(35.26439deg);
+          transform: rotateY(270deg) translateZ(6.5em) rotateX(35.26439deg);
+}
+.s2d:nth-child(4):before {
+  -webkit-animation-delay: -3.75s;
+          animation-delay: -3.75s;
+}
+
+@-webkit-keyframes shine {
+  to {
+    background-position: 50%, -13em, -39em;
+  }
+}
+
+@keyframes shine {
+  to {
+    background-position: 50%, -13em, -39em;
+  }
+}
+@-webkit-keyframes shade {
+  to {
+    opacity: .75;
+  }
+}
+@keyframes shade {
+  to {
+    opacity: .75;
+  }
+}
+@-webkit-keyframes shadow {
+  to {
+    -webkit-filter: blur(1.5em);
+            filter: blur(1.5em);
+  }
+}
+@keyframes shadow {
+  to {
+    -webkit-filter: blur(1.5em);
+            filter: blur(1.5em);
+  }
+}
+a {
+  position: absolute;
+  top: 1em;
+  left: 1em;
+  color: lime;
+  font: 1em trebuchet ms, verdana, sans-serif;
+}
+
+    </style>
+
+    <script>
+  window.console = window.console || function(t) {};
+</script>
+
+    
+    
+  </head>
+
+  <body translate="no" >
+
+    
+<svg>
+  <clipPath id="c3" clipPathUnits="objectBoundingBox">
+    <polygon points="0.50000,0.00000 0.64434,0.25000 0.35566,0.25000"></polygon>
+  </clipPath>
+  <clipPath id="c2" clipPathUnits="objectBoundingBox">
+    <polygon points="0.64434,0.25000 0.78868,0.50000 0.21132,0.50000 0.35566,0.25000"></polygon>
+  </clipPath>
+  <clipPath id="c1" clipPathUnits="objectBoundingBox">
+    <polygon points="0.78868,0.50000 0.93301,0.75000 0.06699,0.75000 0.21132,0.50000"></polygon>
+  </clipPath>
+</svg>
+<div class="a3d">
+  <div class="s3d">
+    <div class="s2d"></div>
+    <div class="s2d"></div>
+    <div class="s2d"></div>
+    <div class="s2d"></div>
+    <div class="s2d"></div>
+  </div>
+  <div class="s3d">
+    <div class="s2d"></div>
+    <div class="s2d"></div>
+    <div class="s2d"></div>
+    <div class="s2d"></div>
+    <div class="s2d"></div>
+  </div>
+  <div class="s3d">
+    <div class="s2d"></div>
+    <div class="s2d"></div>
+    <div class="s2d"></div>
+    <div class="s2d"></div>
+  </div>
+</div>
+
+    
+        <script>
+
+      //# sourceURL=pen.js
+    </script>
+
+    
+    <script>
+  if (document.location.search.match(/type=embed/gi)) {
+    window.parent.postMessage("resize", "*");
+  }
+</script>
+
+    
+  </body>
+</html>
+ 

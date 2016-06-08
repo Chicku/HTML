@@ -1,0 +1,135 @@
+
+<!DOCTYPE html>
+<html >
+  <head>
+    <meta charset="UTF-8">
+
+
+    <title>Positivity</title>
+    
+    
+    
+    
+        <style>
+      canvas {
+  
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+    </style>
+
+    <script>
+  window.console = window.console || function(t) {};
+</script>
+
+
+
+    
+  </head>
+
+  <body translate="no" >
+
+    <canvas id=cRect></canvas>
+<canvas id=cText></canvas>
+
+
+    
+        <script>
+      var w = cRect.width = cText.width = window.innerWidth,
+    h = cRect.height = cText.height = window.innerHeight,
+    cr = cRect.getContext( '2d' ),
+    ct = cText.getContext( '2d' ),
+    
+    opts = {
+      
+      texts: ['Life', 'Hope', 'Divinity', 'Promise', 'Creation', 'Potential', 'Harmony', 'Expansion', 'Ascension', 'Spirituality', 'Connection', 'Humanity', 'Acceptance', 'Transformation', 'Pride', 'Love','Lust'], // copied directly from @tmrDevelops
+      font: '#px Verdana',
+      baseSize: 12,
+      addedSize: 12,
+      relativeSpeed: 1/12,
+      spawnProb: .05,
+      relativePadding: .1,
+      hueSpeed: .1,
+      repaintAlpha: .2,
+    },
+      
+    texts = [],
+    tick = 0;
+
+function Text() {
+  
+  var addedSize = Math.random() * opts.addedSize;
+  
+  this.x = w;
+  this.y = ( Math.random() * h ) |0;
+  this.size = ( opts.baseSize + addedSize ) |0;
+  this.speed = this.size * opts.relativeSpeed;
+  
+  this.content = opts.texts[ ( Math.random() * opts.texts.length ) |0 ];
+  this.font = opts.font.replace( '#', this.size );
+  this.padding = opts.relativePadding * this.size;
+  this.color = 'hsla(hue,80%,50%,.8)'.replace( 'hue', tick * opts.hueSpeed );
+  
+  cr.font = this.font;
+  
+  this.width = cr.measureText( this.content ).width + this.padding * 2;
+  this.height = this.size + this.padding * 2;
+  this.middleY = this.y + this.height / 2;
+}
+Text.prototype.step = function() {
+  
+  this.x -= this.speed;
+  
+  if( this.x < -this.width )
+    return this.dead = true;
+  
+  cr.fillStyle = this.color;
+  cr.fillRect( this.x, this.y, this.width, this.height );
+  
+  ct.fillStyle = 'black';
+  ct.font = this.font;
+  ct.fillText( this.content, this.x + this.padding, this.middleY );
+}
+
+function loop() {
+  
+  window.requestAnimationFrame( loop );
+  
+  ++tick;
+  
+  ct.clearRect( 0, 0, w, h );
+  
+  cr.fillStyle = 'rgba(0,0,0,alp)'.replace( 'alp', opts.repaintAlpha );
+  cr.fillRect( 0, 0, w, h );
+  
+  ct.textBaseline = 'middle';
+  
+  if( Math.random() < opts.spawnProb )
+    texts.push( new Text );
+  
+  for( var i = 0; i < texts.length; ++i ){
+    
+    texts[ i ].step();
+    if( texts[ i ].dead ){
+      
+      texts.splice( i, 1 );
+      --i;
+    }
+  }
+}
+loop();
+      //# sourceURL=pen.js
+    </script>
+
+    
+    <script>
+  if (document.location.search.match(/type=embed/gi)) {
+    window.parent.postMessage("resize", "*");
+  }
+</script>
+
+    
+  </body>
+</html>
+ 

@@ -1,0 +1,138 @@
+
+<!DOCTYPE html>
+<html >
+  <head>
+    <meta charset="UTF-8">
+
+
+    <title>Rainbow Trail</title>
+    
+    
+    
+    
+        <style>
+      html, body {
+  margin: 0;
+}
+canvas {
+  display: block;
+}
+    </style>
+
+    <script>
+  window.console = window.console || function(t) {};
+</script>
+
+    
+    
+  </head>
+
+  <body translate="no" >
+
+    <canvas id="canvas"></canvas>
+      
+
+    
+        <script>
+      "use strict";
+
+/*
+  Once again thanks to Keith Peters for his
+  "Coding Math" Youtube series!
+  This is my experiment after watching
+  "Coding Math: Episode 28 - More on Easing"
+*/
+
+var canvas;
+var ctx;
+var w;
+var h;
+var radius;
+var target;
+var points;
+var numPoints;
+var tick;
+var demoMode;
+
+function init() {
+  canvas = document.getElementById("canvas");
+  ctx = canvas.getContext("2d");
+  w = canvas.width = window.innerWidth;
+  h = canvas.height = window.innerHeight;
+  radius = Math.min(w, h) * 0.9 / 2;
+  points = [];
+  numPoints = 80;
+  for (var i = 0; i < numPoints; i++) {
+    points.push({
+      x: w / 2,
+      y: h / 2
+    });
+  }
+
+  target = {
+    x: 0,
+    y: 0
+  };
+
+  document.body.addEventListener("mousemove", function (event) {
+    target.x = event.clientX;
+    target.y = event.clientY;
+    demoMode = false;
+  });
+  tick = 0;
+  demoMode = true;
+}
+
+function easeTo(position, target, ease) {
+  position.x += (target.x - position.x) * ease;
+  position.y += (target.y - position.y) * ease;
+}
+
+function draw() {
+  ctx.fillStyle = "black";
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+  requestAnimationFrame(draw);
+  updatePoints();
+  tick++;
+}
+
+function updatePoints() {
+  ctx.save();
+  ctx.globalCompositeOperation = "difference";
+  ctx.shadowBlur = 10;
+
+  if (demoMode) {
+    target = {
+      x: Math.cos(tick / 10) * radius + w / 2,
+      y: Math.sin(tick / 10) * radius + h / 2
+    };
+  }
+  var leader = target;
+  points.forEach(function (p, i) {
+    easeTo(p, leader, 0.3);
+    ctx.beginPath();
+    ctx.arc(p.x, p.y, 15, 0, Math.PI * 2);
+    ctx.fillStyle = "hsla(" + i * 5 + ", 100%, 50%, " + (1 - 1 / numPoints * i) + ")";
+    ctx.shadowColor = "hsla(" + i * 5 + ", 100%, 50%, " + (1 - 1 / numPoints * i) + ")";
+    ctx.fill();
+    leader = p;
+  });
+  ctx.restore();
+}
+
+init();
+draw();
+      //# sourceURL=pen.js
+    </script>
+
+    
+    <script>
+  if (document.location.search.match(/type=embed/gi)) {
+    window.parent.postMessage("resize", "*");
+  }
+</script>
+
+    
+  </body>
+</html>
+ 
