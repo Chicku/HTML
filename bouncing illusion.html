@@ -1,0 +1,219 @@
+
+<!DOCTYPE html>
+<html >
+  <head>
+    <meta charset="UTF-8">
+
+
+    <title>bouncing illusion</title>
+    
+    
+    
+    
+        <style>
+      .box {
+  position: relative;
+  margin: 1em auto;
+  height: 20em;
+  width: 20em;
+  background: black;
+}
+
+.stripe {
+  height: 10em;
+  width: 1em;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin: -5em -0.5em;
+}
+.stripe:before, .stripe:after {
+  content: '';
+  position: absolute;
+  border-radius: 100%;
+  left: 0.125;
+  width: 0.75em;
+  height: 0.75em;
+  background: green;
+  -webkit-animation: jump 1s ease-in-out infinite;
+          animation: jump 1s ease-in-out infinite;
+}
+.stripe:before {
+  top: 0;
+}
+.stripe:after {
+  bottom: 0;
+  background: red;
+}
+.stripe:nth-child(1) {
+  -webkit-transform: rotate(22.5deg);
+          transform: rotate(22.5deg);
+}
+.stripe:nth-child(1):before {
+  background: #ff6000;
+}
+.stripe:nth-child(1):after {
+  background: #009fff;
+}
+.stripe:nth-child(1):before, .stripe:nth-child(1):after {
+  -webkit-animation-delay: -0.17678s;
+          animation-delay: -0.17678s;
+}
+.stripe:nth-child(2) {
+  -webkit-transform: rotate(45deg);
+          transform: rotate(45deg);
+}
+.stripe:nth-child(2):before {
+  background: #ffbf00;
+}
+.stripe:nth-child(2):after {
+  background: #0040ff;
+}
+.stripe:nth-child(2):before, .stripe:nth-child(2):after {
+  -webkit-animation-delay: -0.35355s;
+          animation-delay: -0.35355s;
+}
+.stripe:nth-child(3) {
+  -webkit-transform: rotate(67.5deg);
+          transform: rotate(67.5deg);
+}
+.stripe:nth-child(3):before {
+  background: #dfff00;
+}
+.stripe:nth-child(3):after {
+  background: #2000ff;
+}
+.stripe:nth-child(3):before, .stripe:nth-child(3):after {
+  -webkit-animation-delay: -0.53033s;
+          animation-delay: -0.53033s;
+}
+.stripe:nth-child(4) {
+  -webkit-transform: rotate(90deg);
+          transform: rotate(90deg);
+}
+.stripe:nth-child(4):before {
+  background: #80ff00;
+}
+.stripe:nth-child(4):after {
+  background: #8000ff;
+}
+.stripe:nth-child(4):before, .stripe:nth-child(4):after {
+  -webkit-animation-delay: -0.70711s;
+          animation-delay: -0.70711s;
+}
+.stripe:nth-child(5) {
+  -webkit-transform: rotate(112.5deg);
+          transform: rotate(112.5deg);
+}
+.stripe:nth-child(5):before {
+  background: #20ff00;
+}
+.stripe:nth-child(5):after {
+  background: #df00ff;
+}
+.stripe:nth-child(5):before, .stripe:nth-child(5):after {
+  -webkit-animation-delay: -0.88388s;
+          animation-delay: -0.88388s;
+}
+.stripe:nth-child(6) {
+  -webkit-transform: rotate(135deg);
+          transform: rotate(135deg);
+}
+.stripe:nth-child(6):before {
+  background: #00ff40;
+}
+.stripe:nth-child(6):after {
+  background: #ff00bf;
+}
+.stripe:nth-child(6):before, .stripe:nth-child(6):after {
+  -webkit-animation-delay: -1.06066s;
+          animation-delay: -1.06066s;
+}
+.stripe:nth-child(7) {
+  -webkit-transform: rotate(157.5deg);
+          transform: rotate(157.5deg);
+}
+.stripe:nth-child(7):before {
+  background: #00ff9f;
+}
+.stripe:nth-child(7):after {
+  background: #ff0060;
+}
+.stripe:nth-child(7):before, .stripe:nth-child(7):after {
+  -webkit-animation-delay: -1.23744s;
+          animation-delay: -1.23744s;
+}
+.stripe:nth-child(8) {
+  -webkit-transform: rotate(180deg);
+          transform: rotate(180deg);
+}
+.stripe:nth-child(8):before {
+  background: cyan;
+}
+.stripe:nth-child(8):after {
+  background: red;
+}
+.stripe:nth-child(8):before, .stripe:nth-child(8):after {
+  -webkit-animation-delay: -1.41421s;
+          animation-delay: -1.41421s;
+}
+
+@-webkit-keyframes jump {
+  0%, 100% {
+    -webkit-transform: translate3d(0, -3em, 0);
+            transform: translate3d(0, -3em, 0);
+  }
+  50% {
+    -webkit-transform: translate3d(0, 3em, 0);
+            transform: translate3d(0, 3em, 0);
+  }
+}
+
+@keyframes jump {
+  0%, 100% {
+    -webkit-transform: translate3d(0, -3em, 0);
+            transform: translate3d(0, -3em, 0);
+  }
+  50% {
+    -webkit-transform: translate3d(0, 3em, 0);
+            transform: translate3d(0, 3em, 0);
+  }
+}
+
+    </style>
+
+    <script>
+  window.console = window.console || function(t) {};
+</script>
+
+    
+    
+  </head>
+
+  <body translate="no" >
+
+    
+<div>
+  <div class="stripe"></div>
+  <div class="stripe"></div>
+  <div class="stripe"></div>
+  <div class="stripe"></div>
+  <div class="stripe"></div>
+  <div class="stripe"></div>
+  <div class="stripe"></div>
+  <div class="stripe"></div>
+</div>
+    
+    
+    
+    
+    <script>
+  if (document.location.search.match(/type=embed/gi)) {
+    window.parent.postMessage("resize", "*");
+  }
+</script>
+
+    
+  </body>
+</html>
+ 

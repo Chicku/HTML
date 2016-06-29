@@ -1,0 +1,751 @@
+
+<!DOCTYPE html>
+<html >
+  <head>
+    <meta charset="UTF-8">
+
+
+    <title>Eiffel Tower</title>
+    
+    
+    
+
+    
+        <style>
+      @import url(https://fonts.googleapis.com/css?family=Lato:100,300);
+.donate {
+  display: block;
+  font-size: 1rem;
+  font-weight: 300;
+  text-decoration: none;
+  color: blue !important;
+  margin-top: 0.25rem;
+}
+
+body:before, body:after {
+  content: '';
+  position: absolute;
+  width: 20rem;
+  height: 20rem;
+  top: calc(50% - 10rem);
+  left: calc(50% - 10rem);
+  border-radius: 50%;
+}
+
+body:before {
+  -webkit-animation: peace-red 5s linear infinite;
+          animation: peace-red 5s linear infinite;
+}
+
+body:after {
+  -webkit-animation: peace-blue 5s 2.5s linear infinite;
+          animation: peace-blue 5s 2.5s linear infinite;
+}
+
+.peace {
+  position: absolute;
+  width: 100%;
+  text-align: center;
+  left: 0;
+  top: calc(50% + 10rem);
+  font-family: Lato, sans-serif;
+  font-size: 3rem;
+  margin-top: 2rem;
+  font-weight: 100;
+}
+
+@-webkit-keyframes peace-red {
+  from {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+  }
+  50% {
+    box-shadow: 0 2px 8px rgba(255, 0, 0, 0.4);
+  }
+  to {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+  }
+}
+
+@keyframes peace-red {
+  from {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+  }
+  50% {
+    box-shadow: 0 2px 8px rgba(255, 0, 0, 0.4);
+  }
+  to {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+  }
+}
+@-webkit-keyframes peace-blue {
+  from {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+  }
+  50% {
+    box-shadow: 0 2px 8px rgba(0, 0, 255, 0.4);
+  }
+  to {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+  }
+}
+@keyframes peace-blue {
+  from {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+  }
+  50% {
+    box-shadow: 0 2px 8px rgba(0, 0, 255, 0.4);
+  }
+  to {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+  }
+}
+.eiffel-tower {
+  width: 1rem;
+  height: 26rem;
+  -webkit-transform: rotate(2deg);
+          transform: rotate(2deg);
+  -webkit-transform-style: preserve-3d;
+          transform-style: preserve-3d;
+  -webkit-animation: rotate 10s linear infinite;
+          animation: rotate 10s linear infinite;
+}
+.eiffel-tower:before, .eiffel-tower:after {
+  position: absolute;
+  content: '';
+  height: 2rem;
+  width: 2px;
+  background: black;
+  bottom: 100%;
+  left: calc(50% - 1px);
+  -webkit-transform: rotateY(35deg);
+          transform: rotateY(35deg);
+}
+.eiffel-tower:after {
+  -webkit-transform: rotateY(135deg);
+          transform: rotateY(135deg);
+}
+.eiffel-tower > .s {
+  top: 0;
+}
+.eiffel-tower > .s:nth-child(1) {
+  -webkit-transform: rotateY(0deg) translateZ(-0.66667rem) translateX(-0.16667rem);
+          transform: rotateY(0deg) translateZ(-0.66667rem) translateX(-0.16667rem);
+}
+.eiffel-tower > .s:nth-child(2) {
+  -webkit-transform: rotateY(90deg) translateZ(-0.66667rem) translateX(-0.16667rem);
+          transform: rotateY(90deg) translateZ(-0.66667rem) translateX(-0.16667rem);
+}
+.eiffel-tower > .s:nth-child(3) {
+  -webkit-transform: rotateY(180deg) translateZ(-0.66667rem) translateX(-0.16667rem);
+          transform: rotateY(180deg) translateZ(-0.66667rem) translateX(-0.16667rem);
+}
+.eiffel-tower > .s:nth-child(4) {
+  -webkit-transform: rotateY(270deg) translateZ(-0.66667rem) translateX(-0.16667rem);
+          transform: rotateY(270deg) translateZ(-0.66667rem) translateX(-0.16667rem);
+}
+.eiffel-tower > .s:nth-child(5) {
+  -webkit-transform: rotateY(0deg) translateZ(-0.66667rem) translateX(0.16667rem);
+          transform: rotateY(0deg) translateZ(-0.66667rem) translateX(0.16667rem);
+}
+.eiffel-tower > .s:nth-child(6) {
+  -webkit-transform: rotateY(90deg) translateZ(-0.66667rem) translateX(0.16667rem);
+          transform: rotateY(90deg) translateZ(-0.66667rem) translateX(0.16667rem);
+}
+.eiffel-tower > .s:nth-child(7) {
+  -webkit-transform: rotateY(180deg) translateZ(-0.66667rem) translateX(0.16667rem);
+          transform: rotateY(180deg) translateZ(-0.66667rem) translateX(0.16667rem);
+}
+.eiffel-tower > .s:nth-child(8) {
+  -webkit-transform: rotateY(270deg) translateZ(-0.66667rem) translateX(0.16667rem);
+          transform: rotateY(270deg) translateZ(-0.66667rem) translateX(0.16667rem);
+}
+.eiffel-tower > .s .s {
+  -webkit-transform: rotateX(-0.8deg) skewX(-0.8deg);
+          transform: rotateX(-0.8deg) skewX(-0.8deg);
+}
+.eiffel-tower > .s:nth-child(n + 5) .s {
+  -webkit-transform: rotateX(-0.8deg) skewX(0.8deg);
+          transform: rotateX(-0.8deg) skewX(0.8deg);
+}
+
+@-webkit-keyframes rotate {
+  from {
+    -webkit-transform: rotateY(0deg);
+            transform: rotateY(0deg);
+  }
+  to {
+    -webkit-transform: rotateY(360deg);
+            transform: rotateY(360deg);
+  }
+}
+
+@keyframes rotate {
+  from {
+    -webkit-transform: rotateY(0deg);
+            transform: rotateY(0deg);
+  }
+  to {
+    -webkit-transform: rotateY(360deg);
+            transform: rotateY(360deg);
+  }
+}
+.s {
+  width: 1rem;
+  height: 1rem;
+  border: 1px solid black;
+  position: absolute;
+  top: 100%;
+  left: -1px;
+  -webkit-transform-style: preserve-3d;
+          transform-style: preserve-3d;
+  background: -webkit-linear-gradient(45deg, transparent, transparent 45%, black 50%, transparent 55%, transparent), -webkit-linear-gradient(135deg, transparent, transparent 45%, black 50%, transparent 55%, transparent), -webkit-linear-gradient(0deg, transparent, transparent 45%, black 50%, transparent 55%);
+  background: linear-gradient(45deg, transparent, transparent 45%, black 50%, transparent 55%, transparent), linear-gradient(-45deg, transparent, transparent 45%, black 50%, transparent 55%, transparent), linear-gradient(90deg, transparent, transparent 45%, black 50%, transparent 55%);
+}
+.s:before, .s:after {
+  content: '';
+  position: absolute;
+  height: 100%;
+  width: 1rem;
+}
+
+.d {
+  -webkit-transform-style: preserve-3d;
+          transform-style: preserve-3d;
+  position: absolute;
+  height: 4rem;
+  width: 4rem;
+  left: -1.5rem;
+  -webkit-transform-origin: center center;
+          transform-origin: center center;
+  -webkit-transform: rotateX(90deg) translateZ(-12rem);
+          transform: rotateX(90deg) translateZ(-12rem);
+}
+.d > .d-a, .d > .d-b, .d > .arc {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-transform-style: preserve-3d;
+          transform-style: preserve-3d;
+}
+.d > .d-a:before, .d > .d-a:after, .d > .d-b:before, .d > .d-b:after, .d > .arc:before, .d > .arc:after {
+  content: '';
+  display: block;
+  height: 1.5rem;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  -webkit-transform-origin: top;
+          transform-origin: top;
+  -webkit-transform: rotateX(90deg);
+          transform: rotateX(90deg);
+  border: 1px solid black;
+  -webkit-transform-style: preserve-3d;
+          transform-style: preserve-3d;
+  background: -webkit-repeating-linear-gradient(0deg, transparent, transparent 3%, black 4%), -webkit-linear-gradient(transparent, transparent 50%, black 51%, black 64%, transparent 65%, transparent 80%, black 81%, transparent 83%), -webkit-repeating-linear-gradient(45deg, transparent, transparent 6%, black 7%, transparent 8%), -webkit-repeating-linear-gradient(135deg, transparent, transparent 6%, black 7%, transparent 8%);
+  background: repeating-linear-gradient(90deg, transparent, transparent 3%, black 4%), linear-gradient(transparent, transparent 50%, black 51%, black 64%, transparent 65%, transparent 80%, black 81%, transparent 83%), repeating-linear-gradient(45deg, transparent, transparent 6%, black 7%, transparent 8%), repeating-linear-gradient(-45deg, transparent, transparent 6%, black 7%, transparent 8%);
+}
+.d > .d-a:after, .d > .d-b:after, .d > .arc:after {
+  top: 100%;
+}
+.d + .d {
+  height: 7rem;
+  width: 7rem;
+  left: -3rem;
+  -webkit-transform: rotateX(90deg) translateZ(-16rem);
+          transform: rotateX(90deg) translateZ(-16rem);
+}
+.d > .arc {
+  border: none;
+}
+.d > .arc:before, .d > .arc:after {
+  border: none;
+  -webkit-transform: rotateX(-90deg);
+          transform: rotateX(-90deg);
+  background: -webkit-radial-gradient(bottom center, ellipse, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0) 55%, #000000 56%, rgba(0, 0, 0, 0) 58%, rgba(0, 0, 0, 0) 60%, #000000 61%, rgba(0, 0, 0, 0) 63%);
+  background: radial-gradient(ellipse at bottom center, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0) 55%, #000000 56%, rgba(0, 0, 0, 0) 58%, rgba(0, 0, 0, 0) 60%, #000000 61%, rgba(0, 0, 0, 0) 63%);
+}
+
+.d-b, .arc + .arc {
+  -webkit-transform: rotateZ(90deg);
+          transform: rotateZ(90deg);
+}
+
+body {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: row;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  background: #F7F7F7;
+  overflow-y: auto;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  -webkit-transform-style: preserve-3d;
+          transform-style: preserve-3d;
+  -webkit-perspective: 1000;
+          perspective: 1000;
+}
+
+*, *:before, *:after {
+  box-sizing: border-box;
+  position: relative;
+}
+
+    </style>
+
+    <script>
+  window.console = window.console || function(t) {};
+</script>
+
+    
+    
+  </head>
+
+  <body translate="no" >
+
+    <div class="eiffel-tower">
+  <div class="s">
+    <div class="s">
+      <div class="s">
+        <div class="s">
+          <div class="s">
+            <div class="s">
+              <div class="s">
+                <div class="s">
+                  <div class="s">
+                    <div class="s">
+                      <div class="s">
+                        <div class="s">
+                          <div class="s">
+                            <div class="s">
+                              <div class="s">
+                                <div class="s">
+                                  <div class="s">
+                                    <div class="s">
+                                      <div class="s">
+                                        <div class="s">
+                                          <div class="s">
+                                            <div class="s">
+                                              <div class="s">
+                                                <div class="s">
+                                                  <div class="s"></div>
+                                                </div>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="s">
+    <div class="s">
+      <div class="s">
+        <div class="s">
+          <div class="s">
+            <div class="s">
+              <div class="s">
+                <div class="s">
+                  <div class="s">
+                    <div class="s">
+                      <div class="s">
+                        <div class="s">
+                          <div class="s">
+                            <div class="s">
+                              <div class="s">
+                                <div class="s">
+                                  <div class="s">
+                                    <div class="s">
+                                      <div class="s">
+                                        <div class="s">
+                                          <div class="s">
+                                            <div class="s">
+                                              <div class="s">
+                                                <div class="s">
+                                                  <div class="s">
+                                                  </div>
+                                                </div>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="s">
+    <div class="s">
+      <div class="s">
+        <div class="s">
+          <div class="s">
+            <div class="s">
+              <div class="s">
+                <div class="s">
+                  <div class="s">
+                    <div class="s">
+                      <div class="s">
+                        <div class="s">
+                          <div class="s">
+                            <div class="s">
+                              <div class="s">
+                                <div class="s">
+                                  <div class="s">
+                                    <div class="s">
+                                      <div class="s">
+                                        <div class="s">
+                                          <div class="s">
+                                            <div class="s">
+                                              <div class="s">
+                                                <div class="s">
+                                                  <div class="s"></div>
+                                                </div>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="s">
+    <div class="s">
+      <div class="s">
+        <div class="s">
+          <div class="s">
+            <div class="s">
+              <div class="s">
+                <div class="s">
+                  <div class="s">
+                    <div class="s">
+                      <div class="s">
+                        <div class="s">
+                          <div class="s">
+                            <div class="s">
+                              <div class="s">
+                                <div class="s">
+                                  <div class="s">
+                                    <div class="s">
+                                      <div class="s">
+                                        <div class="s">
+                                          <div class="s">
+                                            <div class="s">
+                                              <div class="s">
+                                                <div class="s">
+                                                  <div class="s"></div>
+                                                </div>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="s">
+    <div class="s">
+      <div class="s">
+        <div class="s">
+          <div class="s">
+            <div class="s">
+              <div class="s">
+                <div class="s">
+                  <div class="s">
+                    <div class="s">
+                      <div class="s">
+                        <div class="s">
+                          <div class="s">
+                            <div class="s">
+                              <div class="s">
+                                <div class="s">
+                                  <div class="s">
+                                    <div class="s">
+                                      <div class="s">
+                                        <div class="s">
+                                          <div class="s">
+                                            <div class="s">
+                                              <div class="s">
+                                                <div class="s">
+                                                  <div class="s"></div>
+                                                </div>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="s">
+    <div class="s">
+      <div class="s">
+        <div class="s">
+          <div class="s">
+            <div class="s">
+              <div class="s">
+                <div class="s">
+                  <div class="s">
+                    <div class="s">
+                      <div class="s">
+                        <div class="s">
+                          <div class="s">
+                            <div class="s">
+                              <div class="s">
+                                <div class="s">
+                                  <div class="s">
+                                    <div class="s">
+                                      <div class="s">
+                                        <div class="s">
+                                          <div class="s">
+                                            <div class="s">
+                                              <div class="s">
+                                                <div class="s">
+                                                  <div class="s">
+                                                  </div>
+                                                </div>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="s">
+    <div class="s">
+      <div class="s">
+        <div class="s">
+          <div class="s">
+            <div class="s">
+              <div class="s">
+                <div class="s">
+                  <div class="s">
+                    <div class="s">
+                      <div class="s">
+                        <div class="s">
+                          <div class="s">
+                            <div class="s">
+                              <div class="s">
+                                <div class="s">
+                                  <div class="s">
+                                    <div class="s">
+                                      <div class="s">
+                                        <div class="s">
+                                          <div class="s">
+                                            <div class="s">
+                                              <div class="s">
+                                                <div class="s">
+                                                  <div class="s"></div>
+                                                </div>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="s">
+    <div class="s">
+      <div class="s">
+        <div class="s">
+          <div class="s">
+            <div class="s">
+              <div class="s">
+                <div class="s">
+                  <div class="s">
+                    <div class="s">
+                      <div class="s">
+                        <div class="s">
+                          <div class="s">
+                            <div class="s">
+                              <div class="s">
+                                <div class="s">
+                                  <div class="s">
+                                    <div class="s">
+                                      <div class="s">
+                                        <div class="s">
+                                          <div class="s">
+                                            <div class="s">
+                                              <div class="s">
+                                                <div class="s">
+                                                  <div class="s"></div>
+                                                </div>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="d">
+    <div class="d-a"></div>
+    <div class="d-b"></div>
+  </div>
+  <div class="d">
+    <div class="d-a"></div>
+    <div class="d-b"></div>
+    <div class="arc"></div>
+    <div class="arc"></div>
+  </div>
+</div>
+
+     
+    <script>
+  if (document.location.search.match(/type=embed/gi)) {
+    window.parent.postMessage("resize", "*");
+  }
+</script>
+
+    
+  </body>
+</html>
+ 

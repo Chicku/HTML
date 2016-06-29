@@ -1,0 +1,150 @@
+
+<!DOCTYPE html>
+<html >
+  <head>
+    <meta charset="UTF-8">
+
+
+    <title>Binary counter Illuminator</title>
+    
+    
+    
+    
+        <style>
+      canvas {
+  
+  position: absolute;
+  top: 0;
+  left: 0;
+  
+  background-color:black;
+}
+div {
+  
+  background-color: rgba(30,30,30,.8);
+  
+  text-align: center;
+  
+  width: 100%;
+  left: 0;
+  
+  position: absolute;
+  color: white;
+  font: 14px Verdana
+}
+    </style>
+
+    <script>
+  window.console = window.console || function(t) {};
+</script>
+
+       
+
+    
+  </head>
+
+  <body translate="no" >
+
+    <canvas id=c></canvas>
+<div id=control>
+  <p>The program is counting up in binary through the 15 letters</p>
+  <p> 0 <input type=range id=speed min=0 max=1 step=.1 value=.5 /> 1<br> speed </p>
+</div>
+     
+
+    
+        <script>
+      var w = c.width = window.innerWidth,
+    h = c.height = window.innerHeight,
+    ctx = c.getContext( '2d' ),
+    
+    opts = {
+      
+      tickIncrement: .5,
+      chanceOfBase10Num: .6,
+      hueSpeed: 2,
+      
+      text: 'Pratik-Harshal-Desai',
+      charSize: 24,
+      mainFont: '40px monospace',
+      numberFont: '20px monospace'
+    },
+    
+    tick = 0;
+
+ctx.font = opts.mainFont;
+var beginning = -ctx.measureText( opts.text ).width / 2;
+
+ctx.fillStyle = '#111';
+ctx.fillRect( 0, 0, w, h );
+
+function loop(){
+  
+  window.requestAnimationFrame( loop );
+  
+  ctx.fillStyle = 'rgba(0,0,0,.04)';
+  ctx.fillRect( 0, 0, w, h );
+  
+  tick += opts.tickIncrement;
+  
+  var b2 = ( tick|0 ).toString(2),
+      start = w / 2 + beginning,
+      colorBegin = b2.length;
+  
+  ctx.font = opts.mainFont;
+  
+  ctx.fillRect( start - 30, h / 2 - 40, opts.charSize * opts.text.length + 60, 80)
+  
+  while( b2.length < opts.text.length )
+    b2 = '0' + b2;
+  
+  for( var i = 0; i < opts.text.length; ++i ){
+    
+    var x = start + i * opts.charSize,
+        y = h / 2;
+    
+    ctx.fillStyle = b2[ i ] === '1' ?
+      'hsl(hue,80%,50%)'
+        .replace( 'hue', x / w * 360 + tick * opts.hueSpeed )
+      : '#222';
+
+    ctx.fillText( opts.text[ i ], x, y );
+  }
+  
+  if( Math.random() < opts.chanceOfBase10Num ){
+    
+    var text = ( tick|0 ).toString(),
+        x = ( Math.random() * w ) |0;
+    
+    ctx.font = opts.numberFont;
+    
+    ctx.fillStyle = 'hsl(hue,80%,50%)'.replace( 'hue', x / w * 360 + tick * opts.hueSpeed );
+    
+    ctx.fillText( text, x, ( Math.random() * h ) |0 );
+  }
+}
+loop();
+
+window.addEventListener( 'resize', function(){
+  
+  w = c.width = window.innerWidth;
+  h = c.height = window.innerHeight;
+  ctx.fillStyle = '#111';
+  ctx.fillRect( 0, 0, w, h );
+})
+
+speed.onchange = function() { opts.tickIncrement = +speed.value };
+      //# sourceURL=pen.js
+    </script>
+
+    
+    <script>
+  if (document.location.search.match(/type=embed/gi)) {
+    window.parent.postMessage("resize", "*");
+  }
+</script>
+
+    
+  </body>
+</html>
+ 

@@ -1,0 +1,96 @@
+
+<!DOCTYPE html>
+<html >
+  <head>
+    <meta charset="UTF-8">
+
+
+    <title>Banner AD</title>
+  
+    
+        <style>
+      @import url(http://fonts.googleapis.com/css?family=Indie+Flower);
+* {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+body {
+  background: hsla(255,255%,255%,1);
+  font: 40px sans-serif;
+  font-family: 'Indie Flower', cursive;
+}
+h1, h3{
+  text-align:center;
+  line-height:1.5em;
+}
+div{
+  background:hsla(0,0%,0%,1);
+  padding:1%;
+  margin-top:1%;
+}
+g{
+	stroke:hsla(255,255%,255%,1);
+	fill:hsla(255,255%,255%,1);
+	stroke-linejoin:round;
+	stroke-linecap:round;
+}
+text{
+	text-anchor:middle;
+	text-rendering:geometricPrecision;
+	dominant-baseline:mathematical;
+}
+
+g{
+	-webkit-transition-property: stroke-width,font-size;
+	transition-property:stroke-width,font-size;
+	-webkit-transition-duration:1s;
+	        transition-duration:1s;
+	-webkit-transition-timing-function:ease-out;
+	        transition-timing-function:ease-out;
+	font-size:0px;
+	stroke-width:100px;
+}
+svg:hover>g{
+	font-size:100px;
+	stroke-width:0px;
+}
+    </style>
+
+    <script>
+  window.console = window.console || function(t) {};
+</script>
+
+    
+    
+  </head>
+
+  <body translate="no" >
+
+    <h1>Hover The Circle</h1>
+<h3>&darr;</h3>
+<div>
+<svg width="100%" height="200px" viewBox="0 0 500 200" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1">
+<rect fill="black" width="100%" height="100%"/>
+	<g>
+		<text x="250" y="100">Heavy Rains:Stay Indoors</text>
+		<path d="M250,100h0.1"/>
+	</g>
+</svg>
+</div>
+    
+   
+
+    
+    
+    <script>
+  if (document.location.search.match(/type=embed/gi)) {
+    window.parent.postMessage("resize", "*");
+  }
+</script>
+
+    
+  </body>
+</html>
+ 

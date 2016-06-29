@@ -1,0 +1,192 @@
+
+<!DOCTYPE html>
+<html >
+  <head>
+    <meta charset="UTF-8">
+
+
+    <title>Wrapping 3D Marquee </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    
+    
+        <style>
+      @font-face {
+  font-family: Agency;
+  src: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/4273/agency-fb-bold.woff);
+}
+body {
+  font-family: Avenir, sans-serif;
+  marging: 0;
+}
+
+#marquee {
+  margin-top: 3rem;
+  -webkit-perspective: 500px;
+          perspective: 500px;
+  font-size: 0;
+  font-family: Agency, sans-serif;
+}
+
+#marquee div {
+  display: inline-block;
+  height: 12rem;
+  width: 30rem;
+  position: relative;
+}
+
+#marquee div:first-of-type {
+  background: #e5233e;
+  -webkit-transform-origin: top right;
+          transform-origin: top right;
+  -webkit-transform: rotateY(-40deg);
+          transform: rotateY(-40deg);
+  color: #fff;
+}
+
+#marquee div:last-of-type {
+  background: #b31e31;
+  -webkit-transform-origin: top left;
+          transform-origin: top left;
+  -webkit-transform: rotateY(45deg);
+          transform: rotateY(45deg);
+  color: #f8c9d9;
+}
+
+#marquee div {
+  font-size: 8rem;
+  overflow: hidden;
+}
+
+#marquee div span {
+  position: absolute;
+  width: 400%;
+  line-height: 1.4;
+}
+
+@-webkit-keyframes leftcrawl {
+  to {
+    -webkit-transform: translateX(-100rem);
+            transform: translateX(-100rem);
+  }
+}
+
+@keyframes leftcrawl {
+  to {
+    -webkit-transform: translateX(-100rem);
+            transform: translateX(-100rem);
+  }
+}
+@-webkit-keyframes rightcrawl {
+  to {
+    -webkit-transform: translateX(-130rem);
+            transform: translateX(-130rem);
+  }
+}
+@keyframes rightcrawl {
+  to {
+    -webkit-transform: translateX(-130rem);
+            transform: translateX(-130rem);
+  }
+}
+#marquee div:first-of-type span {
+  -webkit-transform: translateX(60rem);
+          transform: translateX(60rem);
+  -webkit-animation: leftcrawl 14s linear infinite;
+          animation: leftcrawl 14s linear infinite;
+  text-shadow: 4px 0px 4px rgba(0, 0, 0, 0.3);
+}
+
+#marquee div:last-of-type span {
+  -webkit-transform: translateX(30rem);
+          transform: translateX(30rem);
+  -webkit-animation: rightcrawl 14s linear infinite;
+          animation: rightcrawl 14s linear infinite;
+}
+
+form {
+  margin-top: 3rem;
+  background: #334;
+  padding: 1rem;
+  text-align: center;
+  color: #fff;
+}
+
+input[type="text"] {
+  padding: .5rem;
+  font-size: 1.2rem;
+  width: 22rem;
+}
+
+input[type="text"] {
+  padding: .5rem;
+}
+
+label {
+  margin: 1rem;
+}
+
+@media all and (max-width: 993px) {
+  #marquee {
+    -webkit-perspective: none;
+            perspective: none;
+  }
+
+  #marquee div:last-of-type {
+    opacity: 0;
+    height: 0;
+  }
+
+  #marquee div:first-of-type {
+    width: 80%;
+  }
+}
+
+    </style>
+
+    <script>
+  window.console = window.console || function(t) {};
+</script>
+
+    
+    
+  </head>
+
+  <body translate="no" >
+
+    <div id="marquee">
+	<div><span>STAY INDOORS: HEAVY RAINS </span></div>
+	<div aria-hidden="true"><span>STAY INDOORS: HEAVY RAINS</span></div>
+</div>
+<form onsubmit="setText(event)">
+  <label for="textsource">Source text</label>
+<input type="text" id="textsource" value="STAY INDOORS: HEAVY RAINS" autocapitalize="characters" pattern=".{5,30}" title="Text must be 5 to 30 characters in length">
+<input type="submit" value="Use">
+</form>
+
+
+    
+        <script>
+      function setText(event) {
+    event.preventDefault();
+    leftText.innerText = textsource.value.toUpperCase();
+    rightText.innerText = textsource.value.toUpperCase();
+}
+var leftText = document.querySelector('#marquee div:first-of-type span');
+var rightText = document.querySelector('#marquee div:last-of-type span');
+var textsource = document.getElementById('textsource');
+setText();
+      //# sourceURL=pen.js
+    </script>
+
+    
+    <script>
+  if (document.location.search.match(/type=embed/gi)) {
+    window.parent.postMessage("resize", "*");
+  }
+</script>
+
+    
+  </body>
+</html>
+ 
