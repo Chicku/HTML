@@ -1,0 +1,223 @@
+
+<!DOCTYPE html>
+<html >
+  <head>
+    <meta charset="UTF-8">
+
+
+    <title>Nonsense Clocks</title>
+    
+    
+    
+    
+        <style>
+      body, html {
+  margin: 0; padding: 0;
+  background: black;
+  overflow: hidden;
+}
+.info {
+  position: absolute;
+  left: 0; bottom: 0;
+  z-index: 99;
+  color: white;
+  padding: 20px;
+  font-size: 0.8em;
+  font-family: "Helvetica Neue", sans-serif;
+  background: transparent;
+}
+    </style>
+
+    <script>
+  window.console = window.console || function(t) {};
+</script>
+
+    
+    
+  </head>
+
+  <body translate="no" >
+
+
+    
+
+    
+        <script>
+      'use strict';
+
+// @TODO fix for non-babel and use touchevents for phone
+var canvas = document.createElement('canvas'),
+    c = canvas.getContext('2d'),
+    NUM = 30,
+    clocks = [],
+    color = 'rgba(255, 255, 255, 0.2)',
+
+// 2d stuff
+mouseX = 0,
+    mouseY = 0,
+    k = 4 / 3 * (Math.sqrt(2) - 1),
+    // kappa
+
+// 3d stuff
+rotX = 0,
+    rotY = 0,
+    perspective = 500,
+    depth = undefined,
+    currX = undefined,
+    currY = undefined;
+
+document.body.appendChild(canvas);
+
+var nonsenseClocks = {
+  // sort of based on:
+  // http://stackoverflow.com/questions/30341871/how-to-create-approximate-circle-with-b%C3%A9zier-curve-html-5-and-add-transition-to
+
+  circlePoints: function circlePoints(x, y, r) {
+    var addXy = function addXy(v, i) {
+      return i % 2 ? v + y : v + x;
+    };
+    return [[0, -r, k * r, -r, r, -k * r, r, 0], [r, 0, r, k * r, k * r, r, 0, r], [0, r, -k * r, r, -r, k * r, -r, 0], [-r, 0, -r, -k * r, -k * r, -r, 0, -r]].map(function (seg) {
+      return seg.map(addXy);
+    });
+  },
+
+  // learned something like this at Andries Odendaal's www.wireframe.co.za back in the day
+  point3d: function point3d(x, y, z) {
+    var cosX = Math.cos(rotX),
+        cosY = Math.cos(rotY),
+        sinX = Math.sin(rotX),
+        sinY = Math.sin(rotY),
+        posX = undefined,
+        posY = undefined,
+        posZ = undefined;
+
+    posZ = z * cosX - x * sinX, posX = z * sinX + x * cosX, posY = y * cosY - posZ * sinY, posZ = y * sinY + posZ * cosY;
+
+    depth = 1 / (posZ / perspective + 1);
+    currX = posX * depth;
+    currY = posY * depth;
+
+    return [currX, currY];
+  },
+  drawCircle2d: function drawCircle2d(points) {
+    points.forEach(function (seg) {
+      c.beginPath();
+      c.moveTo(seg[0], seg[1]);
+      c.bezierCurveTo(seg[2], seg[3], seg[4], seg[5], seg[6], seg[7]);
+      c.strokeStyle = color;
+      c.stroke();
+    });
+  },
+  drawCircle3d: function drawCircle3d(x, y, z, r) {
+    var points = this.circlePoints(x, y, r),
+        points3d = [];
+
+    for (var i = 0; i < points.length; i++) {
+      var segs = points[i],
+          segs3d = [];
+      for (var j = 0; j < segs.length - 1; j += 2) {
+        var _x = segs[j],
+            _y = segs[j + 1],
+            ptn = this.point3d(_x, _y, z);
+
+        segs3d.push(ptn[0], ptn[1]);
+      }
+      points3d.push(segs3d);
+    }
+
+    this.drawCircle2d(points3d);
+  },
+  create: function create(x, y, time) {
+    var _this = this;
+
+    var z = Math.random() * 100 - 50,
+        r = 10 + Math.random() * 30,
+        smallRad = r - r * 0.3,
+        smallerRad = r - r * 0.5,
+        theta = Math.random() * 2 * Math.PI,
+        slowTheta = Math.random() * 2 * Math.PI;
+
+    return function () {
+      var xp = x + smallRad * Math.cos(theta),
+          yp = y + smallRad * Math.sin(theta),
+          zero = nonsenseClocks.point3d(x, y, z),
+          pnt = nonsenseClocks.point3d(xp, yp, z);
+
+      theta += 0.1;
+
+      c.strokeStyle = color;
+      c.beginPath();
+      c.moveTo(pnt[0], pnt[1]);
+      c.lineTo(zero[0], zero[1]);
+      c.stroke();
+
+      xp = x + smallerRad * Math.cos(slowTheta);
+      yp = y + smallerRad * Math.sin(slowTheta);
+      pnt = _this.point3d(xp, yp, z);
+
+      c.beginPath();
+      c.moveTo(zero[0], zero[1]);
+      c.lineTo(pnt[0], pnt[1]);
+      c.stroke();
+
+      slowTheta += 0.05;
+
+      _this.drawCircle3d(x, y, z, r);
+    };
+  },
+  draw: function draw() {
+    c.save();
+    c.fillStyle = 'rgba(0, 0, 0, 0.2)';
+    c.fillRect(0, 0, canvas.width, canvas.height);
+    c.translate(canvas.width / 2, canvas.height / 2);
+    c.scale(2, 2);
+    clocks.forEach(function (clock) {
+      return clock();
+    });
+    c.restore();
+  },
+  resize: function resize() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    this.draw();
+    return this;
+  },
+  loop: function loop() {
+    rotX += (mouseX * Math.PI / 180 - rotX) / 8;
+    rotY += (mouseY * Math.PI / 180 - rotY) / 8;
+    nonsenseClocks.draw();
+    requestAnimationFrame(nonsenseClocks.loop);
+    return this;
+  }
+};
+
+Array(NUM).fill(0).forEach(function () {
+  var theta = Math.random() * Math.PI * 2,
+      radius = Math.random() * 200,
+      x = radius * Math.cos(theta),
+      y = radius * Math.sin(theta);
+  clocks.push(nonsenseClocks.create(x, y, theta));
+});
+
+window.addEventListener('resize', nonsenseClocks.resize);
+nonsenseClocks.resize().loop();
+
+// touch todo
+document.addEventListener('mousemove', function (e) {
+  mouseX = e.pageX;
+  mouseY = e.pageY;
+});
+      //# sourceURL=pen.js
+    </script>
+
+    
+    <script>
+  if (document.location.search.match(/type=embed/gi)) {
+    window.parent.postMessage("resize", "*");
+  }
+</script>
+
+    
+  </body>
+</html>
+ 

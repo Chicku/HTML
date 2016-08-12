@@ -1,0 +1,189 @@
+
+<!DOCTYPE html>
+<html >
+  <head>
+    <meta charset="UTF-8">
+
+
+    <title>Particle Clock</title>
+    
+    
+    
+    
+        <style>
+      * { margin: 0; padding: 0; }
+canvas { display: block; }
+    </style>
+
+    <script>
+  window.console = window.console || function(t) {};
+</script>
+
+    
+    
+  </head>
+
+  <body translate="no" >
+
+    
+     
+
+    
+        <script>
+      var MomentumClock = (function(){
+  'use strict';
+
+  function Particle(pos) {
+    this.pos = pos;
+    this.radius = 3;
+    this.vels = { vx: 3, vy: 2 };
+    this.angle = Math.random() * 360;
+    this.speed = 8;
+  }
+
+  Particle.prototype.render = function(ctx) {
+    ctx.save();
+    ctx.fillStyle = '#999';
+    ctx.translate(this.pos.x, this.pos.y);
+    ctx.beginPath();
+    ctx.arc(0, 0, this.radius, 0, Math.PI * 2, true);
+    ctx.closePath();
+    ctx.fill();
+    ctx.restore();
+  };
+
+  var canvas = document.createElement('canvas'),
+      ctx = canvas.getContext('2d'),
+
+      tempCanvas = document.createElement('canvas'),
+      tempCtx = tempCanvas.getContext('2d'),
+
+      width = window.innerWidth,
+      height = window.innerHeight,
+
+      particles = [],
+      pixelPositions = [],
+      clockActive = false;
+
+  function init() {
+    setUpCanvas();
+    updatePixelPosition(updateClock());
+    generateParticles(400);
+    startTimeInterval();
+    render();
+  }
+
+  function render() {
+    window.requestAnimationFrame(render, canvas);
+    ctx.fillRect(0, 0, width, height);
+    particles.forEach(renderPart);
+  }
+
+  function renderPart(p, i) {
+    if (clockActive) {	
+      var pixelP = pixelPositions[i];
+      if (pixelP) {
+        p.vels.vx += (pixelP.x - p.pos.x) * p.speed / 30;
+        p.vels.vy += (pixelP.y - p.pos.y) * p.speed / 30;
+      } else {
+        p.vels.vx += Math.sin(p.angle) * p.speed;
+        p.vels.vy += Math.cos(p.angle) * p.speed;
+      }
+    } else {					
+      p.vels.vx += Math.sin(p.angle) * p.speed;
+      p.vels.vy += Math.cos(p.angle) * p.speed;
+    }
+    p.vels.vx *= 0.5;
+    p.vels.vy *= 0.5;
+    p.pos.x += p.vels.vx;
+    p.pos.y += p.vels.vy;
+    p.render(ctx);
+  }
+
+  function setUpCanvas() {
+    canvas.width = tempCanvas.width = width;
+    canvas.height =  tempCanvas.height = height;
+    document.body.appendChild(canvas);
+    //document.body.appendChild(tempCanvas);
+    ctx.fillStyle = '#111';
+
+
+  }
+
+  function generateParticles(num) {
+    for (var i = 0; i < num; i += 1) {
+      var part = new Particle({
+        x: 20 + Math.random() * width - 40,
+        y: 20 + Math.random() * height - 40
+      });
+      particles.push(part);
+    }
+  }
+
+  function startTimeInterval() {
+    var index = 0;
+    setInterval(function() {
+      updatePixelPosition(updateClock());
+      if (index % 2 === 0) { clockActive = true; } 
+      else if (index % 2 !== 0) { clockActive = false; }
+      index += 1;
+    }, 500);
+  }
+
+  function updateClock() {
+    var date = new Date();
+    var hours, minutes, seconds;
+
+    hours = date.getHours();
+    minutes = date.getMinutes();
+    seconds = date.getSeconds();
+
+    if (hours.toString().length === 1) hours = '0' + hours;
+    if (minutes.toString().length === 1) minutes = '0' + minutes;
+    if (seconds.toString().length === 1) seconds = '0' + seconds;
+
+    return hours + ':' + minutes + ':' + seconds;
+
+  }
+
+  function updatePixelPosition(time) {
+    pixelPositions = [];
+    tempCtx.clearRect(0, 0, width, height);
+    tempCtx.fillStyle = '#000';
+    tempCtx.font = '200px Arial';
+    tempCtx.fillText(time, width / 2 - tempCtx.measureText(time).width / 2, height / 2 + 50);
+    var idata = tempCtx.getImageData(0, 0, width, height);
+    var buffer = new Uint32Array(idata.data.buffer);
+    var grid = 10;
+    var range = 10;
+    for (var y = 0; y < height; y += grid) {
+      for (var x = 0; x < width; x += grid) {
+        var offset = range / 2 + Math.random() * (range / 2);
+        if (buffer[y * width + x]) {
+          pixelPositions.push({ x: x + offset, y: y + offset });
+        }
+      }
+    }
+  }
+
+  return {
+    init: init
+  };
+
+})();
+
+window.onload = MomentumClock.init();
+      //# sourceURL=pen.js
+    </script>
+
+    
+    <script>
+  if (document.location.search.match(/type=embed/gi)) {
+    window.parent.postMessage("resize", "*");
+  }
+</script>
+
+    
+  </body>
+</html>
+ 
