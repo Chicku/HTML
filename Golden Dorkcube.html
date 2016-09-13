@@ -1,0 +1,755 @@
+
+
+<!DOCTYPE html>
+<html >
+  <head>
+    <meta charset="UTF-8">
+
+
+    <title>Golden Dorkcube</title>
+    
+    
+    
+
+    
+        <style>
+      @-webkit-keyframes blockSlide {
+  0% {
+    -webkit-transform: translateX(-133.33333px) rotateX(90deg);
+            transform: translateX(-133.33333px) rotateX(90deg);
+    opacity: 1;
+  }
+  25% {
+    -webkit-transform: translateX(0px);
+            transform: translateX(0px);
+    opacity: 0.2;
+  }
+  75% {
+    -webkit-transform: translateX(0px);
+            transform: translateX(0px);
+    opacity: 0.5;
+  }
+  100% {
+    -webkit-transform: translateX(133.33333px) rotateX(-90deg);
+            transform: translateX(133.33333px) rotateX(-90deg);
+    opacity: 1;
+  }
+}
+@keyframes blockSlide {
+  0% {
+    -webkit-transform: translateX(-133.33333px) rotateX(90deg);
+            transform: translateX(-133.33333px) rotateX(90deg);
+    opacity: 1;
+  }
+  25% {
+    -webkit-transform: translateX(0px);
+            transform: translateX(0px);
+    opacity: 0.2;
+  }
+  75% {
+    -webkit-transform: translateX(0px);
+            transform: translateX(0px);
+    opacity: 0.5;
+  }
+  100% {
+    -webkit-transform: translateX(133.33333px) rotateX(-90deg);
+            transform: translateX(133.33333px) rotateX(-90deg);
+    opacity: 1;
+  }
+}
+@-webkit-keyframes startSpin {
+  0% {
+    opacity: 0;
+    -webkit-transform: rotateY(0deg) rotateX(0deg);
+            transform: rotateY(0deg) rotateX(0deg);
+  }
+  100% {
+    opacity: 1;
+    -webkit-transform: rotateY(360deg) rotateX(360deg);
+            transform: rotateY(360deg) rotateX(360deg);
+  }
+}
+@keyframes startSpin {
+  0% {
+    opacity: 0;
+    -webkit-transform: rotateY(0deg) rotateX(0deg);
+            transform: rotateY(0deg) rotateX(0deg);
+  }
+  100% {
+    opacity: 1;
+    -webkit-transform: rotateY(360deg) rotateX(360deg);
+            transform: rotateY(360deg) rotateX(360deg);
+  }
+}
+body {
+  background: #222;
+  font-size: 100%;
+}
+
+.viewport {
+  margin-top: calc(50vh - 100px);
+  -webkit-perspective: 600px;
+          perspective: 600px;
+  -webkit-transform: scale(0.75, 0.75);
+          transform: scale(0.75, 0.75);
+}
+
+.box {
+  width: 200px;
+  height: 200px;
+  position: relative;
+  -webkit-transform-style: preserve-3d;
+          transform-style: preserve-3d;
+  -webkit-transition: -webkit-transform 1s ease-out;
+  transition: -webkit-transform 1s ease-out;
+  transition: transform 1s ease-out;
+  transition: transform 1s ease-out, -webkit-transform 1s ease-out;
+  /* essential for clean drag control */
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  margin: 0 auto 100px;
+  -webkit-animation: startSpin 2s ease-out;
+          animation: startSpin 2s ease-out;
+}
+.box .side {
+  background-color: transparent;
+  width: 200px;
+  height: 200px;
+  display: block;
+  position: absolute;
+  text-align: center;
+  font-weight: bold;
+  color: white;
+}
+.box .side.front {
+  -webkit-transform: rotateZ(0deg) translateZ(100px);
+          transform: rotateZ(0deg) translateZ(100px);
+}
+.box .side.back {
+  -webkit-transform: rotateX(180deg) rotateZ(180deg) translateZ(100px);
+          transform: rotateX(180deg) rotateZ(180deg) translateZ(100px);
+}
+.box .side.right {
+  -webkit-transform: rotateY(90deg) rotateZ(90deg) translateZ(100px);
+          transform: rotateY(90deg) rotateZ(90deg) translateZ(100px);
+}
+.box .side.left {
+  -webkit-transform: rotateY(-90deg) rotateZ(-90deg) translateZ(100px);
+          transform: rotateY(-90deg) rotateZ(-90deg) translateZ(100px);
+}
+.box .side.top {
+  -webkit-transform: rotateX(90deg) rotateZ(-90deg) translateZ(100px);
+          transform: rotateX(90deg) rotateZ(-90deg) translateZ(100px);
+}
+.box .side.bottom {
+  -webkit-transform: rotateX(-90deg) rotateZ(-90deg) translateZ(100px);
+          transform: rotateX(-90deg) rotateZ(-90deg) translateZ(100px);
+}
+.box .side div {
+  -webkit-transform-style: preserve-3d;
+          transform-style: preserve-3d;
+  float: left;
+  background: rgba(255, 228, 77, 0.6);
+  box-shadow: 0px 0px 66.66667px 10px rgba(255, 226, 61, 0.3);
+  display: inline-block;
+  width: 33.33333px;
+  height: 33.33333px;
+  margin: 0;
+  padding: 0;
+  -webkit-animation: blockSlide 777ms infinite alternate;
+          animation: blockSlide 777ms infinite alternate;
+  -webkit-animation-timing-function: easeInOutSine;
+          animation-timing-function: easeInOutSine;
+  /* this loop is the unique things */
+  /* currently all sides are identical */
+}
+.box .side div:nth-child(1) {
+  -webkit-animation-duration: 1353ms;
+          animation-duration: 1353ms;
+  -webkit-transform: translateZ(1px);
+          transform: translateZ(1px);
+}
+.box .side div:nth-child(2) {
+  -webkit-animation-duration: 636ms;
+          animation-duration: 636ms;
+  -webkit-transform: translateZ(54px);
+          transform: translateZ(54px);
+}
+.box .side div:nth-child(3) {
+  -webkit-animation-duration: 585ms;
+          animation-duration: 585ms;
+  -webkit-transform: translateZ(25px);
+          transform: translateZ(25px);
+}
+.box .side div:nth-child(4) {
+  -webkit-animation-duration: 518ms;
+          animation-duration: 518ms;
+  -webkit-transform: translateZ(20px);
+          transform: translateZ(20px);
+}
+.box .side div:nth-child(5) {
+  -webkit-animation-duration: 905ms;
+          animation-duration: 905ms;
+  -webkit-transform: translateZ(51px);
+          transform: translateZ(51px);
+}
+.box .side div:nth-child(6) {
+  -webkit-animation-duration: 44ms;
+          animation-duration: 44ms;
+  -webkit-transform: translateZ(33px);
+          transform: translateZ(33px);
+}
+.box .side div:nth-child(7) {
+  -webkit-animation-duration: 59ms;
+          animation-duration: 59ms;
+  -webkit-transform: translateZ(41px);
+          transform: translateZ(41px);
+}
+.box .side div:nth-child(8) {
+  -webkit-animation-duration: 1559ms;
+          animation-duration: 1559ms;
+  -webkit-transform: translateZ(44px);
+          transform: translateZ(44px);
+}
+.box .side div:nth-child(9) {
+  -webkit-animation-duration: 834ms;
+          animation-duration: 834ms;
+  -webkit-transform: translateZ(23px);
+          transform: translateZ(23px);
+}
+.box .side div:nth-child(10) {
+  -webkit-animation-duration: 644ms;
+          animation-duration: 644ms;
+  -webkit-transform: translateZ(26px);
+          transform: translateZ(26px);
+}
+.box .side div:nth-child(11) {
+  -webkit-animation-duration: 36ms;
+          animation-duration: 36ms;
+  -webkit-transform: translateZ(5px);
+          transform: translateZ(5px);
+}
+.box .side div:nth-child(12) {
+  -webkit-animation-duration: 1105ms;
+          animation-duration: 1105ms;
+  -webkit-transform: translateZ(52px);
+          transform: translateZ(52px);
+}
+.box .side div:nth-child(13) {
+  -webkit-animation-duration: 287ms;
+          animation-duration: 287ms;
+  -webkit-transform: translateZ(2px);
+          transform: translateZ(2px);
+}
+.box .side div:nth-child(14) {
+  -webkit-animation-duration: 1781ms;
+          animation-duration: 1781ms;
+  -webkit-transform: translateZ(51px);
+          transform: translateZ(51px);
+}
+.box .side div:nth-child(15) {
+  -webkit-animation-duration: 122ms;
+          animation-duration: 122ms;
+  -webkit-transform: translateZ(21px);
+          transform: translateZ(21px);
+}
+.box .side div:nth-child(16) {
+  -webkit-animation-duration: 838ms;
+          animation-duration: 838ms;
+  -webkit-transform: translateZ(30px);
+          transform: translateZ(30px);
+}
+.box .side div:nth-child(17) {
+  -webkit-animation-duration: 800ms;
+          animation-duration: 800ms;
+  -webkit-transform: translateZ(17px);
+          transform: translateZ(17px);
+}
+.box .side div:nth-child(18) {
+  -webkit-animation-duration: 1269ms;
+          animation-duration: 1269ms;
+  -webkit-transform: translateZ(43px);
+          transform: translateZ(43px);
+}
+.box .side div:nth-child(19) {
+  -webkit-animation-duration: 544ms;
+          animation-duration: 544ms;
+  -webkit-transform: translateZ(8px);
+          transform: translateZ(8px);
+}
+.box .side div:nth-child(20) {
+  -webkit-animation-duration: 1003ms;
+          animation-duration: 1003ms;
+  -webkit-transform: translateZ(10px);
+          transform: translateZ(10px);
+}
+.box .side div:nth-child(21) {
+  -webkit-animation-duration: 1388ms;
+          animation-duration: 1388ms;
+  -webkit-transform: translateZ(32px);
+          transform: translateZ(32px);
+}
+.box .side div:nth-child(22) {
+  -webkit-animation-duration: 1794ms;
+          animation-duration: 1794ms;
+  -webkit-transform: translateZ(3px);
+          transform: translateZ(3px);
+}
+.box .side div:nth-child(23) {
+  -webkit-animation-duration: 331ms;
+          animation-duration: 331ms;
+  -webkit-transform: translateZ(15px);
+          transform: translateZ(15px);
+}
+.box .side div:nth-child(24) {
+  -webkit-animation-duration: 157ms;
+          animation-duration: 157ms;
+  -webkit-transform: translateZ(30px);
+          transform: translateZ(30px);
+}
+.box .side div:nth-child(25) {
+  -webkit-animation-duration: 86ms;
+          animation-duration: 86ms;
+  -webkit-transform: translateZ(46px);
+          transform: translateZ(46px);
+}
+.box .side div:nth-child(26) {
+  -webkit-animation-duration: 300ms;
+          animation-duration: 300ms;
+  -webkit-transform: translateZ(60px);
+          transform: translateZ(60px);
+}
+.box .side div:nth-child(27) {
+  -webkit-animation-duration: 1123ms;
+          animation-duration: 1123ms;
+  -webkit-transform: translateZ(51px);
+          transform: translateZ(51px);
+}
+.box .side div:nth-child(28) {
+  -webkit-animation-duration: 159ms;
+          animation-duration: 159ms;
+  -webkit-transform: translateZ(15px);
+          transform: translateZ(15px);
+}
+.box .side div:nth-child(29) {
+  -webkit-animation-duration: 287ms;
+          animation-duration: 287ms;
+  -webkit-transform: translateZ(14px);
+          transform: translateZ(14px);
+}
+.box .side div:nth-child(30) {
+  -webkit-animation-duration: 1430ms;
+          animation-duration: 1430ms;
+  -webkit-transform: translateZ(12px);
+          transform: translateZ(12px);
+}
+.box .side div:nth-child(31) {
+  -webkit-animation-duration: 1781ms;
+          animation-duration: 1781ms;
+  -webkit-transform: translateZ(3px);
+          transform: translateZ(3px);
+}
+.box .side div:nth-child(32) {
+  -webkit-animation-duration: 1526ms;
+          animation-duration: 1526ms;
+  -webkit-transform: translateZ(39px);
+          transform: translateZ(39px);
+}
+.box .side div:nth-child(33) {
+  -webkit-animation-duration: 1213ms;
+          animation-duration: 1213ms;
+  -webkit-transform: translateZ(4px);
+          transform: translateZ(4px);
+}
+.box .side div:nth-child(34) {
+  -webkit-animation-duration: 606ms;
+          animation-duration: 606ms;
+  -webkit-transform: translateZ(11px);
+          transform: translateZ(11px);
+}
+.box .side div:nth-child(35) {
+  -webkit-animation-duration: 1359ms;
+          animation-duration: 1359ms;
+  -webkit-transform: translateZ(6px);
+          transform: translateZ(6px);
+}
+.box .side div:nth-child(36) {
+  -webkit-animation-duration: 446ms;
+          animation-duration: 446ms;
+  -webkit-transform: translateZ(24px);
+          transform: translateZ(24px);
+}
+
+    </style>
+
+    <script>
+  window.console = window.console || function(t) {};
+</script>
+
+    
+    
+  </head>
+
+  <body translate="no" >
+
+    
+<div class="viewport">
+  <div class="box">
+    <div class="front side">
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+    </div>
+    <div class="back side">
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+    </div>
+    <div class="left side">
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+    </div>
+    <div class="right side">
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+    </div>
+    <div class="top side">
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+    </div>
+    <div class="bottom side">
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+      <div class="div"></div>
+    </div>
+  </div>
+</div>
+      
+
+    <script src='//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+
+        <script>
+      $(function () {
+    var el = document.createElement('div'), transformProps = 'transform'.split(' '), transformProp = support(transformProps), transitionDuration = 'transitionDuration'.split(' '), transitionDurationProp = support(transitionDuration);
+    function support(props) {
+        for (var i = 0, l = props.length; i < l; i++) {
+            if (window.CP.shouldStopExecution(1)) {
+                break;
+            }
+            if (typeof el.style[props[i]] !== 'undefined') {
+                return props[i];
+            }
+        }
+        window.CP.exitedLoop(1);
+    }
+    var mouse = { start: {} }, touch = document.ontouchmove !== undefined, viewport = {
+            x: -10,
+            y: 20,
+            el: $('.box')[0],
+            move: function (coords) {
+                if (coords) {
+                    if (typeof coords.x === 'number')
+                        this.x = coords.x;
+                    if (typeof coords.y === 'number')
+                        this.y = coords.y;
+                }
+                this.el.style[transformProp] = 'rotateX(' + this.x + 'deg) rotateY(' + this.y + 'deg)';
+            },
+            reset: function () {
+                this.move({
+                    x: 0,
+                    y: 0
+                });
+            }
+        };
+    viewport.duration = function () {
+        var d = touch ? 50 : 500;
+        viewport.el.style[transitionDurationProp] = d + 'ms';
+        return d;
+    }();
+    $(document).keydown(function (evt) {
+        switch (evt.keyCode) {
+        case 37:
+            viewport.move({ y: viewport.y - 90 });
+            break;
+        case 38:
+            evt.preventDefault();
+            viewport.move({ x: viewport.x + 90 });
+            break;
+        case 39:
+            viewport.move({ y: viewport.y + 90 });
+            break;
+        case 40:
+            evt.preventDefault();
+            viewport.move({ x: viewport.x - 90 });
+            break;
+        case 27:
+            viewport.reset();
+            break;
+        default:
+            break;
+        }
+        ;
+    }).bind('mousedown touchstart', function (evt) {
+        delete mouse.last;
+        if ($(evt.target).is('a, iframe')) {
+            return true;
+        }
+        evt.originalEvent.touches ? evt = evt.originalEvent.touches[0] : null;
+        mouse.start.x = evt.pageX;
+        mouse.start.y = evt.pageY;
+        $(document).bind('mousemove touchmove', function (event) {
+            if (!touch || !(event.originalEvent && event.originalEvent.touches.length > 1)) {
+                event.preventDefault();
+                event.originalEvent.touches ? event = event.originalEvent.touches[0] : null;
+                $('.viewport').trigger('move-viewport', {
+                    x: event.pageX,
+                    y: event.pageY
+                });
+            }
+        });
+        $(document).bind('mouseup touchend', function () {
+            $(document).unbind('mousemove touchmove');
+        });
+    });
+    $('.viewport').bind('move-viewport', function (evt, movedMouse) {
+        var movementScaleFactor = touch ? 4 : 1;
+        console.log(movementScaleFactor);
+        if (!mouse.last) {
+            mouse.last = mouse.start;
+        } else {
+            if (forward(mouse.start.x, mouse.last.x) != forward(mouse.last.x, movedMouse.x)) {
+                mouse.start.x = mouse.last.x;
+            }
+            if (forward(mouse.start.y, mouse.last.y) != forward(mouse.last.y, movedMouse.y)) {
+                mouse.start.y = mouse.last.y;
+            }
+        }
+        viewport.move({
+            x: viewport.x + parseInt((mouse.start.y - movedMouse.y) / movementScaleFactor),
+            y: viewport.y - parseInt((mouse.start.x - movedMouse.x) / movementScaleFactor)
+        });
+        mouse.last.x = movedMouse.x;
+        mouse.last.y = movedMouse.y;
+        function forward(v1, v2) {
+            return v1 >= v2 ? true : false;
+        }
+    });
+});
+      //# sourceURL=pen.js
+    </script>
+
+    
+    <script>
+  if (document.location.search.match(/type=embed/gi)) {
+    window.parent.postMessage("resize", "*");
+  }
+</script>
+
+    
+  </body>
+</html>
+ 

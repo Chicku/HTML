@@ -1,0 +1,760 @@
+
+
+<!DOCTYPE html>
+<html >
+  <head>
+    <meta charset="UTF-8">
+
+
+    <title>the alphabet wall</title>
+    <link href="https://fonts.googleapis.com/css?family=Finger+Paint" rel="stylesheet">
+    
+    <link rel="stylesheet" href="//codepen.io/assets/reset/normalize.css">
+
+    
+        <style>
+      .lights {
+  left: 0;
+  max-height: 90%;
+  position: absolute;
+  right: 0;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+          transform: translateY(-50%);
+  z-index: 9;
+}
+
+.row {
+  background-repeat: repeat-x;
+  list-style: none;
+  margin: 2em -3em;
+  padding: 0;
+}
+
+.row1 {
+  background-image: url(http://svgur.com/i/Ar.svg);
+  -webkit-transform: skewX(2deg) rotate(-4deg);
+          transform: skewX(2deg) rotate(-4deg);
+}
+
+.row2 {
+  background-image: url(http://svgur.com/i/Ag.svg);
+  -webkit-transform: skewX(3deg) rotate(-1deg) "";
+          transform: skewX(3deg) rotate(-1deg) "";
+}
+
+.row3 {
+  background-image: url(http://svgur.com/i/B2.svg);
+  -webkit-transform: skewX(-4deg) rotate(-4deg);
+          transform: skewX(-4deg) rotate(-4deg);
+}
+
+.item {
+  display: inline-block;
+  margin: 1em .5em 0;
+  position: relative;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.letter {
+  display: block;
+  font-size: 4em;
+}
+
+.bulb {
+  background-color: currentColor;
+  border-radius: 50%;
+  display: block;
+  -webkit-filter: drop-shadow(0.3em 0.3em rgba(0, 0, 0, 0.1));
+          filter: drop-shadow(0.3em 0.3em rgba(0, 0, 0, 0.1));
+  height: 1em;
+  margin: -.2em auto -1em;
+  opacity: .7;
+  position: relative;
+  width: .4em;
+  z-index: 9;
+}
+.flicker .bulb {
+  background-color: #556;
+}
+.bulb.lit {
+  background: -webkit-radial-gradient(#ffffff, #aaaaaa), currentColor;
+  background: radial-gradient(#ffffff, #aaaaaa), currentColor;
+  background-blend-mode: screen;
+  box-shadow: 0 .5em .5em currentColor, 0 .5em 1em currentColor, 0 .5em 1.5em currentColor, 0 .5em 3em 2em currentColor;
+  opacity: 1;
+  -webkit-transition: all .1s ease;
+  transition: all .1s ease;
+}
+.bulb:before {
+  background-color: #111;
+  background: -webkit-linear-gradient(left, #000, #222, #000);
+  background: linear-gradient(to right, #000, #222, #000);
+  content: '';
+  display: block;
+  height: .4em;
+  left: 0;
+  margin: auto;
+  position: absolute;
+  right: 0;
+  top: -.3em;
+  width: .3em;
+}
+.bulb:after {
+  background-color: #fff;
+  content: '';
+  display: block;
+  height: .3em;
+  left: .1em;
+  position: relative;
+  top: .2em;
+  width: .05em;
+}
+
+.item:nth-child(1) .bulb {
+  -webkit-transform: rotate(-2deg);
+          transform: rotate(-2deg);
+}
+.item:nth-child(1) .letter {
+  -webkit-transform: scale(1.2);
+          transform: scale(1.2);
+}
+
+.item:nth-child(2) .bulb {
+  -webkit-transform: rotate(13deg);
+          transform: rotate(13deg);
+}
+.item:nth-child(2) .letter {
+  -webkit-transform: scale(1);
+          transform: scale(1);
+}
+
+.item:nth-child(3) .bulb {
+  -webkit-transform: rotate(-14deg);
+          transform: rotate(-14deg);
+}
+.item:nth-child(3) .letter {
+  -webkit-transform: scale(1);
+          transform: scale(1);
+}
+
+.item:nth-child(4) .bulb {
+  -webkit-transform: rotate(-29deg);
+          transform: rotate(-29deg);
+}
+.item:nth-child(4) .letter {
+  -webkit-transform: scale(1.2);
+          transform: scale(1.2);
+}
+
+.item:nth-child(5) .bulb {
+  -webkit-transform: rotate(2deg);
+          transform: rotate(2deg);
+}
+.item:nth-child(5) .letter {
+  -webkit-transform: scale(1.2);
+          transform: scale(1.2);
+}
+
+.item:nth-child(6) .bulb {
+  -webkit-transform: rotate(-22deg);
+          transform: rotate(-22deg);
+}
+.item:nth-child(6) .letter {
+  -webkit-transform: scale(1);
+          transform: scale(1);
+}
+
+.item:nth-child(7) .bulb {
+  -webkit-transform: rotate(-6deg);
+          transform: rotate(-6deg);
+}
+.item:nth-child(7) .letter {
+  -webkit-transform: scale(1.2);
+          transform: scale(1.2);
+}
+
+.item:nth-child(8) .bulb {
+  -webkit-transform: rotate(2deg);
+          transform: rotate(2deg);
+}
+.item:nth-child(8) .letter {
+  -webkit-transform: scale(1.3);
+          transform: scale(1.3);
+}
+
+.item:nth-child(9) .bulb {
+  -webkit-transform: rotate(21deg);
+          transform: rotate(21deg);
+}
+.item:nth-child(9) .letter {
+  -webkit-transform: scale(1.3);
+          transform: scale(1.3);
+}
+
+.item:nth-child(10) .bulb {
+  -webkit-transform: rotate(8deg);
+          transform: rotate(8deg);
+}
+.item:nth-child(10) .letter {
+  -webkit-transform: scale(1.3);
+          transform: scale(1.3);
+}
+
+.item:nth-child(11) .bulb {
+  -webkit-transform: rotate(25deg);
+          transform: rotate(25deg);
+}
+.item:nth-child(11) .letter {
+  -webkit-transform: scale(1.1);
+          transform: scale(1.1);
+}
+
+.item:nth-child(12) .bulb {
+  -webkit-transform: rotate(-21deg);
+          transform: rotate(-21deg);
+}
+.item:nth-child(12) .letter {
+  -webkit-transform: scale(1.3);
+          transform: scale(1.3);
+}
+
+.item:nth-child(13) .bulb {
+  -webkit-transform: rotate(0deg);
+          transform: rotate(0deg);
+}
+.item:nth-child(13) .letter {
+  -webkit-transform: scale(1.3);
+          transform: scale(1.3);
+}
+
+.item:nth-child(14) .bulb {
+  -webkit-transform: rotate(13deg);
+          transform: rotate(13deg);
+}
+.item:nth-child(14) .letter {
+  -webkit-transform: scale(1.3);
+          transform: scale(1.3);
+}
+
+.item:nth-child(15) .bulb {
+  -webkit-transform: rotate(24deg);
+          transform: rotate(24deg);
+}
+.item:nth-child(15) .letter {
+  -webkit-transform: scale(1.2);
+          transform: scale(1.2);
+}
+
+.item:nth-child(16) .bulb {
+  -webkit-transform: rotate(-14deg);
+          transform: rotate(-14deg);
+}
+.item:nth-child(16) .letter {
+  -webkit-transform: scale(1);
+          transform: scale(1);
+}
+
+.item:nth-child(17) .bulb {
+  -webkit-transform: rotate(30deg);
+          transform: rotate(30deg);
+}
+.item:nth-child(17) .letter {
+  -webkit-transform: scale(1.2);
+          transform: scale(1.2);
+}
+
+.item:nth-child(18) .bulb {
+  -webkit-transform: rotate(-2deg);
+          transform: rotate(-2deg);
+}
+.item:nth-child(18) .letter {
+  -webkit-transform: scale(1.2);
+          transform: scale(1.2);
+}
+
+.item:nth-child(19) .bulb {
+  -webkit-transform: rotate(15deg);
+          transform: rotate(15deg);
+}
+.item:nth-child(19) .letter {
+  -webkit-transform: scale(1.1);
+          transform: scale(1.1);
+}
+
+.item:nth-child(20) .bulb {
+  -webkit-transform: rotate(-13deg);
+          transform: rotate(-13deg);
+}
+.item:nth-child(20) .letter {
+  -webkit-transform: scale(1.2);
+          transform: scale(1.2);
+}
+
+.item:nth-child(21) .bulb {
+  -webkit-transform: rotate(-25deg);
+          transform: rotate(-25deg);
+}
+.item:nth-child(21) .letter {
+  -webkit-transform: scale(1.3);
+          transform: scale(1.3);
+}
+
+.item:nth-child(22) .bulb {
+  -webkit-transform: rotate(-5deg);
+          transform: rotate(-5deg);
+}
+.item:nth-child(22) .letter {
+  -webkit-transform: scale(1.1);
+          transform: scale(1.1);
+}
+
+.item:nth-child(23) .bulb {
+  -webkit-transform: rotate(-28deg);
+          transform: rotate(-28deg);
+}
+.item:nth-child(23) .letter {
+  -webkit-transform: scale(1.1);
+          transform: scale(1.1);
+}
+
+.item:nth-child(24) .bulb {
+  -webkit-transform: rotate(-25deg);
+          transform: rotate(-25deg);
+}
+.item:nth-child(24) .letter {
+  -webkit-transform: scale(1.3);
+          transform: scale(1.3);
+}
+
+.item:nth-child(25) .bulb {
+  -webkit-transform: rotate(-1deg);
+          transform: rotate(-1deg);
+}
+.item:nth-child(25) .letter {
+  -webkit-transform: scale(1.3);
+          transform: scale(1.3);
+}
+
+.item:nth-child(26) .bulb {
+  -webkit-transform: rotate(21deg);
+          transform: rotate(21deg);
+}
+.item:nth-child(26) .letter {
+  -webkit-transform: scale(1.1);
+          transform: scale(1.1);
+}
+
+#item--a .bulb {
+  color: #ffe;
+}
+
+#item--b .bulb {
+  color: #64f;
+}
+
+#item--c .bulb {
+  color: #d19;
+}
+
+#item--d .bulb {
+  color: #6fd;
+}
+
+#item--e .bulb {
+  color: #0be;
+}
+
+#item--f .bulb {
+  color: #fd7;
+}
+
+#item--g .bulb {
+  color: #d19;
+}
+
+#item--h .bulb {
+  color: #0be;
+}
+
+#item--i {
+  right: 1.7em;
+}
+#item--i .bulb {
+  color: #6fd;
+}
+
+#item--j .bulb {
+  color: #e02;
+}
+
+#item--k .bulb {
+  color: #0be;
+}
+
+#item--l .bulb {
+  color: #6fd;
+}
+
+#item--m .bulb {
+  color: #fd7;
+}
+
+#item--n .bulb {
+  color: #d19;
+}
+
+#item--o .bulb {
+  color: #e02;
+}
+
+#item--p .bulb {
+  color: #6fd;
+}
+
+#item--q {
+  left: 2em;
+}
+#item--q .bulb {
+  color: #d19;
+}
+
+#item--r .bulb {
+  color: #6fd;
+}
+
+#item--s .bulb {
+  color: #ffe;
+}
+
+#item--t {
+  right: 1em;
+}
+#item--t .bulb {
+  color: #fd7;
+}
+
+#item--u .bulb {
+  color: #64f;
+}
+
+#item--v .bulb {
+  color: #e02;
+}
+
+#item--w .bulb {
+  color: #0be;
+}
+
+#item--x .bulb {
+  color: #fd7;
+}
+
+#item--y .bulb {
+  color: #e02;
+}
+
+#item--z {
+  left: 1em;
+}
+#item--z .bulb {
+  color: #d19;
+}
+
+.foreground {
+  color: #ffe;
+  -webkit-filter: blur(1px);
+          filter: blur(1px);
+  position: relative;
+  top: -5vw;
+  -webkit-transform: scale(3);
+          transform: scale(3);
+  z-index: 999;
+}
+.foreground .row {
+  left: 0;
+  margin: auto;
+  position: absolute;
+  right: 0;
+}
+.foreground .row1 {
+  -webkit-transform: rotate(-10deg);
+          transform: rotate(-10deg);
+}
+.foreground .row2 {
+  top: .5em;
+  -webkit-transform: rotate(4deg);
+          transform: rotate(4deg);
+}
+.foreground .row3 {
+  display: none;
+}
+.foreground .bulb {
+  background-color: #aa9;
+  margin: -.4em 1em 0;
+  opacity: 1;
+}
+
+.hint {
+  -webkit-animation: fade 10s ease 1;
+          animation: fade 10s ease 1;
+  bottom: 1em;
+  color: #fff;
+  font-family: Georgia, serif;
+  left: 0;
+  margin: auto;
+  opacity: 0;
+  right: 0;
+  position: absolute;
+  z-index: 9;
+}
+
+@-webkit-keyframes fade {
+  10% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes fade {
+  10% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+.dado {
+  background: -webkit-linear-gradient(#3C2713, #513F29 15%, #b96 25%, #44321C 35%, #5C4531 45%, #261205 60%, #4E3B26 90%, #261205);
+  background: linear-gradient(#3C2713, #513F29 15%, #b96 25%, #44321C 35%, #5C4531 45%, #261205 60%, #4E3B26 90%, #261205);
+  bottom: 6%;
+  position: absolute;
+  top: 90%;
+  -webkit-transform: rotate(-0.1deg);
+          transform: rotate(-0.1deg);
+  width: 100%;
+}
+
+.panelling {
+  background: -webkit-linear-gradient(left, #331F06, #4A3517 1%, #452F15 2%, #4D361F 3%, #4F391E 65%, #4A3517 99%, #331F06) center;
+  background: linear-gradient(left, #331F06, #4A3517 1%, #452F15 2%, #4D361F 3%, #4F391E 65%, #4A3517 99%, #331F06) center;
+  background-size: 97px;
+  bottom: 0;
+  position: absolute;
+  top: 94%;
+  width: 100%;
+}
+
+.lamp {
+  background: -webkit-linear-gradient(150deg, orange 33%, teal);
+  background: linear-gradient(300deg, orange 33%, teal);
+  opacity: .1;
+  position: absolute;
+  z-index: 9;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+.vignette {
+  -webkit-animation: swell 10s ease-in-out infinite alternate;
+          animation: swell 10s ease-in-out infinite alternate;
+  background: url(https://dl.dropboxusercontent.com/u/5942079/noise.png), -webkit-radial-gradient(rgba(17, 0, 0, 0), #110000);
+  background: url(https://dl.dropboxusercontent.com/u/5942079/noise.png), radial-gradient(rgba(17, 0, 0, 0), #110000);
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+.flicker .vignette {
+  background: #100;
+}
+
+@-webkit-keyframes swell {
+  0% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+  }
+  100% {
+    -webkit-transform: scale(1.1);
+            transform: scale(1.1);
+  }
+}
+
+@keyframes swell {
+  0% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+  }
+  100% {
+    -webkit-transform: scale(1.1);
+            transform: scale(1.1);
+  }
+}
+html {
+  background-blend-mode: multiply;
+  background-color: #ba6;
+  background-image: url(https://dl.dropboxusercontent.com/s/jyzol1bxl6jrnhi/greyfloral.png);
+  font-family: 'Finger Paint', cursive;
+  font-size: 20px;
+  height: 100%;
+  overflow: hidden;
+  text-align: center;
+}
+html.flicker {
+  background-color: rgba(17, 0, 0, 0.8);
+}
+@media only screen and (max-width: 1000px) {
+  html {
+    font-size: 2vw;
+  }
+}
+
+    </style>
+
+    <script>
+  window.console = window.console || function(t) {};
+</script>
+
+    
+    
+  </head>
+
+  <body translate="no" >
+
+    
+<main class="lights">
+  <ul class="row row1">
+    <li id="item--a" class="item"><span class="bulb"></span><span class="letter">a</span></li>
+    <li id="item--b" class="item"><span class="bulb"></span><span class="letter">b</span></li>
+    <li id="item--c" class="item"><span class="bulb"></span><span class="letter">c</span></li>
+    <li id="item--d" class="item"><span class="bulb"></span><span class="letter">d</span></li>
+    <li id="item--e" class="item"><span class="bulb"></span><span class="letter">e</span></li>
+    <li id="item--f" class="item"><span class="bulb"></span><span class="letter">f</span></li>
+    <li id="item--g" class="item"><span class="bulb"></span><span class="letter">g</span></li>
+    <li id="item--h" class="item"><span class="bulb"></span><span class="letter">h</span></li>
+  </ul>
+  <ul class="row row2">
+    <li id="item--i" class="item"><span class="bulb"></span><span class="letter">i</span></li>
+    <li id="item--j" class="item"><span class="bulb"></span><span class="letter">j</span></li>
+    <li id="item--k" class="item"><span class="bulb"></span><span class="letter">k</span></li>
+    <li id="item--l" class="item"><span class="bulb"></span><span class="letter">l</span></li>
+    <li id="item--m" class="item"><span class="bulb"></span><span class="letter">m</span></li>
+    <li id="item--n" class="item"><span class="bulb"></span><span class="letter">n</span></li>
+    <li id="item--o" class="item"><span class="bulb"></span><span class="letter">o</span></li>
+    <li id="item--p" class="item"><span class="bulb"></span><span class="letter">p</span></li>
+    <li id="item--q" class="item"><span class="bulb"></span><span class="letter">q</span></li>
+  </ul>
+  <ul class="row row3">
+    <li id="item--r" class="item"><span class="bulb"></span><span class="letter">r</span></li>
+    <li id="item--s" class="item"><span class="bulb"></span><span class="letter">s</span></li>
+    <li id="item--t" class="item"><span class="bulb"></span><span class="letter">t</span></li>
+    <li id="item--u" class="item"><span class="bulb"></span><span class="letter">u</span></li>
+    <li id="item--v" class="item"><span class="bulb"></span><span class="letter">v</span></li>
+    <li id="item--w" class="item"><span class="bulb"></span><span class="letter">w</span></li>
+    <li id="item--x" class="item"><span class="bulb"></span><span class="letter">x</span></li>
+    <li id="item--y" class="item"><span class="bulb"></span><span class="letter">y</span></li>
+    <li id="item--z" class="item"><span class="bulb"></span><span class="letter">z</span></li>
+  </ul>
+</main>
+<div class="foreground">
+  <ul class="row row1">
+    <li class="item"><span class="bulb"></span></li>
+    <li class="item"><span class="bulb"></span></li>
+    <li class="item"><span class="bulb"></span></li>
+    <li class="item"><span class="bulb"></span></li>
+    <li class="item"><span class="bulb"></span></li>
+    <li class="item"><span class="bulb"></span></li>
+    <li class="item"><span class="bulb"></span></li>
+    <li class="item"><span class="bulb"></span></li>
+  </ul>
+  <ul class="row row2">
+    <li class="item"><span class="bulb"></span></li>
+    <li class="item"><span class="bulb"></span></li>
+    <li class="item"><span class="bulb"></span></li>
+    <li class="item"><span class="bulb"></span></li>
+    <li class="item"><span class="bulb"></span></li>
+    <li class="item"><span class="bulb"></span></li>
+    <li class="item"><span class="bulb"></span></li>
+    <li class="item"><span class="bulb"></span></li>
+    <li class="item"><span class="bulb"></span></li>
+  </ul>
+  <ul class="row row3">
+    <li class="item"><span class="bulb"></span></li>
+    <li class="item"><span class="bulb"></span></li>
+    <li class="item"><span class="bulb"></span></li>
+    <li class="item"><span class="bulb"></span></li>
+    <li class="item"><span class="bulb"></span></li>
+    <li class="item"><span class="bulb"></span></li>
+    <li class="item"><span class="bulb"></span></li>
+    <li class="item"><span class="bulb"></span></li>
+    <li class="item"><span class="bulb"></span></li>
+  </ul>
+</div>
+<div class="dado"></div>
+<div class="panelling"></div>
+<div class="lamp"></div>
+<div class="vignette"></div>
+<p class="hint">Type something...</p>
+      <script src="//assets.codepen.io/assets/common/stopExecutionOnTimeout-53beeb1a007ec32040abaf4c9385ebfc.js"></script>
+
+    <script src='https://code.jquery.com/jquery-2.2.4.min.js'></script>
+
+        <script>
+      var lights = {
+    init: function () {
+        $(document).keypress(function (e) {
+            var ch = String.fromCharCode(e.charCode), el = $('#item--' + ch);
+            lights.blink(el);
+            if (e.which === 13) {
+                lights.random();
+            }
+        });
+        $('body').focus();
+    },
+    blink: function (el) {
+        var bulb = el.find('.bulb');
+        bulb.addClass('lit');
+        setTimeout(function () {
+            bulb.removeClass('lit');
+        }, 600);
+    },
+    random: function () {
+        (function (count) {
+            if (count < 36) {
+                var caller = arguments.callee;
+                window.setTimeout(function () {
+                    var rand = Math.floor(Math.random() * 26) + 1;
+                    var el = $('.item').eq(rand);
+                    var el2 = $('.item').eq(rand * 2);
+                    lights.blink(el);
+                    lights.blink(el2);
+                    $('html').toggleClass('flicker');
+                    caller(count + 1);
+                }, Math.floor(Math.random() * 100));
+            }
+        }(0));
+    }
+};
+$(function () {
+    lights.init();
+});
+      //# sourceURL=pen.js
+    </script>
+
+    
+    <script>
+  if (document.location.search.match(/type=embed/gi)) {
+    window.parent.postMessage("resize", "*");
+  }
+</script>
+
+    
+  </body>
+</html>
+ 
