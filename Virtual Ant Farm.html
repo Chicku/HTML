@@ -1,0 +1,279 @@
+
+<!DOCTYPE html>
+<html >
+  <head>
+    <meta charset="UTF-8">
+
+
+    <title>Virtual Ant Farm</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <link rel="stylesheet" href="//codepen.io/assets/reset/normalize.css">
+
+    
+        <style>
+      html, body {
+  height: 100%;
+}
+
+body {
+  background: #ddd;
+  overflow: hidden;
+}
+
+    </style>
+
+    <script>
+  window.console = window.console || function(t) {};
+</script>
+
+    
+    
+    <script>
+  if (document.location.search.match(/type=embed/gi)) {
+    window.parent.postMessage("resize", "*");
+  }
+</script>
+
+  </head>
+
+  <body translate="no" >
+
+    <!-- Turmites / virtual ants! -->
+      
+
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.4/p5.min.js'></script>
+
+        <script>
+      'use strict';
+var _typeof = typeof Symbol === 'function' && typeof Symbol.iterator === 'symbol' ? function (obj) {
+    return typeof obj;
+} : function (obj) {
+    return obj && typeof Symbol === 'function' && obj.constructor === Symbol ? 'symbol' : typeof obj;
+};
+var numberOfVirtualAnts = 3000;
+var colors = [
+    '#DDDDDD',
+    'black'
+];
+var gridWidth, gridHeight;
+var grid = {};
+function Vant(x, y, orientation, rules) {
+    this.x = x;
+    this.y = y;
+    this.orientation = orientation;
+    this.state = 0;
+    this.color = 0;
+    this.rules = rules;
+}
+var vants = [];
+function randBetween(min, max) {
+    return Math.floor(Math.random() * (Math.floor(max) - Math.ceil(min) + 1)) + Math.ceil(min);
+}
+function randomRule() {
+    return [
+        randBetween(0, 1),
+        [
+            1,
+            2,
+            4,
+            8
+        ][randBetween(0, 3)],
+        randBetween(0, 1)
+    ];
+}
+function randomRuleset() {
+    return [
+        [
+            randomRule(),
+            randomRule()
+        ],
+        [
+            randomRule(),
+            randomRule()
+        ]
+    ];
+}
+function findOrientation(dir, ori) {
+    if (dir === 1) {
+        return ori;
+    } else if (dir === 4) {
+        if (ori === 'n') {
+            return 's';
+        } else if (ori === 's') {
+            return 'n';
+        } else if (ori === 'e') {
+            return 'w';
+        } else {
+            return 'e';
+        }
+    } else {
+        if (ori == 'n') {
+            return dir === 2 ? 'e' : 'w';
+        } else if (ori == 'e') {
+            return dir === 2 ? 's' : 'n';
+        } else if (ori == 's') {
+            return dir === 2 ? 'w' : 'e';
+        } else {
+            return dir === 2 ? 'n' : 's';
+        }
+    }
+}
+function setup() {
+    createCanvas(windowWidth, windowHeight);
+    gridWidth = windowWidth;
+    gridHeight = windowHeight;
+    function randomX() {
+        return Math.ceil(Math.random() * gridWidth);
+    }
+    function randomY() {
+        return Math.ceil(Math.random() * gridHeight);
+    }
+    var vant1 = new Vant(Math.floor(gridWidth / 2), Math.floor(gridHeight / 2), 'n', [
+        [
+            [
+                1,
+                2,
+                0
+            ],
+            [
+                0,
+                8,
+                0
+            ]
+        ],
+        [
+            [
+                1,
+                1,
+                0
+            ],
+            [
+                1,
+                1,
+                1
+            ]
+        ]
+    ]);
+    var vant2 = new Vant(Math.floor(gridWidth / 2 + 50), Math.floor(gridHeight / 2), 'e', [
+        [
+            [
+                1,
+                1,
+                1
+            ],
+            [
+                1,
+                8,
+                0
+            ]
+        ],
+        [
+            [
+                1,
+                2,
+                1
+            ],
+            [
+                0,
+                1,
+                0
+            ]
+        ]
+    ]);
+    var vant3 = new Vant(Math.ceil(Math.random() * gridWidth), Math.ceil(Math.random() * gridHeight), 'w', [
+        [
+            [
+                1,
+                4,
+                1
+            ],
+            [
+                1,
+                8,
+                0
+            ]
+        ],
+        [
+            [
+                1,
+                2,
+                1
+            ],
+            [
+                0,
+                1,
+                0
+            ]
+        ]
+    ]);
+    vants.push(vant1, vant2, vant3);
+    for (var i = 0; i <= numberOfVirtualAnts; i++) {
+        if (window.CP.shouldStopExecution(1)) {
+            break;
+        }
+        vants.push(new Vant(randomX(), randomY(), [
+            'n',
+            'e',
+            's',
+            'w'
+        ][randBetween(0, 3)], randomRuleset()));
+    }
+    window.CP.exitedLoop(1);
+    ;
+}
+function draw() {
+    vants.forEach(function (vant) {
+        if (_typeof(grid[vant.x]) == 'object' && typeof grid[vant.x][vant.y] == 'number') {
+            vant.color = grid[vant.x][vant.y];
+        } else {
+            vant.color = 0;
+        }
+        var rule = vant.rules[vant.state][vant.color];
+        vant.orientation = findOrientation(rule[1], vant.orientation);
+        stroke(colors[rule[0]]);
+        vant.color = rule[0];
+        vant.state = rule[2];
+        point(vant.x, vant.y);
+        if (_typeof(grid[vant.x]) == 'object') {
+            grid[vant.x][vant.y] = vant.color;
+        } else {
+            grid[vant.x] = {};
+            grid[vant.x][vant.y] = vant.color;
+        }
+        if (vant.orientation === 'n') {
+            vant.y -= 1;
+        } else if (vant.orientation === 's') {
+            vant.y += 1;
+        } else if (vant.orientation === 'e') {
+            vant.x += 1;
+        } else {
+            vant.x -= 1;
+        }
+        if (vant.x > windowWidth) {
+            vant.x = 0;
+        }
+        if (vant.x < 0) {
+            vant.x = windowWidth;
+        }
+        if (vant.y > windowHeight) {
+            vant.y = 0;
+        }
+        if (vant.y < 0) {
+            vant.y = windowHeight;
+        }
+        stroke('white');
+        point(vant.x, vant.y);
+    });
+}
+function windowResized() {
+    resizeCanvas(windowWidth, windowHeight);
+}
+      //# sourceURL=pen.js
+    </script>
+
+    
+    
+  </body>
+</html>
+ 

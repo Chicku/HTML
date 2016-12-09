@@ -1,0 +1,137 @@
+
+<!DOCTYPE html>
+<html >
+  <head>
+    <meta charset="UTF-8">
+
+
+    <title>Ritual</title>
+    
+    
+    <link rel="stylesheet" href="//codepen.io/assets/reset/normalize.css">
+
+    
+        <style>
+      body {
+  background: black;
+  overflow: hidden;
+}
+
+    </style>
+
+    <script>
+  window.console = window.console || function(t) {};
+</script>
+
+    
+    
+  </head>
+
+  <body translate="no" >
+
+    
+<canvas id="canvas"></canvas>
+     
+
+    
+        <script>
+      'use strict';
+
+var rn = function rn(min, max) {
+	return Math.random() * (max - min) + min;
+};
+var _Math = Math;
+var sin = _Math.sin;
+var cos = _Math.cos;
+var tan = _Math.tan;
+var atan2 = _Math.atan2;
+var sqrt = _Math.sqrt;
+var hypot = _Math.hypot;
+var pow = _Math.pow;
+var PI = _Math.PI;
+
+var TWO_PI = PI * 2;
+var HALF_PI = PI / 2;
+var RAD_PI = PI / 180;
+var ctx = canvas.getContext('2d');
+
+var _window = window;
+var w = _window.innerWidth;
+var h = _window.innerHeight;
+
+canvas.width = w;
+canvas.height = h;
+
+var tick = 100;
+
+var draw = function draw() {
+	request = requestAnimationFrame(function () {
+		return draw();
+	});
+	tick++;
+
+	ctx.globalCompositeOperation = 'source-over';
+	ctx.fillStyle = 'rgba(0,0,0,.05)';
+	ctx.fillRect(0, 0, w, h);
+	ctx.fill();
+
+	ctx.save();
+	ctx.translate(w / 2, h / 2);
+
+	var count = 9;
+	var rad = 200;
+	var posArr = [];
+
+	for (var i = 0; i < count; i++) {
+		var x = rad * sin(tick / 200) * cos((tick / 10 + 360 / count * i) * RAD_PI) + sin((tick * 10 + Math.pow(i, 3)) * RAD_PI);
+		var y = rad * cos(tick / 100) * sin((tick / 10 + 360 / count * i) * RAD_PI) + cos((tick * 10 + Math.pow(i, 3)) * RAD_PI);
+		ctx.strokeStyle = 'hsl(' + (20 * Math.sin(i * tick / 100) + 200) + ',50%,40%)';
+		ctx.lineWidth = 2;
+		ctx.beginPath();
+		ctx.arc(x, y, 10, 0, TWO_PI);
+		ctx.stroke();
+		posArr = [].concat(posArr, [{ x: x, y: y }]);
+	}
+
+	ctx.lineWidth = .1;
+	ctx.strokeStyle = 'hsl(' + 20 * Math.sin(tick / 100) + ',50%,40%)';
+	for (var i = 0; i < posArr.length; i++) {
+		for (var j = 0; j < posArr.length; j++) {
+			ctx.beginPath();
+			var offset = 30;
+			var angle = atan2(posArr[j].y - posArr[i].y, posArr[j].x - posArr[i].x);
+			ctx.moveTo(posArr[i].x + offset * cos(angle), posArr[i].y + offset * sin(angle));
+			ctx.lineTo(posArr[j].x + offset * cos(angle), posArr[j].y + offset * sin(angle));
+			ctx.closePath();
+			ctx.stroke();
+		}
+	}
+
+	ctx.restore();
+};
+
+var resize = function resize() {
+	canvas.width = w = window.innerWidth;
+	canvas.height = h = window.innerHeight;
+};
+
+var request = requestAnimationFrame(function () {
+	return draw();
+});
+window.addEventListener('resize', function () {
+	return resize();
+});
+      //# sourceURL=pen.js
+    </script>
+
+    
+    <script>
+  if (document.location.search.match(/type=embed/gi)) {
+    window.parent.postMessage("resize", "*");
+  }
+</script>
+
+    
+  </body>
+</html>
+ 

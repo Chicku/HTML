@@ -1,0 +1,360 @@
+
+
+<!DOCTYPE html>
+<html >
+  <head>
+    <meta charset="UTF-8">
+
+
+    <title>React Morph Clock</title>
+    
+    
+    <link rel="stylesheet" href="//codepen.io/assets/reset/normalize.css">
+
+    
+        <style>
+      * {
+  -webkit-transition: all .5s;
+  transition: all .5s;
+}
+
+.desc, a {
+  color: #f4f4f4;
+  text-align: center;
+  padding-top: 10px;
+  font-weight: 100;
+}
+
+body {
+  background-color: #252525;
+}
+
+svg {
+  position: absolute;
+  top: 55%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+}
+svg text {
+  fill: #f4f4f4;
+  text-anchor: middle;
+  font-size: 1.5em;
+  alignment-baseline: middle;
+  font-weight: 100;
+}
+
+.primCircle {
+  fill: #252525;
+  stroke: #f4f4f4;
+  stroke-width: 10px;
+}
+
+.secCircle {
+  fill: #45d9fd;
+  stroke: #252525;
+  stroke-width: 3px;
+}
+
+.spike {
+  stroke: #f4f4f4;
+}
+
+.triangle {
+  fill: #ee2560;
+}
+
+    </style>
+
+    <script>
+  window.console = window.console || function(t) {};
+</script>
+
+    
+    
+  </head>
+
+  <body translate="no" >
+
+    
+
+<div class="clock"></div>
+      
+
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/react/15.3.1/react.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/react/15.3.1/react-dom.min.js'></script>
+
+        <script>
+      "use strict";
+
+// small circle radius
+var r1 = 5;
+var r2 = 10;
+var r3 = 15;
+var width = window.innerWidth;
+var height = window.innerHeight;
+
+var minWH = Math.min(width, height);
+
+var maxSize = undefined;
+if (minWH < 430) {
+	maxSize = minWH - 30;
+} else {
+	maxSize = 400;
+}
+
+// utils
+// deg to radian
+var rad = function rad(a) {
+	return Math.PI * (a - 90) / 180;
+};
+
+// relative polar coordinates
+var rx = function rx(r, a, c) {
+	return c + r * Math.cos(rad(a, c));
+};
+
+var ry = function ry(r, a, c) {
+	return c + r * Math.sin(rad(a));
+};
+
+// get hours, minutes, and seconds
+var HMS = function HMS(t) {
+	return {
+		h: t.getHours(),
+		m: t.getMinutes(),
+		s: t.getSeconds()
+	};
+};
+
+var pathString = function pathString(p) {
+	// center, radius and time = this.props		
+	var c = p.c;
+	var r = p.r;
+	var time = p.time;
+
+	var _HMS = HMS(time);
+
+	var h = _HMS.h;
+	var m = _HMS.m;
+	var s = _HMS.s;
+
+	// divide 360 deg by 12hrs, 60min, and 60s
+
+	var hAngFact = 30;
+	var mAngFact = 6;
+	var sAngFact = 6;
+
+	// calc relative coordinates 		
+	var hx = rx(r - 30, hAngFact * h, c);
+	var hy = ry(r - 30, hAngFact * h, c);
+	var mx = rx(r - 30, mAngFact * m, c);
+	var my = ry(r - 30, mAngFact * m, c);
+	var sx = rx(r - 30, sAngFact * s, c);
+	var sy = ry(r - 30, sAngFact * s, c);
+
+	return { hx: hx, hy: hy, mx: mx, my: my, sx: sx, sy: sy };
+};
+
+var TextTime = React.createClass({
+	displayName: "TextTime",
+	render: function render() {
+		var _HMS2 = HMS(this.props.time);
+
+		var h = _HMS2.h;
+		var m = _HMS2.m;
+		var s = _HMS2.s;
+
+		var strVal = [h, m, s].map(function (el) {
+			if (el < 10) {
+				return "0" + el;
+			} else {
+				return "" + el;
+			}
+		});
+
+		var str = strVal[0] + ":" + strVal[1] + ":" + strVal[2];
+		return React.createElement(
+			"text",
+			{
+				x: this.props.x,
+				y: this.props.y
+			},
+			str
+		);
+	}
+});
+
+// Circle component
+var Circle = React.createClass({
+	displayName: "Circle",
+	render: function render() {
+		return React.createElement("circle", {
+			cx: this.props.cx,
+			cy: this.props.cy,
+			r: this.props.r,
+			className: this.props.cl
+		});
+	}
+});
+
+// Single spike
+var Spike = React.createClass({
+	displayName: "Spike",
+	render: function render() {
+		return React.createElement("line", {
+			className: "spike",
+			x1: this.props.x1,
+			x2: this.props.x2,
+			y1: this.props.y1,
+			y2: this.props.y2,
+			strokeWidth: "2px"
+		});
+	}
+});
+
+// populate Spikes
+var Spikes = React.createClass({
+	displayName: "Spikes",
+	render: function render() {
+
+		var increment = 30;
+		var spikeNodes = [];
+		var _props = this.props;
+		var c = _props.c;
+		var r = _props.r;
+
+		for (var i = 1; i < 13; i++) {
+			var ang = i * increment;
+
+			var temp = React.createElement(Spike, {
+				x1: rx(r - 5, ang, c),
+				x2: rx(r - 10, ang, c),
+				y1: ry(r - 5, ang, c),
+				y2: ry(r - 10, ang, c),
+				key: i
+			});
+			spikeNodes.push(temp);
+		}
+
+		return React.createElement(
+			"g",
+			null,
+			spikeNodes
+		);
+	}
+});
+
+// triangle component
+var Triangle = React.createClass({
+	displayName: "Triangle",
+	render: function render() {
+		var _pathString = pathString(this.props);
+
+		var hx = _pathString.hx;
+		var hy = _pathString.hy;
+		var mx = _pathString.mx;
+		var my = _pathString.my;
+		var sx = _pathString.sx;
+		var sy = _pathString.sy;
+
+		var path = "M" + hx + "," + hy + " L" + mx + "," + my + " L" + sx + "," + sy + " L" + hx + "," + hy;
+
+		return React.createElement("path", {
+			className: "triangle",
+			d: path
+		});
+	}
+});
+
+// Secondary circles
+var SecCircle = React.createClass({
+	displayName: "SecCircle",
+	render: function render() {
+		var _pathString2 = pathString(this.props);
+
+		var hx = _pathString2.hx;
+		var hy = _pathString2.hy;
+		var mx = _pathString2.mx;
+		var my = _pathString2.my;
+		var sx = _pathString2.sx;
+		var sy = _pathString2.sy;
+
+		return React.createElement(
+			"g",
+			null,
+			React.createElement(Circle, { cl: "secCircle", cx: hx, cy: hy, r: r3, fill: "#343838", strokeW: "0" }),
+			React.createElement(Circle, { cl: "secCircle", cx: mx, cy: my, r: r2, fill: "#343838", strokeW: "0" }),
+			React.createElement(Circle, { cl: "secCircle", cx: sx, cy: sy, r: r1, fill: "#343838", strokeW: "0" })
+		);
+	}
+});
+
+// main container
+var Clock = React.createClass({
+	displayName: "Clock",
+	getInitialState: function getInitialState() {
+		return {
+			time: new Date()
+		};
+	},
+	getDefaultProps: function getDefaultProps() {
+		return {
+			size: maxSize
+		};
+	},
+	render: function render() {
+		var _this = this;
+
+		var size = this.props.size;
+
+		var viewBox = "0 0 " + size + " " + size;
+
+		var mid = size / 2;
+
+		window.setTimeout(function () {
+			_this.setState({
+				time: new Date()
+			});
+		}, 1000);
+
+		return React.createElement(
+			"svg",
+			{ xmlns: "http://www.w3.org/svg/2000",
+				viewBox: viewBox,
+				width: size,
+				height: size
+			},
+			React.createElement(Circle, {
+				cl: "primCircle",
+				cx: mid,
+				cy: mid,
+				r: (size - 30) / 2
+			}),
+			React.createElement(Spikes, { c: mid, r: (size - 30) / 2 }),
+			React.createElement(Triangle, { c: mid, r: (size - 30) / 2, time: this.state.time }),
+			React.createElement(SecCircle, { c: mid, r: (size - 30) / 2, time: this.state.time }),
+			React.createElement(TextTime, {
+				time: this.state.time,
+				x: mid,
+				y: mid
+			})
+		);
+	}
+});
+
+ReactDOM.render(React.createElement(Clock, null), document.querySelector('.clock'));
+      //# sourceURL=pen.js
+    </script>
+
+    
+    <script>
+  if (document.location.search.match(/type=embed/gi)) {
+    window.parent.postMessage("resize", "*");
+  }
+</script>
+
+    
+  </body>
+</html>
+ 

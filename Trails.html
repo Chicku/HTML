@@ -1,0 +1,243 @@
+
+<!DOCTYPE html>
+<html >
+  <head>
+    <meta charset="UTF-8">
+    <link rel="shortcut icon" type="image/x-icon" href="https://production-assets.codepen.io/assets/favicon/favicon-8ea04875e70c4b0bb41da869e81236e54394d63638a1ef12fa558a4a835f1164.ico" />
+<link rel="mask-icon" type="" href="https://production-assets.codepen.io/assets/favicon/logo-pin-f2d2b6d2c61838f7e76325261b7195c27224080bc099486ddd6dccb469b8e8e6.svg" color="#111" />
+
+
+    <title>Trails</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dat-gui/0.6.1/dat.gui.min.js" type='text/javascript'></script>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+
+    
+        <style>
+      body {
+  overflow: hidden;
+  color: rgba(255, 255, 255, 0.7);
+  font-family: monospace;
+  padding: 5px;
+  font-size: 12px;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+}
+
+canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+}
+
+div.hint {
+  display: none;
+  pointer-events: none;
+}
+
+#hint {
+  display: none;
+}
+#hint:checked + div {
+  display: block;
+}
+
+.dg {
+  display: block;
+}
+
+    </style>
+
+    <script>
+  window.console = window.console || function(t) {};
+</script>
+
+    
+    
+    <script>
+  if (document.location.search.match(/type=embed/gi)) {
+    window.parent.postMessage("resize", "*");
+  }
+</script>
+
+  </head>
+
+  <body translate="no" >
+
+    
+<canvas id="canvas"></canvas>
+<label for="hint">Hint (click to hide/show)</label>
+<input type="checkbox" checked="checked" id="hint"/>
+<div class="hint">
+  <p>Click somewhere to add a bot</p>
+</div>
+      <script src="//production-assets.codepen.io/assets/common/stopExecutionOnTimeout-58d22c749295bca52f487966e382a94a495ac103faca9206cbd160bdf8aedf2a.js"></script>
+
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/dat-gui/0.6.1/dat.gui.min.js'></script>
+
+        <script>
+      (function(){
+	var canvasBody = document.getElementById("canvas"),
+			canvas = canvasBody.getContext("2d"),
+			
+			w = canvasBody.width = window.innerWidth,
+			h = canvasBody.height = window.innerHeight,
+			
+			pi2 = Math.PI*2,
+			tick = 0,
+			opts = {
+				canvas: {
+					backgroundColor: "rgba(20,20,20,alpha)",
+					bgOpacity: 0.1,
+					botAmount: 40
+				},
+				bot: {
+					radius: 1.5,
+					defaultSpeed: 1,
+					addedSpeed: 1.5,
+					turnChance: 0.01,
+					turnTime: 20,
+					turnAngle: 45
+				}
+			},
+			Colors = [
+				"#f1c40f", //yellow
+				"#e74c3c", //red
+				"#3498db", //blue
+				"#2ecc71", //green
+			],
+			World = function(){
+				this.bodies = {};
+				this.addBody = function(body){
+					var bodyType = body.name;
+					this.bodies[bodyType] ? true : this.bodies[bodyType] = [];
+					this.bodies[bodyType].push(body);
+				};
+				this.update = function(){
+					for(key in this.bodies){
+						this.bodies[key].map( function(Entity){
+							Entity.update();
+						})
+					}
+				};
+				this.render = function(){
+					for(key in this.bodies){
+						this.bodies[key].map( function(Entity){
+							Entity.render();
+						})
+					}
+				};
+			},
+			Bot = function(Xpos, Ypos){
+				this.name = "bot";
+				this.radius = opts.bot.radius;
+				this.x = Xpos || 0 - this.radius;
+				this.y = Ypos || Math.random()*h;
+				this.angle = 0;
+				this.turnChance = opts.bot.turnChance;
+				this.turningNow = false;
+				this.turningTimeNow = 0;
+				this.turningTime = opts.bot.turnTime;
+				this.color = Colors[Math.floor(Math.random()*Colors.length)];
+				this.speed = opts.bot.defaultSpeed + Math.random()*opts.bot.addedSpeed;
+				this.calc = function(str){
+					if(str == "straight"){
+						this.turningNow = false;
+						this.angle = 0;
+						this.d = {
+							x: Math.cos(this.angle)*this.speed,
+							y: Math.sin(this.angle)*this.speed
+						}
+					}
+					if(str == "turning"){
+						this.turningTimeNow++;
+						this.d = {
+							x: Math.cos(this.angle)*this.speed,
+							y: Math.sin(this.angle)*this.speed
+						}
+						this.turningTimeNow < this.turningTime ? this.turningNow = true : this.turningNow = false;
+					}
+				};
+				this.update = function(){
+					if(!this.turningNow){
+						this.calc("straight");
+						this.turningTimeNow = 0;
+						if(Math.random() < this.turnChance){
+							this.angle += Math.radians(Math.random()<0.5?opts.bot.turnAngle:-opts.bot.turnAngle)
+							this.calc("turning");
+						}
+					} else {
+						this.calc("turning")
+					}
+					this.border();
+					this.x+= this.d.x;
+					this.y+= this.d.y;
+				};
+				this.border = function(){
+					if(this.x > w || this.y > h || this.y < 0){
+						this.x = 0 - this.radius;
+						this.y = Math.random()*h
+					}
+				}
+				this.render = function(){
+					canvas.beginPath();
+					canvas.arc(this.x, this.y, this.radius, 0, pi2);
+					canvas.closePath();
+					canvas.fillStyle = this.color;
+					canvas.shadowColor = this.color;
+					canvas.shadowBlur = this.radius*3;
+					canvas.fill();
+					
+					canvas.shadowBlur = 0;
+				};
+			};
+	Math.radians = function(deg){
+		return deg * (Math.PI / 180);
+	}
+	function setup(){
+		world = new World();
+		for(var i = 0; i < opts.canvas.botAmount; i++){
+			world.addBody( new Bot() );
+		}
+		
+		var gui = new dat.GUI(); 
+		gui.add(opts.canvas, "bgOpacity").min(0).max(1).name("trackLength");
+		gui.add(opts.bot, "turnAngle").min(1).max(90);
+		
+		window.requestAnimationFrame(loop);
+		canvas.fillStyle = opts.canvas.backgroundColor.replace("alpha", "1");
+		canvas.fillRect(0,0,w,h);
+	};
+	function loop(){
+		canvas.fillStyle = opts.canvas.backgroundColor.replace("alpha", opts.canvas.bgOpacity);
+		canvas.fillRect(0,0,w,h);
+	
+		world.update();
+		world.render();
+		window.requestAnimationFrame(loop);
+
+	};
+	setup();
+	
+	window.addEventListener("resize", function(){
+		w = canvasBody.width = window.innerWidth;
+		h = canvasBody.height = window.innerHeight;
+		canvas.fillStyle = opts.canvas.backgroundColor.replace("alpha","1");
+		canvas.fillRect(0,0,w,h)
+	});
+	
+	window.addEventListener("mousedown", function(e){
+		world.addBody( new Bot(e.pageX, e.pageY) );
+	});
+})();
+      //# sourceURL=pen.js
+    </script>
+
+    
+    
+  </body>
+</html>
+ 

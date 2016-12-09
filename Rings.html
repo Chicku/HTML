@@ -1,0 +1,137 @@
+
+
+<!DOCTYPE html>
+<html >
+  <head>
+    <meta charset="UTF-8">
+
+
+    <title>Rings</title>
+    
+    
+    <link rel="stylesheet" href="//codepen.io/assets/reset/reset.css">
+
+    
+        <style>
+      *, *:before, *:after {
+  margin: 0;
+  padding: 0;
+  -moz-box-shadow: border-box;
+  -webkit-box-shadow: border-box;
+  box-shadow: border-box;
+}
+*:before, *:after {
+  content: "";
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  display: -webkit-flex;
+  display: flex;
+  -webkit-justify-content: center;
+  justify-content: center;
+  -webkit-align-items: center;
+  align-items: center;
+}
+
+.rings {
+  position: relative;
+  width: 300px;
+  height: 300px;
+}
+.rings, .rings .ring {
+  -moz-transform-style: preserve-3d;
+  -webkit-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+}
+.rings .ring {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  margin: auto;
+  border: 1px solid #272727;
+  -moz-border-radius: 50%;
+  -webkit-border-radius: 50%;
+  border-radius: 50%;
+  width: 90%;
+  height: 90%;
+  -moz-animation: spin 15s linear infinite;
+  -webkit-animation: spin 15s linear infinite;
+  animation: spin 15s linear infinite;
+}
+
+@-moz-keyframes spin {
+  100% {
+    -moz-transform: rotateX(3turn) rotateY(1turn);
+    transform: rotateX(3turn) rotateY(1turn);
+  }
+}
+@-webkit-keyframes spin {
+  100% {
+    -webkit-transform: rotateX(3turn) rotateY(1turn);
+    transform: rotateX(3turn) rotateY(1turn);
+  }
+}
+@keyframes spin {
+  100% {
+    -moz-transform: rotateX(3turn) rotateY(1turn);
+    -ms-transform: rotateX(3turn) rotateY(1turn);
+    -webkit-transform: rotateX(3turn) rotateY(1turn);
+    transform: rotateX(3turn) rotateY(1turn);
+  }
+}
+
+    </style>
+
+    <script>
+  window.console = window.console || function(t) {};
+</script>
+
+    
+    
+    <script>
+  if (document.location.search.match(/type=embed/gi)) {
+    window.parent.postMessage("resize", "*");
+  }
+</script>
+
+  </head>
+
+  <body translate="no" >
+
+    
+<div class="rings">
+  <div class="ring">
+    <div class="ring">
+      <div class="ring">
+        <div class="ring">
+          <div class="ring">
+            <div class="ring">
+              <div class="ring">
+                <div class="ring">
+                  <div class="ring">
+                    <div class="ring">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+    
+    
+    
+  </body>
+</html>
+ 

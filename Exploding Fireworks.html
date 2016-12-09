@@ -1,0 +1,320 @@
+
+<!DOCTYPE html>
+<html >
+  <head>
+    <meta charset="UTF-8">
+
+
+    <title>Exploding Fireworks</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    
+    
+        <style>
+      body {
+  background: #333;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+.datgui {
+  position: absolute;
+  top: 0;
+  z-index: 100;
+  right: 0;
+  opacity: 0.3;
+  transition: opacity 700ms ease-out;
+}
+.datgui:hover {
+  opacity: 1;
+}
+
+    </style>
+
+    <script>
+  window.console = window.console || function(t) {};
+</script>
+
+    
+    
+    <script>
+  if (document.location.search.match(/type=embed/gi)) {
+    window.parent.postMessage("resize", "*");
+  }
+</script>
+
+  </head>
+
+  <body translate="no" >
+
+    <div class="datgui"></div>
+      
+
+    <script src='//cdnjs.cloudflare.com/ajax/libs/dat-gui/0.6.0/dat.gui.min.js'></script>
+
+        <script>
+      'use strict';
+
+var _class, _temp, _initialiseProps;
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var Blob = function () {
+  function Blob(config) {
+    _classCallCheck(this, Blob);
+
+    this.x = config.x;
+    this.y = config.y;
+    this.vx = config.vx;
+    this.vy = config.vy;
+    this.isBall = config.isBall;
+    this.size = {
+      start: config.size.start,
+      end: config.size.end
+    };
+    this.diretion = this.size.start < this.size.end ? 'up' : 'down';
+    this.died = config.died;
+    this.color = config.color;
+  }
+
+  Blob.prototype.update = function update() {
+    this.x += this.vx;
+    this.y += this.vy;
+    if (this.diretion === 'up' && this.size.start > this.size.end - 1 || this.diretion === 'down' && this.size.start < this.size.end + 1) {
+      this.died = true;
+    }
+
+    this.size.start = this.size.start - (this.size.start - this.size.end) * 0.07;
+  };
+
+  return Blob;
+}();
+// Render Class //
+
+var Render = (_temp = _class = function Render(element) {
+  _classCallCheck(this, Render);
+
+  _initialiseProps.call(this);
+
+  // Screen Set Up
+  this.element = element;
+  // render const
+  this.canvas = this.createCanvas('canvas');
+  this.points = [];
+  this.tick = 0;
+  this.counter = 0;
+  this.baseSpeed = 4;
+  this.date = new Date();
+  this.color = '#' + (Math.random() * 0xFFFFFF << 0).toString(16);
+  window.addEventListener('resize', this.resetCanvas);
+  window.addEventListener('mousemove', this.createPoint);
+  // Kick it off
+  this.renderLoop();
+  this.createPoint();
+}
+
+// Set Options from GUI
+, _initialiseProps = function _initialiseProps() {
+  var _this = this;
+
+  this.setOptions = function (options) {
+    _this.operation = options.operation;
+    _this.baseAmount = options.baseAmount;
+    _this.baseSize = options.baseSize;
+    _this.motionTrail = options.motionTrail;
+    _this.motionSpeed = options.motionSpeed;
+  };
+
+  this.setViewport = function (element) {
+    var canvasElement = element;
+    var width = ~ ~(document.documentElement.clientWidth, window.innerWidth || 0);
+    var height = ~ ~(document.documentElement.clientHeight, window.innerHeight || 0);
+    _this.width = width;
+    _this.height = height;
+    canvasElement.width = _this.width;
+    canvasElement.height = _this.height;
+  };
+
+  this.createCanvas = function (name) {
+    var canvasElement = document.createElement('canvas');
+    canvasElement.id = name;
+    _this.setViewport(canvasElement);
+    _this.element.appendChild(canvasElement);
+    _this.surface = canvasElement.getContext('2d');
+    _this.surface.scale(1, 1);
+    return canvasElement;
+  };
+
+  this.resetCanvas = function () {
+    window.cancelAnimationFrame(_this.animation);
+    _this.setViewport(_this.canvas);
+    _this.renderLoop();
+  };
+
+  this.getRandomPoint = function (radius) {
+    var angle = Math.random() * Math.PI * 2;
+    return {
+      x: Math.cos(angle) * radius,
+      y: Math.sin(angle) * radius,
+      angle: angle
+    };
+  };
+
+  this.createPoint = function (event) {
+    _this.tick++;
+    if (_this.tick > 3) {
+      _this.tick = 0;
+      var x = event ? event.pageX : _this.width / 2;
+      var y = event ? event.pageY : _this.height / 2;
+      var point = new Blob({
+        x: x,
+        y: y,
+        vx: Math.random() * _this.baseSpeed - _this.baseSpeed / 2,
+        vy: Math.random() * _this.baseSpeed - _this.baseSpeed / 2,
+        isBall: true,
+        size: {
+          start: 0,
+          end: _this.baseSize + ~ ~(Math.random() * 20)
+        },
+        died: false,
+        color: 'hsl(' + (_this.baseHue + ~ ~(Math.random() * 30)) + ', 100%, 50%)'
+      });
+      _this.points.push(point);
+    }
+  };
+
+  this.compare = function (a, b) {
+    if (a.angle < b.angle) {
+      return -1;
+    }
+    if (a.angle > b.angle) {
+      return 1;
+    }
+    return 0;
+  };
+
+  this.createPop = function (config) {
+    var radius = config.size.end;
+    var amt = ~ ~(Math.random() * _this.baseAmount) + 5;
+    var pointArray = [];
+    for (var i = 0; i < amt; i++) {
+      var rndPoint = _this.getRandomPoint(radius);
+      var arcPoint = {
+        x: config.x + rndPoint.x,
+        y: config.y + rndPoint.y,
+        angle: rndPoint.angle
+      };
+      pointArray.push(arcPoint);
+    }
+    pointArray.sort(_this.compare).forEach(function (points) {
+      var point = new Blob({
+        x: points.x,
+        y: points.y,
+        vx: (points.x - config.x) * 0.1 + config.vx,
+        vy: (points.y - config.y) * 0.1 + config.vy,
+        isBall: false,
+        size: {
+          start: config.size.start / 2,
+          end: 0
+        },
+        died: false,
+        color: config.color
+      });
+      _this.points.push(point);
+    });
+  };
+
+  this.draw = function (point) {
+    _this.surface.beginPath();
+    _this.surface.strokeStyle = point.color;
+    _this.surface.arc(point.x, point.y, point.size.start, 0, 2 * Math.PI, false);
+    _this.surface.stroke();
+  };
+
+  this.reset = function () {
+    _this.surface.globalCompositeOperation = 'source-over';
+    _this.surface.fillStyle = 'rgba(0,0,0,1)';
+    _this.surface.fillRect(0, 0, _this.width, _this.height);
+  };
+
+  this.renderLoop = function () {
+    _this.surface.globalCompositeOperation = _this.operation;
+    if (_this.motionTrail) {
+      _this.surface.drawImage(_this.canvas, 0, -_this.motionSpeed);
+    }
+    _this.surface.fillStyle = 'rgba(0,0,0,0.04)';
+    _this.surface.fillRect(0, 0, _this.width, _this.height);
+
+    _this.counter += 0.008;
+    _this.baseHue = ~ ~(Math.sin(_this.counter) * 360);
+
+    for (var x = 0; x < _this.points.length; x++) {
+      var point = _this.points[x];
+      _this.draw(point);
+      point.update();
+      if (point.died) {
+        if (point.diretion === 'up') {
+          _this.points.splice(x, 1);
+          _this.createPop(point);
+        } else {
+          _this.points.splice(x, 1);
+        }
+      }
+    }
+    _this.animation = window.requestAnimationFrame(_this.renderLoop);
+  };
+}, _temp);
+
+// GUI Functions and Options
+
+var assignOptions = function assignOptions() {
+  demo.setOptions(options);
+};
+
+var options = {
+  baseAmount: 20,
+  baseSize: 20,
+  operation: 'source-over',
+  motionTrail: true,
+  motionSpeed: 15,
+  clearScreen: function clearScreen() {
+    demo.reset();
+  }
+};
+
+var demo = new Render(document.body);
+assignOptions();
+
+var event = {
+  pageX: ~ ~(document.documentElement.clientWidth, window.innerWidth || 0) / 2,
+  pageY: ~ ~(document.documentElement.clientHeight, window.innerHeight || 0) / 2
+};
+for (var i = 0; i < 10; i++) {
+  demo.createPoint(event, {
+    start: true
+  });
+}
+
+// GUI Folders
+var gui = new dat.GUI();
+var folderParticle = gui.addFolder('Particle Options');
+var folderMotion = gui.addFolder('Motion Options');
+folderParticle.add(options, 'baseSize', 1, 100).step(1).onFinishChange(assignOptions);
+folderParticle.add(options, 'baseAmount', 1, 80).step(1).onFinishChange(assignOptions);
+folderMotion.add(options, 'motionTrail').onFinishChange(assignOptions);
+folderMotion.add(options, 'motionSpeed', 1, 30).step(1).onFinishChange(assignOptions);
+folderParticle.add(options, 'operation', ['xor', 'source-over', 'lighter', 'screen', 'overlay', 'difference', 'exclusion', 'none']).onFinishChange(assignOptions);
+gui.add(options, 'clearScreen');
+folderParticle.open();
+
+document.querySelector('.datgui').appendChild(gui.domElement);
+      //# sourceURL=pen.js
+    </script>
+
+    
+    
+  </body>
+</html>
+ 

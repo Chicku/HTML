@@ -1,0 +1,192 @@
+
+<!DOCTYPE html>
+<html >
+  <head>
+    <meta charset="UTF-8">
+
+
+    <title>Polygon Cursor Canvas</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <link rel="stylesheet" href="//codepen.io/assets/reset/normalize.css">
+
+    
+        <style>
+      canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  cursor: none;
+}
+
+    </style>
+
+    <script>
+  window.console = window.console || function(t) {};
+</script>
+
+    
+    
+    <script>
+  if (document.location.search.match(/type=embed/gi)) {
+    window.parent.postMessage("resize", "*");
+  }
+</script>
+
+  </head>
+
+  <body translate="no" >
+
+    
+<canvas id="canvas"></canvas>
+      <script src="//assets.codepen.io/assets/common/stopExecutionOnTimeout-53beeb1a007ec32040abaf4c9385ebfc.js"></script>
+
+    
+        <script>
+      //Hi! I used some trigonometry to calculate stuff.
+//You can tweak settings in object on line 12 if you wish
+//Sorry that you can tweak only one polygon, but well...
+
+(function(){
+	var canvasBody = document.getElementById("canvas"),
+			canvas = canvasBody.getContext("2d"),
+			
+			w = canvasBody.width = window.innerWidth,
+			h = canvasBody.height = window.innerHeight,
+			
+			opts = {
+				polygon: {
+					lineColor: "rgba(0,0,0,0.5)",
+					lineWidth: 1,
+					rotationSpeed: 0.3,
+					pointAmount: 7,
+					startAngle: 10,
+					radius: 100,
+					pointerSize: 15
+				},
+				particle: {
+					color: "#222",
+					radius: 1.2
+				},
+				canvas: {
+					color: "rgba(0,0,0,0)"
+				}
+			},
+			
+			polygons = [],
+			
+			//Objects
+			Mouse = {
+				x: w/2,
+				y: h/2
+			},
+			
+			Polygon = function(pointAmount, startAngle, rotationSpeed, radius){
+				this.x = Mouse.x;
+				this.y = Mouse.y;
+				
+				this.color = opts.particle.color;
+				this.angle = startAngle;
+				this.pointAmount = pointAmount;
+				this.points = [];
+				this.rotationSpeed = rotationSpeed;
+				this.radius = radius;
+				this.angleDifference = Math.PI*2 / this.pointAmount;
+				this.init = function(){
+					for(var i = 0; i < this.pointAmount; i++){
+						this.points.push({
+							color: this.color,
+							x: this.x + Math.cos(this.angleDifference*i + Math.radians(this.angle))*this.radius,
+							y: this.y + Math.sin(this.angleDifference*i + Math.radians(this.angle))*this.radius,
+							render: function(){
+								canvas.beginPath();
+								canvas.arc(this.x, this.y, opts.particle.radius, 0, Math.PI*2);
+								canvas.closePath();
+								canvas.fillStyle = this.color;
+								canvas.fill();
+							}
+						});
+					}
+				};
+				this.update = function(){
+					this.x = Mouse.x;
+					this.y = Mouse.y;
+					this.angle += rotationSpeed;
+						for(var i = 0; i < this.points.length; i++){
+							this.points[i].x = this.x + Math.cos(this.angleDifference*i + Math.radians(this.angle) )*this.radius;
+							this.points[i].y = this.y + Math.sin(this.angleDifference*i + Math.radians(this.angle) )*this.radius;
+						}
+				};
+				this.render = function(){
+					for(var i = 0; i < this.points.length; i++){
+						this.points[i].render();
+					}
+					canvas.lineWidth = opts.polygon.lineWidth;
+					canvas.strokeStyle = opts.polygon.lineColor;
+					canvas.beginPath();
+					canvas.moveTo(this.points[0].x, this.points[0].y);
+					for(var a = 0; a < this.points.length; a++){
+						canvas.lineTo(this.points[a].x, this.points[a].y);
+					}
+					canvas.closePath();
+					canvas.stroke();
+					
+					canvas.lineWidth = opts.polygon.lineWidth;
+					canvas.strokeStyle = opts.polygon.lineColor;
+					canvas.beginPath();
+					canvas.moveTo(this.x, this.y - opts.polygon.pointerSize);
+					canvas.lineTo(this.x, this.y + opts.polygon.pointerSize);
+					canvas.moveTo(this.x - opts.polygon.pointerSize, this.y);
+					canvas.lineTo(this.x + opts.polygon.pointerSize, this.y);
+					canvas.closePath();
+					canvas.stroke();
+				};
+			};
+	
+	Math.radians = function(degrees){
+		return degrees * Math.PI / 180;
+	};
+	Math.degrees = function(radians){
+		return radians * 180 / Math.PI;
+	};
+	
+	function setup(){
+		polygons.push( new Polygon(opts.polygon.pointAmount, opts.polygon.startAngle, opts.polygon.rotationSpeed, opts.polygon.radius) );
+		polygons.push( new Polygon(7, 30, -0.4, 110));
+		polygons.push( new Polygon(12, 60, 1, 125));
+		for(var i = 0; i < polygons.length; i++){
+			polygons[i].init();
+		}
+		window.requestAnimationFrame(loop);
+	}
+	
+	function loop(){
+		canvas.clearRect(0,0,w,h);
+		canvas.fillStyle = opts.canvas.color;
+		canvas.fillRect(0,0,w,h);
+		for(var i = 0; i < polygons.length; i++){
+			polygons[i].update();
+			polygons[i].render();
+		}
+		window.requestAnimationFrame(loop);
+	}
+	
+	setup();
+	
+	window.addEventListener("mousemove", function(e){
+		Mouse.x = e.pageX;
+		Mouse.y = e.pageY;
+	});
+	window.addEventListener("resize", function(){
+		w = canvasBody.width = window.innerWidth;
+		h = canvasBody.height = window.innerHeight;
+	});
+})();
+      //# sourceURL=pen.js
+    </script>
+
+    
+    
+  </body>
+</html>
+ 

@@ -1,0 +1,121 @@
+
+<!DOCTYPE html>
+<html >
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="shortcut icon" type="image/x-icon" href="https://production-assets.codepen.io/assets/favicon/favicon-8ea04875e70c4b0bb41da869e81236e54394d63638a1ef12fa558a4a835f1164.ico" />
+  <link rel="mask-icon" type="" href="https://production-assets.codepen.io/assets/favicon/logo-pin-f2d2b6d2c61838f7e76325261b7195c27224080bc099486ddd6dccb469b8e8e6.svg" color="#111" />
+  <title>Canvas Rainbow Fountain</title>
+  
+  
+  
+  
+      <style>
+      body, html {
+  margin: 0;
+  padding: 0;
+  background-color: #000;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
+    </style>
+
+  <script>
+  window.console = window.console || function(t) {};
+</script>
+
+  
+  
+  <script>
+  if (document.location.search.match(/type=embed/gi)) {
+    window.parent.postMessage("resize", "*");
+  }
+</script>
+
+</head>
+
+<body translate="no" >
+
+  
+  
+
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js'></script>
+
+    <script>
+    $(document).ready(function() {
+	var canvas = document.createElement("canvas"),
+			c = canvas.getContext("2d"),
+			particles = {},
+			particleIndex = 0,
+			colorCount = 0,
+			colorStep = .02,
+			particleNum = 40;
+	
+	canvas.width = document.body.clientWidth;
+	canvas.height = document.body.clientHeight;
+
+	document.body.appendChild(canvas);
+	
+	c.fillStyle = "black";
+	c.fillRect(0,0,canvas.width,canvas.height);
+	
+	function Particle() {
+		this.x = canvas.width / 2;
+		this.y = 60;
+		this.vx = Math.random() * 10 - 5;
+		this.vy = Math.random() * 4 - 2;
+		this.gravity = 1;
+		particleIndex++;
+		particles[particleIndex] = this;
+		this.id = particleIndex;
+		this.life = 0;
+		this.maxLife = Math.random() * 300 + 10;
+		colorCount = colorCount + colorStep;
+		this.color = "hsla("+parseInt(colorCount)+", 100%, 50%, 0.02)";
+	}
+	Particle.prototype.draw = function() {
+		this.x += this.vx;
+		this.y += this.vy;
+		
+		this.life++;
+		if (this.y > (canvas.height-200)) {
+			this.vy *= -0.9;
+			this.vx *= 0.9;
+		}
+		
+		this.vy += this.gravity;
+		
+		if (this.life >= this.maxLife) {
+			delete particles[this.id];
+		}
+				
+		c.fillStyle = this.color;
+		c.fillRect(this.x,this.y,10,10);
+	};
+	
+	setInterval(function() {
+		c.globalCompositeOperation = "source-over";
+		c.fillStyle = "rgba(0,0,0,0.1)";
+		c.fillRect(0,0,canvas.width,canvas.height);
+		
+		for (var i = 0; i < particleNum; i++) {
+			new Particle();
+		}
+		
+		c.globalCompositeOperation = "lighter";
+		for (var i in particles) {
+			particles[i].draw();
+		}
+	}, 16.67);
+});
+  //# sourceURL=pen.js
+  </script>
+
+  
+  
+
+</body>
+</html>

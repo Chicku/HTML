@@ -1,0 +1,123 @@
+
+<!DOCTYPE html>
+<html >
+  <head>
+    <meta charset="UTF-8">
+    <link rel="shortcut icon" type="image/x-icon" href="https://production-assets.codepen.io/assets/favicon/favicon-8ea04875e70c4b0bb41da869e81236e54394d63638a1ef12fa558a4a835f1164.ico" />
+<link rel="mask-icon" type="" href="https://production-assets.codepen.io/assets/favicon/logo-pin-f2d2b6d2c61838f7e76325261b7195c27224080bc099486ddd6dccb469b8e8e6.svg" color="#111" />
+
+
+    <title>There is light</title>
+    
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
+
+    
+        <style>
+      body {
+  background: #000;
+  padding: 2rem;
+}
+
+h2 {
+  font-family: 'Arial';
+  color: #fff;
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: 3rem;
+  line-height: 0.75;
+}
+
+span {
+  display: block;
+}
+
+span:not(.light) {
+  opacity: 0;
+  -webkit-animation: flashText .5s ease-out alternate infinite;
+          animation: flashText .5s ease-out alternate infinite;
+}
+
+span.light {
+  position: relative;
+  display: inline-block;
+}
+span.light:before {
+  position: absolute;
+  left: 0;
+  top: -10%;
+  width: 100%;
+  height: 120%;
+  background: #fff;
+  -webkit-filter: blur(10px);
+          filter: blur(10px);
+  content: "";
+  opacity: 0;
+  -webkit-animation: flash .5s ease-out alternate infinite;
+          animation: flash .5s ease-out alternate infinite;
+}
+
+@-webkit-keyframes flash {
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes flash {
+  to {
+    opacity: 1;
+  }
+}
+@-webkit-keyframes flashText {
+  to {
+    opacity: 0.15;
+  }
+}
+@keyframes flashText {
+  to {
+    opacity: 0.15;
+  }
+}
+
+    </style>
+
+    <script>
+  window.console = window.console || function(t) {};
+</script>
+
+    
+    
+    <script>
+  if (document.location.search.match(/type=embed/gi)) {
+    window.parent.postMessage("resize", "*");
+  }
+</script>
+
+  </head>
+
+  <body translate="no" >
+
+    <h2>
+	
+	
+  <center><span>There's</center></span>
+  <center><span class="light">light</center></span> 
+  <center><span> even in</center></span> 
+  <center><span>the darkest</center></span>
+  <center><span>places</center></span>
+</h2>
+      
+
+    
+        <script>
+      // Source is unknown! 
+
+// http://9gag.com/gag/10509/there-s-light-even-in-the-darkest-places
+      //# sourceURL=pen.js
+    </script>
+
+    
+    
+  </body>
+</html>
+ 
