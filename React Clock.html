@@ -1,0 +1,297 @@
+
+<!DOCTYPE html>
+<html >
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="shortcut icon" type="image/x-icon" href="https://production-assets.codepen.io/assets/favicon/favicon-8ea04875e70c4b0bb41da869e81236e54394d63638a1ef12fa558a4a835f1164.ico" />
+  <link rel="mask-icon" type="" href="https://production-assets.codepen.io/assets/favicon/logo-pin-f2d2b6d2c61838f7e76325261b7195c27224080bc099486ddd6dccb469b8e8e6.svg" color="#111" />
+  <title>React Clock</title>
+  
+  
+  
+  <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css'>
+
+      <style>
+      .Clock {
+  padding: 5px;
+  margin-top: 15px;
+  margin-left: auto;
+  margin-right: auto;
+}
+    </style>
+
+  <script>
+  window.console = window.console || function(t) {};
+</script>
+
+  
+  
+  <script>
+  if (document.location.search.match(/type=embed/gi)) {
+    window.parent.postMessage("resize", "*");
+  }
+</script>
+
+</head>
+
+<body translate="no" >
+
+  <div id="root" class="container"></div>
+    <script src="//production-assets.codepen.io/assets/common/stopExecutionOnTimeout-58d22c749295bca52f487966e382a94a495ac103faca9206cbd160bdf8aedf2a.js"></script>
+
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/react/15.3.1/react.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/react/15.3.1/react-dom.min.js'></script>
+
+    <script>
+    "use strict";
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var App = function (_React$Component) {
+   _inherits(App, _React$Component);
+
+   function App() {
+      _classCallCheck(this, App);
+
+      return _possibleConstructorReturn(this, _React$Component.apply(this, arguments));
+   }
+
+   App.prototype.render = function render() {
+      return React.createElement(
+         "div",
+         null,
+         React.createElement(
+            "div",
+            { className: "row" },
+            React.createElement(
+               "div",
+               { className: "col-lg-6 col-lg-offset-3" },
+               React.createElement(
+                  "div",
+                  { className: "text-center" },
+                  React.createElement(
+                     "h1",
+                     null,
+                     "React Clock"
+                  )
+               )
+            )
+         ),
+         React.createElement(
+            "div",
+            { className: "row" },
+            React.createElement(
+               "div",
+               { className: "col-lg-12" },
+               React.createElement(Clock, { size: 400, timeFormat: "24hour", hourFormat: "standard" })
+            )
+         )
+      );
+   };
+
+   return App;
+}(React.Component);
+
+var Clock = function (_React$Component2) {
+   _inherits(Clock, _React$Component2);
+
+   function Clock(props) {
+      _classCallCheck(this, Clock);
+
+      var _this2 = _possibleConstructorReturn(this, _React$Component2.call(this, props));
+
+      _this2.state = { time: new Date() };
+      _this2.radius = _this2.props.size / 2;
+      _this2.drawingContext = null;
+      _this2.draw24hour = _this2.props.timeFormat.toLowerCase().trim() === "24hour";
+      _this2.drawRoman = !_this2.draw24hour && _this2.props.hourFormat.toLowerCase().trim() === "roman";
+
+      return _this2;
+   }
+
+   Clock.prototype.componentDidMount = function componentDidMount() {
+      var _this3 = this;
+
+      this.getDrawingContext();
+      this.timerId = setInterval(function () {
+         return _this3.tick();
+      }, 1000);
+   };
+
+   Clock.prototype.componentWillUnmount = function componentWillUnmount() {
+      clearInterval(this.timerId);
+   };
+
+   Clock.prototype.getDrawingContext = function getDrawingContext() {
+      this.drawingContext = this.refs.clockCanvas.getContext('2d');
+      this.drawingContext.translate(this.radius, this.radius);
+      this.radius *= 0.9;
+   };
+
+   Clock.prototype.tick = function tick() {
+      this.setState({ time: new Date() });
+      var radius = this.radius;
+      var ctx = this.drawingContext;
+      this.drawFace(ctx, radius);
+      this.drawNumbers(ctx, radius);
+      this.drawTicks(ctx, radius);
+      this.drawTime(ctx, radius);
+   };
+
+   Clock.prototype.drawFace = function drawFace(ctx, radius) {
+      ctx.beginPath();
+      ctx.arc(0, 0, radius, 0, 2 * Math.PI);
+      ctx.fillStyle = "white";
+      ctx.fill();
+
+      var grad = ctx.createRadialGradient(0, 0, radius * 0.95, 0, 0, radius * 1.05);
+      grad.addColorStop(0, "#333");
+      grad.addColorStop(0.5, "white");
+      grad.addColorStop(1, "#333");
+      ctx.strokeStyle = grad;
+      ctx.lineWidth = radius * 0.1;
+      ctx.stroke();
+
+      ctx.beginPath();
+      ctx.arc(0, 0, radius * 0.05, 0, 2 * Math.PI);
+      ctx.fillStyle = "#333";
+      ctx.fill();
+   };
+
+   Clock.prototype.drawNumbers = function drawNumbers(ctx, radius) {
+      var romans = ["I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X", "XI", "XII"];
+      var fontBig = radius * 0.15 + "px Arial";
+      var fontSmall = radius * 0.075 + "px Arial";
+      var ang = undefined,
+          num = undefined;
+
+      ctx.textBaseline = "middle";
+      ctx.textAlign = "center";
+      for (num = 1; num < 13; num++) {
+         ang = num * Math.PI / 6;
+         ctx.rotate(ang);
+         ctx.translate(0, -radius * 0.78);
+         ctx.rotate(-ang);
+         ctx.font = fontBig;
+         ctx.fillStyle = "black";
+         ctx.fillText(this.drawRoman ? romans[num - 1] : num.toString(), 0, 0);
+         ctx.rotate(ang);
+         ctx.translate(0, radius * 0.78);
+         ctx.rotate(-ang);
+
+         // Draw inner numerals for 24 hour time format
+         if (this.draw24hour) {
+            ctx.rotate(ang);
+            ctx.translate(0, -radius * 0.60);
+            ctx.rotate(-ang);
+            ctx.font = fontSmall;
+            ctx.fillStyle = "red";
+            ctx.fillText((num + 12).toString(), 0, 0);
+            ctx.rotate(ang);
+            ctx.translate(0, radius * 0.60);
+            ctx.rotate(-ang);
+         }
+      }
+
+      // Write author text
+      ctx.font = fontSmall;
+      ctx.fillStyle = "#3D3B3D";
+      ctx.translate(0, radius * 0.30);
+      ctx.fillText("Pratik Harshal Desai", 0, 0);
+      ctx.translate(0, -radius * 0.30);
+   };
+
+   Clock.prototype.drawTicks = function drawTicks(ctx, radius) {
+      var numTicks = undefined,
+          tickAng = undefined,
+          tickX = undefined,
+          tickY = undefined;
+
+      for (numTicks = 0; numTicks < 60; numTicks++) {
+
+         tickAng = numTicks * Math.PI / 30;
+         tickX = radius * Math.sin(tickAng);
+         tickY = -radius * Math.cos(tickAng);
+
+         ctx.beginPath();
+         ctx.lineWidth = radius * 0.010;
+         ctx.moveTo(tickX, tickY);
+         if (numTicks % 5 === 0) {
+            ctx.lineTo(tickX * 0.88, tickY * 0.88);
+         } else {
+            ctx.lineTo(tickX * 0.92, tickY * 0.92);
+         }
+         ctx.stroke();
+      }
+   };
+
+   Clock.prototype.drawTime = function drawTime(ctx, radius) {
+      var now = this.state.time;
+      var hour = now.getHours();
+      var minute = now.getMinutes();
+      var second = now.getSeconds();
+
+      // hour
+      hour %= 12;
+      hour = hour * Math.PI / 6 + minute * Math.PI / (6 * 60) + second * Math.PI / (360 * 60);
+      this.drawHand(ctx, hour, radius * 0.5, radius * 0.05);
+      // minute
+      minute = minute * Math.PI / 30 + second * Math.PI / (30 * 60);
+      this.drawHand(ctx, minute, radius * 0.8, radius * 0.05);
+      // second
+      second = second * Math.PI / 30;
+      this.drawHand(ctx, second, radius * 0.9, radius * 0.02, "red");
+   };
+
+   Clock.prototype.drawHand = function drawHand(ctx, position, length, width, color) {
+      color = color || "black";
+      ctx.beginPath();
+      ctx.lineWidth = width;
+      ctx.lineCap = "round";
+      ctx.fillStyle = color;
+      ctx.strokeStyle = color;
+      ctx.moveTo(0, 0);
+      ctx.rotate(position);
+      ctx.lineTo(0, -length);
+      ctx.stroke();
+      ctx.rotate(-position);
+   };
+
+   Clock.prototype.render = function render() {
+      return React.createElement(
+         "div",
+         { className: "Clock", style: { width: String(this.props.size) + 'px' } },
+         React.createElement("canvas", { width: this.props.size, height: this.props.size, ref: "clockCanvas" })
+      );
+   };
+
+   return Clock;
+}(React.Component);
+
+Clock.defaultProps = {
+   size: 400, // size in pixels => size is length & width
+   timeFormat: "24hour", // {standard | 24hour} => if '24hour', hourFormat must be 'standard'
+   hourFormat: "standard" // {standard | roman}
+};
+
+Clock.propTypes = {
+   size: React.PropTypes.number,
+   timeFormat: React.PropTypes.string,
+   hourFormat: React.PropTypes.string
+};
+
+ReactDOM.render(React.createElement(App, null), document.getElementById('root'));
+  //# sourceURL=pen.js
+  </script>
+
+  
+  
+
+</body>
+</html>
+ 

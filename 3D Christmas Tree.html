@@ -1,0 +1,2512 @@
+
+
+<!DOCTYPE html>
+<html >
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="shortcut icon" type="image/x-icon" href="https://production-assets.codepen.io/assets/favicon/favicon-8ea04875e70c4b0bb41da869e81236e54394d63638a1ef12fa558a4a835f1164.ico" />
+  <link rel="mask-icon" type="" href="https://production-assets.codepen.io/assets/favicon/logo-pin-f2d2b6d2c61838f7e76325261b7195c27224080bc099486ddd6dccb469b8e8e6.svg" color="#111" />
+  <title>3D Christmas Tree</title>
+  
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+
+  
+      <style>
+      @import url('https://fonts.googleapis.com/css?family=Nothing+You+Could+Do');
+.main-wrapper {
+  background: -webkit-radial-gradient(bottom, #b11919 0%, #730f0f 50%, #310606 78%);
+  background: radial-gradient(bottom, #b11919 0%, #730f0f 50%, #310606 78%);
+  position: absolute;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+.tree-container {
+  display: block;
+  height: 330px;
+  margin: 0;
+  padding: 0;
+}
+.text-container {
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  bottom: 14%;
+  left: 15%;
+  right: 15%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  text-align: center;
+}
+.text-container h2 {
+  color: rgba(252, 251, 233, 0.85);
+  font-size: 2vw;
+  font-family: 'Nothing You Could Do', cursive;
+  margin: 0 0 .8em 0;
+}
+.text-container h2.happy {
+  font-size: 3.1vw;
+  margin-bottom: 0.3em;
+}
+.text-container a.c2 {
+  display: block;
+  font-size: 13px;
+  width: 40px;
+  height: 40px;
+  background-color: rgba(252, 251, 233, 0.8);
+  border-radius: 50%;
+  color: #8c1313;
+  text-decoration: none;
+  line-height: 40px;
+}
+.star {
+  border-radius: 0;
+  border-color: #f7b93f transparent transparent transparent;
+  border-style: solid;
+  border-top-width: 7.69230769px;
+  border-right-width: 10px;
+  border-left-width: 10px;
+  height: 0;
+  width: 0;
+  background: transparent;
+  z-index: 100;
+  -webkit-animation: pulsate-star 1.4s ease-in-out infinite alternate-reverse;
+          animation: pulsate-star 1.4s ease-in-out infinite alternate-reverse;
+}
+.star:before,
+.star:after {
+  border-color: #f7b93f transparent transparent transparent;
+  border-style: solid;
+  border-top-width: 7.69230769px;
+  border-right-width: 10px;
+  border-left-width: 10px;
+  border-bottom: 0;
+  content: '';
+  display: block;
+  height: 0;
+  left: -10px;
+  position: absolute;
+  top: -7.69230769px;
+  width: 0;
+}
+.star:before {
+  -webkit-transform: translate(15.5555555%, -15.5555555%) rotate(72deg) translateY(50%);
+          transform: translate(15.5555555%, -15.5555555%) rotate(72deg) translateY(50%);
+}
+.star:after {
+  -webkit-transform: translate(-15.5555555%, -15.5555555%) rotate(-72deg) translateY(50%);
+          transform: translate(-15.5555555%, -15.5555555%) rotate(-72deg) translateY(50%);
+}
+.spiral-container {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+.spiral {
+  position: relative;
+  margin: 0;
+  padding: 0;
+  -webkit-transform-style: preserve-3d;
+          transform-style: preserve-3d;
+}
+.spiral.one {
+  -webkit-animation: rotate-tree 6s infinite linear both;
+          animation: rotate-tree 6s infinite linear both;
+  -webkit-animation-delay: -1.7s;
+          animation-delay: -1.7s;
+}
+.spiral.one .light {
+  background: #fcfbe9;
+}
+.spiral.two {
+  -webkit-animation: rotate-tree 7s infinite linear both;
+          animation: rotate-tree 7s infinite linear both;
+  -webkit-animation-delay: -1s;
+          animation-delay: -1s;
+}
+.spiral.two .light {
+  background: #e8a41d;
+}
+.spiral.three {
+  -webkit-animation: rotate-tree 8s infinite linear both;
+          animation: rotate-tree 8s infinite linear both;
+  -webkit-animation-delay: -0.1s;
+          animation-delay: -0.1s;
+}
+.spiral.three .light {
+  background: #f5e393;
+}
+.spiral > .light-wrapper {
+  border-radius: 50%;
+  position: absolute;
+  display: block;
+  width: 5px;
+  height: 5px;
+  left: 50%;
+  top: 50%;
+  margin: -2.5px 0 0 -2.5px;
+}
+.spiral .stabilise {
+  position: absolute;
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.spiral .light {
+  position: absolute;
+  display: block;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  border-radius: 50%;
+  opacity: 1;
+  -webkit-animation-name: pulsate;
+          animation-name: pulsate;
+  -webkit-animation-timing-function: ease-in-out;
+          animation-timing-function: ease-in-out;
+  -webkit-animation-iteration-count: infinite;
+          animation-iteration-count: infinite;
+  -webkit-animation-direction: alternate-reverse;
+          animation-direction: alternate-reverse;
+}
+.spiral.one .light-wrapper.light-wrapper-1 {
+  -webkit-transform: translate3d(0px, 0.08333333px, 0.14285714px) rotateX(90deg) rotateZ(0deg) rotateY(0deg);
+          transform: translate3d(0px, 0.08333333px, 0.14285714px) rotateX(90deg) rotateZ(0deg) rotateY(0deg);
+  width: 0.23255814px;
+  height: 0.23255814px;
+}
+.spiral.one .light-wrapper.light-wrapper-1 .light {
+  -webkit-animation-duration: 1.28254524s;
+          animation-duration: 1.28254524s;
+  -webkit-animation-delay: 0.63884909s;
+          animation-delay: 0.63884909s;
+}
+.spiral.one .light-wrapper.light-wrapper-2 {
+  -webkit-transform: translate3d(0.05788273px, 0.32826925px, 0.57142857px) rotateX(90deg) rotateZ(0deg) rotateY(-10deg);
+          transform: translate3d(0.05788273px, 0.32826925px, 0.57142857px) rotateX(90deg) rotateZ(0deg) rotateY(-10deg);
+  width: 0.46511628px;
+  height: 0.46511628px;
+}
+.spiral.one .light-wrapper.light-wrapper-2 .light {
+  -webkit-animation-duration: 1.24275398s;
+          animation-duration: 1.24275398s;
+  -webkit-animation-delay: 1.13939354s;
+          animation-delay: 1.13939354s;
+}
+.spiral.one .light-wrapper.light-wrapper-3 {
+  -webkit-transform: translate3d(0.25651511px, 0.70476947px, 1.28571429px) rotateX(90deg) rotateZ(0deg) rotateY(-20deg);
+          transform: translate3d(0.25651511px, 0.70476947px, 1.28571429px) rotateX(90deg) rotateZ(0deg) rotateY(-20deg);
+  width: 0.69767442px;
+  height: 0.69767442px;
+}
+.spiral.one .light-wrapper.light-wrapper-3 .light {
+  -webkit-animation-duration: 1.18919054s;
+          animation-duration: 1.18919054s;
+  -webkit-animation-delay: 1.19819794s;
+          animation-delay: 1.19819794s;
+}
+.spiral.one .light-wrapper.light-wrapper-4 {
+  -webkit-transform: translate3d(0.66666667px, 1.15470054px, 2.28571429px) rotateX(90deg) rotateZ(0deg) rotateY(-30deg);
+          transform: translate3d(0.66666667px, 1.15470054px, 2.28571429px) rotateX(90deg) rotateZ(0deg) rotateY(-30deg);
+  width: 0.93023256px;
+  height: 0.93023256px;
+}
+.spiral.one .light-wrapper.light-wrapper-4 .light {
+  -webkit-animation-duration: 0.97974426s;
+          animation-duration: 0.97974426s;
+  -webkit-animation-delay: 1.11833134s;
+          animation-delay: 1.11833134s;
+}
+.spiral.one .light-wrapper.light-wrapper-5 {
+  -webkit-transform: translate3d(1.33914085px, 1.59592592px, 3.57142857px) rotateX(90deg) rotateZ(0deg) rotateY(-40deg);
+          transform: translate3d(1.33914085px, 1.59592592px, 3.57142857px) rotateX(90deg) rotateZ(0deg) rotateY(-40deg);
+  width: 1.1627907px;
+  height: 1.1627907px;
+}
+.spiral.one .light-wrapper.light-wrapper-5 .light {
+  -webkit-animation-duration: 1.16770661s;
+          animation-duration: 1.16770661s;
+  -webkit-animation-delay: 1.22586495s;
+          animation-delay: 1.22586495s;
+}
+.spiral.one .light-wrapper.light-wrapper-6 {
+  -webkit-transform: translate3d(2.29813333px, 1.92836283px, 5.14285714px) rotateX(90deg) rotateZ(0deg) rotateY(-50deg);
+          transform: translate3d(2.29813333px, 1.92836283px, 5.14285714px) rotateX(90deg) rotateZ(0deg) rotateY(-50deg);
+  width: 1.39534884px;
+  height: 1.39534884px;
+}
+.spiral.one .light-wrapper.light-wrapper-6 .light {
+  -webkit-animation-duration: 1.14343101s;
+          animation-duration: 1.14343101s;
+  -webkit-animation-delay: 0.59897231s;
+          animation-delay: 0.59897231s;
+}
+.spiral.one .light-wrapper.light-wrapper-7 {
+  -webkit-transform: translate3d(3.5362704px, 2.04166667px, 7px) rotateX(90deg) rotateZ(0deg) rotateY(-60deg);
+          transform: translate3d(3.5362704px, 2.04166667px, 7px) rotateX(90deg) rotateZ(0deg) rotateY(-60deg);
+  width: 1.62790698px;
+  height: 1.62790698px;
+}
+.spiral.one .light-wrapper.light-wrapper-7 .light {
+  -webkit-animation-duration: 0.42832084s;
+          animation-duration: 0.42832084s;
+  -webkit-animation-delay: 0.84340603s;
+          animation-delay: 0.84340603s;
+}
+.spiral.one .light-wrapper.light-wrapper-8 {
+  -webkit-transform: translate3d(5.01169398px, 1.82410743px, 9.14285714px) rotateX(90deg) rotateZ(0deg) rotateY(-70deg);
+          transform: translate3d(5.01169398px, 1.82410743px, 9.14285714px) rotateX(90deg) rotateZ(0deg) rotateY(-70deg);
+  width: 1.86046512px;
+  height: 1.86046512px;
+}
+.spiral.one .light-wrapper.light-wrapper-8 .light {
+  -webkit-animation-duration: 1.21865223s;
+          animation-duration: 1.21865223s;
+  -webkit-animation-delay: 0.53423479s;
+          animation-delay: 0.53423479s;
+}
+.spiral.one .light-wrapper.light-wrapper-9 {
+  -webkit-transform: translate3d(6.64745233px, 1.1721252px, 11.57142857px) rotateX(90deg) rotateZ(0deg) rotateY(-80deg);
+          transform: translate3d(6.64745233px, 1.1721252px, 11.57142857px) rotateX(90deg) rotateZ(0deg) rotateY(-80deg);
+  width: 2.09302326px;
+  height: 2.09302326px;
+}
+.spiral.one .light-wrapper.light-wrapper-9 .light {
+  -webkit-animation-duration: 0.85898891s;
+          animation-duration: 0.85898891s;
+  -webkit-animation-delay: 0.78344125s;
+          animation-delay: 0.78344125s;
+}
+.spiral.one .light-wrapper.light-wrapper-10 {
+  -webkit-transform: translate3d(8.33333333px, 0px, 14.28571429px) rotateX(90deg) rotateZ(0deg) rotateY(-90deg);
+          transform: translate3d(8.33333333px, 0px, 14.28571429px) rotateX(90deg) rotateZ(0deg) rotateY(-90deg);
+  width: 2.3255814px;
+  height: 2.3255814px;
+}
+.spiral.one .light-wrapper.light-wrapper-10 .light {
+  -webkit-animation-duration: 1.14855516s;
+          animation-duration: 1.14855516s;
+  -webkit-animation-delay: 0.71740113s;
+          animation-delay: 0.71740113s;
+}
+.spiral.one .light-wrapper.light-wrapper-11 {
+  -webkit-transform: translate3d(9.93014484px, -1.75095246px, 17.28571429px) rotateX(90deg) rotateZ(0deg) rotateY(-100deg);
+          transform: translate3d(9.93014484px, -1.75095246px, 17.28571429px) rotateX(90deg) rotateZ(0deg) rotateY(-100deg);
+  width: 2.55813953px;
+  height: 2.55813953px;
+}
+.spiral.one .light-wrapper.light-wrapper-11 .light {
+  -webkit-animation-duration: 1.13136807s;
+          animation-duration: 1.13136807s;
+  -webkit-animation-delay: 0.91034599s;
+          animation-delay: 0.91034599s;
+}
+.spiral.one .light-wrapper.light-wrapper-12 {
+  -webkit-transform: translate3d(11.27631145px, -4.10424172px, 20.57142857px) rotateX(90deg) rotateZ(0deg) rotateY(-110deg);
+          transform: translate3d(11.27631145px, -4.10424172px, 20.57142857px) rotateX(90deg) rotateZ(0deg) rotateY(-110deg);
+  width: 2.79069767px;
+  height: 2.79069767px;
+}
+.spiral.one .light-wrapper.light-wrapper-12 .light {
+  -webkit-animation-duration: 0.93314287s;
+          animation-duration: 0.93314287s;
+  -webkit-animation-delay: 0.7571256s;
+          animation-delay: 0.7571256s;
+}
+.spiral.one .light-wrapper.light-wrapper-13 {
+  -webkit-transform: translate3d(12.19652444px, -7.04166667px, 24.14285714px) rotateX(90deg) rotateZ(0deg) rotateY(-120deg);
+          transform: translate3d(12.19652444px, -7.04166667px, 24.14285714px) rotateX(90deg) rotateZ(0deg) rotateY(-120deg);
+  width: 3.02325581px;
+  height: 3.02325581px;
+}
+.spiral.one .light-wrapper.light-wrapper-13 .light {
+  -webkit-animation-duration: 1.17323013s;
+          animation-duration: 1.17323013s;
+  -webkit-animation-delay: 0.77851327s;
+          animation-delay: 0.77851327s;
+}
+.spiral.one .light-wrapper.light-wrapper-14 {
+  -webkit-transform: translate3d(12.51205924px, -10.49886429px, 28px) rotateX(90deg) rotateZ(0deg) rotateY(-130deg);
+          transform: translate3d(12.51205924px, -10.49886429px, 28px) rotateX(90deg) rotateZ(0deg) rotateY(-130deg);
+  width: 3.25581395px;
+  height: 3.25581395px;
+}
+.spiral.one .light-wrapper.light-wrapper-14 .light {
+  -webkit-animation-duration: 0.31025307s;
+          animation-duration: 0.31025307s;
+  -webkit-animation-delay: 1.11941988s;
+          animation-delay: 1.11941988s;
+}
+.spiral.one .light-wrapper.light-wrapper-15 {
+  -webkit-transform: translate3d(12.05226768px, -14.36333331px, 32.14285714px) rotateX(90deg) rotateZ(0deg) rotateY(-140deg);
+          transform: translate3d(12.05226768px, -14.36333331px, 32.14285714px) rotateX(90deg) rotateZ(0deg) rotateY(-140deg);
+  width: 3.48837209px;
+  height: 3.48837209px;
+}
+.spiral.one .light-wrapper.light-wrapper-15 .light {
+  -webkit-animation-duration: 0.97630602s;
+          animation-duration: 0.97630602s;
+  -webkit-animation-delay: 1.24078319s;
+          animation-delay: 1.24078319s;
+}
+.spiral.one .light-wrapper.light-wrapper-16 {
+  -webkit-transform: translate3d(10.66666667px, -18.47520861px, 36.57142857px) rotateX(90deg) rotateZ(0deg) rotateY(-150deg);
+          transform: translate3d(10.66666667px, -18.47520861px, 36.57142857px) rotateX(90deg) rotateZ(0deg) rotateY(-150deg);
+  width: 3.72093023px;
+  height: 3.72093023px;
+}
+.spiral.one .light-wrapper.light-wrapper-16 .light {
+  -webkit-animation-duration: 0.7300446s;
+          animation-duration: 0.7300446s;
+  -webkit-animation-delay: 1.12085028s;
+          animation-delay: 1.12085028s;
+}
+.spiral.one .light-wrapper.light-wrapper-17 {
+  -webkit-transform: translate3d(8.23698512px, -22.63093062px, 41.28571429px) rotateX(90deg) rotateZ(0deg) rotateY(-160deg);
+          transform: translate3d(8.23698512px, -22.63093062px, 41.28571429px) rotateX(90deg) rotateZ(0deg) rotateY(-160deg);
+  width: 3.95348837px;
+  height: 3.95348837px;
+}
+.spiral.one .light-wrapper.light-wrapper-17 .light {
+  -webkit-animation-duration: 0.54393986s;
+          animation-duration: 0.54393986s;
+  -webkit-animation-delay: 0.4155832s;
+          animation-delay: 0.4155832s;
+}
+.spiral.one .light-wrapper.light-wrapper-18 {
+  -webkit-transform: translate3d(4.6885008px, -26.58980933px, 46.28571429px) rotateX(90deg) rotateZ(0deg) rotateY(-170deg);
+          transform: translate3d(4.6885008px, -26.58980933px, 46.28571429px) rotateX(90deg) rotateZ(0deg) rotateY(-170deg);
+  width: 4.18604651px;
+  height: 4.18604651px;
+}
+.spiral.one .light-wrapper.light-wrapper-18 .light {
+  -webkit-animation-duration: 0.32576694s;
+          animation-duration: 0.32576694s;
+  -webkit-animation-delay: 0.69618654s;
+          animation-delay: 0.69618654s;
+}
+.spiral.one .light-wrapper.light-wrapper-19 {
+  -webkit-transform: translate3d(0px, -30.08333333px, 51.57142857px) rotateX(90deg) rotateZ(0deg) rotateY(-180deg);
+          transform: translate3d(0px, -30.08333333px, 51.57142857px) rotateX(90deg) rotateZ(0deg) rotateY(-180deg);
+  width: 4.41860465px;
+  height: 4.41860465px;
+}
+.spiral.one .light-wrapper.light-wrapper-19 .light {
+  -webkit-animation-duration: 0.39346959s;
+          animation-duration: 0.39346959s;
+  -webkit-animation-delay: 0.56556269s;
+          animation-delay: 0.56556269s;
+}
+.spiral.one .light-wrapper.light-wrapper-20 {
+  -webkit-transform: translate3d(-5.78827259px, -32.8269251px, 57.14285714px) rotateX(90deg) rotateZ(0deg) rotateY(-190deg);
+          transform: translate3d(-5.78827259px, -32.8269251px, 57.14285714px) rotateX(90deg) rotateZ(0deg) rotateY(-190deg);
+  width: 4.65116279px;
+  height: 4.65116279px;
+}
+.spiral.one .light-wrapper.light-wrapper-20 .light {
+  -webkit-animation-duration: 0.63963034s;
+          animation-duration: 0.63963034s;
+  -webkit-animation-delay: 1.0174997s;
+          animation-delay: 1.0174997s;
+}
+.spiral.one .light-wrapper.light-wrapper-21 {
+  -webkit-transform: translate3d(-12.56924027px, -34.53370381px, 63px) rotateX(90deg) rotateZ(0deg) rotateY(-200deg);
+          transform: translate3d(-12.56924027px, -34.53370381px, 63px) rotateX(90deg) rotateZ(0deg) rotateY(-200deg);
+  width: 4.88372093px;
+  height: 4.88372093px;
+}
+.spiral.one .light-wrapper.light-wrapper-21 .light {
+  -webkit-animation-duration: 1.15065477s;
+          animation-duration: 1.15065477s;
+  -webkit-animation-delay: 0.50855992s;
+          animation-delay: 0.50855992s;
+}
+.spiral.one .light-wrapper.light-wrapper-22 {
+  -webkit-transform: translate3d(-20.16666667px, -34.92969129px, 69.14285714px) rotateX(90deg) rotateZ(0deg) rotateY(-210deg);
+          transform: translate3d(-20.16666667px, -34.92969129px, 69.14285714px) rotateX(90deg) rotateZ(0deg) rotateY(-210deg);
+  width: 5.11627907px;
+  height: 5.11627907px;
+}
+.spiral.one .light-wrapper.light-wrapper-22 .light {
+  -webkit-animation-duration: 1.28869061s;
+          animation-duration: 1.28869061s;
+  -webkit-animation-delay: 0.39686419s;
+          animation-delay: 0.39686419s;
+}
+.spiral.one .light-wrapper.light-wrapper-23 {
+  -webkit-transform: translate3d(-28.33622046px, -33.76979253px, 75.57142857px) rotateX(90deg) rotateZ(0deg) rotateY(-220deg);
+          transform: translate3d(-28.33622046px, -33.76979253px, 75.57142857px) rotateX(90deg) rotateZ(0deg) rotateY(-220deg);
+  width: 5.34883721px;
+  height: 5.34883721px;
+}
+.spiral.one .light-wrapper.light-wrapper-23 .light {
+  -webkit-animation-duration: 0.45990419s;
+          animation-duration: 0.45990419s;
+  -webkit-animation-delay: 0.370097s;
+          animation-delay: 0.370097s;
+}
+.spiral.one .light-wrapper.light-wrapper-24 {
+  -webkit-transform: translate3d(-36.77013327px, -30.85380526px, 82.28571429px) rotateX(90deg) rotateZ(0deg) rotateY(-230deg);
+          transform: translate3d(-36.77013327px, -30.85380526px, 82.28571429px) rotateX(90deg) rotateZ(0deg) rotateY(-230deg);
+  width: 5.58139535px;
+  height: 5.58139535px;
+}
+.spiral.one .light-wrapper.light-wrapper-24 .light {
+  -webkit-animation-duration: 0.89028819s;
+          animation-duration: 0.89028819s;
+  -webkit-animation-delay: 0.43015019s;
+          animation-delay: 0.43015019s;
+}
+.spiral.one .light-wrapper.light-wrapper-25 {
+  -webkit-transform: translate3d(-45.10548978px, -26.04166667px, 89.28571429px) rotateX(90deg) rotateZ(0deg) rotateY(-240deg);
+          transform: translate3d(-45.10548978px, -26.04166667px, 89.28571429px) rotateX(90deg) rotateZ(0deg) rotateY(-240deg);
+  width: 5.81395349px;
+  height: 5.81395349px;
+}
+.spiral.one .light-wrapper.light-wrapper-25 .light {
+  -webkit-animation-duration: 0.99376719s;
+          animation-duration: 0.99376719s;
+  -webkit-animation-delay: 0.95697736s;
+          animation-delay: 0.95697736s;
+}
+.spiral.one .light-wrapper.light-wrapper-26 {
+  -webkit-transform: translate3d(-52.93601764px, -19.26713474px, 96.57142857px) rotateX(90deg) rotateZ(0deg) rotateY(-250deg);
+          transform: translate3d(-52.93601764px, -19.26713474px, 96.57142857px) rotateX(90deg) rotateZ(0deg) rotateY(-250deg);
+  width: 6.04651163px;
+  height: 6.04651163px;
+}
+.spiral.one .light-wrapper.light-wrapper-26 .light {
+  -webkit-animation-duration: 1.17910375s;
+          animation-duration: 1.17910375s;
+  -webkit-animation-delay: 0.48238781s;
+          animation-delay: 0.48238781s;
+}
+.spiral.one .light-wrapper.light-wrapper-27 {
+  -webkit-transform: translate3d(-59.827071px, -10.54912679px, 104.14285714px) rotateX(90deg) rotateZ(0deg) rotateY(-260deg);
+          transform: translate3d(-59.827071px, -10.54912679px, 104.14285714px) rotateX(90deg) rotateZ(0deg) rotateY(-260deg);
+  width: 6.27906977px;
+  height: 6.27906977px;
+}
+.spiral.one .light-wrapper.light-wrapper-27 .light {
+  -webkit-animation-duration: 0.7421552s;
+          animation-duration: 0.7421552s;
+  -webkit-animation-delay: 0.35423084s;
+          animation-delay: 0.35423084s;
+}
+.spiral.one .light-wrapper.light-wrapper-28 {
+  -webkit-transform: translate3d(-65.33333333px, 0px, 112px) rotateX(90deg) rotateZ(0deg) rotateY(-270deg);
+          transform: translate3d(-65.33333333px, 0px, 112px) rotateX(90deg) rotateZ(0deg) rotateY(-270deg);
+  width: 6.51162791px;
+  height: 6.51162791px;
+}
+.spiral.one .light-wrapper.light-wrapper-28 .light {
+  -webkit-animation-duration: 1.00077936s;
+          animation-duration: 1.00077936s;
+  -webkit-animation-delay: 0.41715405s;
+          animation-delay: 0.41715405s;
+}
+.spiral.one .light-wrapper.light-wrapper-29 {
+  -webkit-transform: translate3d(-69.01861002px, 12.16984312px, 120.14285714px) rotateX(90deg) rotateZ(0deg) rotateY(-280deg);
+          transform: translate3d(-69.01861002px, 12.16984312px, 120.14285714px) rotateX(90deg) rotateZ(0deg) rotateY(-280deg);
+  width: 6.74418605px;
+  height: 6.74418605px;
+}
+.spiral.one .light-wrapper.light-wrapper-29 .light {
+  -webkit-animation-duration: 1.02665397s;
+          animation-duration: 1.02665397s;
+  -webkit-animation-delay: 0.65874484s;
+          animation-delay: 0.65874484s;
+}
+.spiral.one .light-wrapper.light-wrapper-30 {
+  -webkit-transform: translate3d(-70.47694656px, 25.65151075px, 128.57142857px) rotateX(90deg) rotateZ(0deg) rotateY(-290deg);
+          transform: translate3d(-70.47694656px, 25.65151075px, 128.57142857px) rotateX(90deg) rotateZ(0deg) rotateY(-290deg);
+  width: 6.97674419px;
+  height: 6.97674419px;
+}
+.spiral.one .light-wrapper.light-wrapper-30 .light {
+  -webkit-animation-duration: 0.73697451s;
+          animation-duration: 0.73697451s;
+  -webkit-animation-delay: 0.83311695s;
+          animation-delay: 0.83311695s;
+}
+.spiral.one .light-wrapper.light-wrapper-31 {
+  -webkit-transform: translate3d(-69.35420109px, 40.04166667px, 137.28571429px) rotateX(90deg) rotateZ(0deg) rotateY(-300deg);
+          transform: translate3d(-69.35420109px, 40.04166667px, 137.28571429px) rotateX(90deg) rotateZ(0deg) rotateY(-300deg);
+  width: 7.20930233px;
+  height: 7.20930233px;
+}
+.spiral.one .light-wrapper.light-wrapper-31 .light {
+  -webkit-animation-duration: 1.262725s;
+          animation-duration: 1.262725s;
+  -webkit-animation-delay: 0.33571007s;
+          animation-delay: 0.33571007s;
+}
+.spiral.one .light-wrapper.light-wrapper-32 {
+  -webkit-transform: translate3d(-65.36912581px, 54.85120936px, 146.28571429px) rotateX(90deg) rotateZ(0deg) rotateY(-310deg);
+          transform: translate3d(-65.36912581px, 54.85120936px, 146.28571429px) rotateX(90deg) rotateZ(0deg) rotateY(-310deg);
+  width: 7.44186047px;
+  height: 7.44186047px;
+}
+.spiral.one .light-wrapper.light-wrapper-32 .light {
+  -webkit-animation-duration: 0.62612914s;
+          animation-duration: 0.62612914s;
+  -webkit-animation-delay: 0.3879204s;
+          animation-delay: 0.3879204s;
+}
+.spiral.one .light-wrapper.light-wrapper-33 {
+  -webkit-transform: translate3d(-58.33297558px, 69.51853321px, 155.57142857px) rotateX(90deg) rotateZ(0deg) rotateY(-320deg);
+          transform: translate3d(-58.33297558px, 69.51853321px, 155.57142857px) rotateX(90deg) rotateZ(0deg) rotateY(-320deg);
+  width: 7.6744186px;
+  height: 7.6744186px;
+}
+.spiral.one .light-wrapper.light-wrapper-33 .light {
+  -webkit-animation-duration: 0.81580476s;
+          animation-duration: 0.81580476s;
+  -webkit-animation-delay: 1.2404991s;
+          animation-delay: 1.2404991s;
+}
+.spiral.one .light-wrapper.light-wrapper-34 {
+  -webkit-transform: translate3d(-48.16666667px, 83.4271139px, 165.14285714px) rotateX(90deg) rotateZ(0deg) rotateY(-330deg);
+          transform: translate3d(-48.16666667px, 83.4271139px, 165.14285714px) rotateX(90deg) rotateZ(0deg) rotateY(-330deg);
+  width: 7.90697674px;
+  height: 7.90697674px;
+}
+.spiral.one .light-wrapper.light-wrapper-34 .light {
+  -webkit-animation-duration: 0.31141027s;
+          animation-duration: 0.31141027s;
+  -webkit-animation-delay: 1.01116167s;
+          animation-delay: 1.01116167s;
+}
+.spiral.one .light-wrapper.light-wrapper-35 {
+  -webkit-transform: translate3d(-34.9145563px, 95.92695504px, 175px) rotateX(90deg) rotateZ(0deg) rotateY(-340deg);
+          transform: translate3d(-34.9145563px, 95.92695504px, 175px) rotateX(90deg) rotateZ(0deg) rotateY(-340deg);
+  width: 8.13953488px;
+  height: 8.13953488px;
+}
+.spiral.one .light-wrapper.light-wrapper-35 .light {
+  -webkit-animation-duration: 1.08466965s;
+          animation-duration: 1.08466965s;
+  -webkit-animation-delay: 0.91825093s;
+          animation-delay: 0.91825093s;
+}
+.spiral.one .light-wrapper.light-wrapper-36 {
+  -webkit-transform: translate3d(-18.75400319px, 106.35923733px, 185.14285714px) rotateX(90deg) rotateZ(0deg) rotateY(-350deg);
+          transform: translate3d(-18.75400319px, 106.35923733px, 185.14285714px) rotateX(90deg) rotateZ(0deg) rotateY(-350deg);
+  width: 8.37209302px;
+  height: 8.37209302px;
+}
+.spiral.one .light-wrapper.light-wrapper-36 .light {
+  -webkit-animation-duration: 0.93265703s;
+          animation-duration: 0.93265703s;
+  -webkit-animation-delay: 1.11065656s;
+          animation-delay: 1.11065656s;
+}
+.spiral.one .light-wrapper.light-wrapper-37 {
+  -webkit-transform: translate3d(0px, 114.08333333px, 195.57142857px) rotateX(90deg) rotateZ(0deg) rotateY(-360deg);
+          transform: translate3d(0px, 114.08333333px, 195.57142857px) rotateX(90deg) rotateZ(0deg) rotateY(-360deg);
+  width: 8.60465116px;
+  height: 8.60465116px;
+}
+.spiral.one .light-wrapper.light-wrapper-37 .light {
+  -webkit-animation-duration: 1.28499085s;
+          animation-duration: 1.28499085s;
+  -webkit-animation-delay: 0.69947411s;
+          animation-delay: 0.69947411s;
+}
+.spiral.one .light-wrapper.light-wrapper-38 {
+  -webkit-transform: translate3d(20.89566405px, 118.50519961px, 206.28571429px) rotateX(90deg) rotateZ(0deg) rotateY(-370deg);
+          transform: translate3d(20.89566405px, 118.50519961px, 206.28571429px) rotateX(90deg) rotateZ(0deg) rotateY(-370deg);
+  width: 8.8372093px;
+  height: 8.8372093px;
+}
+.spiral.one .light-wrapper.light-wrapper-38 .light {
+  -webkit-animation-duration: 1.01163628s;
+          animation-duration: 1.01163628s;
+  -webkit-animation-delay: 1.04085879s;
+          animation-delay: 1.04085879s;
+}
+.spiral.one .light-wrapper.light-wrapper-39 {
+  -webkit-transform: translate3d(43.35105317px, 119.10603968px, 217.28571429px) rotateX(90deg) rotateZ(0deg) rotateY(-380deg);
+          transform: translate3d(43.35105317px, 119.10603968px, 217.28571429px) rotateX(90deg) rotateZ(0deg) rotateY(-380deg);
+  width: 9.06976744px;
+  height: 9.06976744px;
+}
+.spiral.one .light-wrapper.light-wrapper-39 .light {
+  -webkit-animation-duration: 0.73225314s;
+          animation-duration: 0.73225314s;
+  -webkit-animation-delay: 0.79890999s;
+          animation-delay: 0.79890999s;
+}
+.spiral.one .light-wrapper.light-wrapper-40 {
+  -webkit-transform: translate3d(66.66666667px, 115.47005384px, 228.57142857px) rotateX(90deg) rotateZ(0deg) rotateY(-390deg);
+          transform: translate3d(66.66666667px, 115.47005384px, 228.57142857px) rotateX(90deg) rotateZ(0deg) rotateY(-390deg);
+  width: 9.30232558px;
+  height: 9.30232558px;
+}
+.spiral.one .light-wrapper.light-wrapper-40 .light {
+  -webkit-animation-duration: 0.50882299s;
+          animation-duration: 0.50882299s;
+  -webkit-animation-delay: 0.45471713s;
+          animation-delay: 0.45471713s;
+}
+.spiral.one .light-wrapper.light-wrapper-41 {
+  -webkit-transform: translate3d(90.04383099px, 107.31005907px, 240.14285714px) rotateX(90deg) rotateZ(0deg) rotateY(-400deg);
+          transform: translate3d(90.04383099px, 107.31005907px, 240.14285714px) rotateX(90deg) rotateZ(0deg) rotateY(-400deg);
+  width: 9.53488372px;
+  height: 9.53488372px;
+}
+.spiral.one .light-wrapper.light-wrapper-41 .light {
+  -webkit-animation-duration: 1.23369235s;
+          animation-duration: 1.23369235s;
+  -webkit-animation-delay: 0.89617184s;
+          animation-delay: 0.89617184s;
+}
+.spiral.one .light-wrapper.light-wrapper-42 {
+  -webkit-transform: translate3d(112.60853314px, 94.48977862px, 252px) rotateX(90deg) rotateZ(0deg) rotateY(-410deg);
+          transform: translate3d(112.60853314px, 94.48977862px, 252px) rotateX(90deg) rotateZ(0deg) rotateY(-410deg);
+  width: 9.76744186px;
+  height: 9.76744186px;
+}
+.spiral.one .light-wrapper.light-wrapper-42 .light {
+  -webkit-animation-duration: 0.9011475s;
+          animation-duration: 0.9011475s;
+  -webkit-animation-delay: 1.02305478s;
+          animation-delay: 1.02305478s;
+}
+.spiral.one .light-wrapper.light-wrapper-43 {
+  -webkit-transform: translate3d(133.44008097px, 77.04166667px, 264.14285714px) rotateX(90deg) rotateZ(0deg) rotateY(-420deg);
+          transform: translate3d(133.44008097px, 77.04166667px, 264.14285714px) rotateX(90deg) rotateZ(0deg) rotateY(-420deg);
+  width: 10px;
+  height: 10px;
+}
+.spiral.one .light-wrapper.light-wrapper-43 .light {
+  -webkit-animation-duration: 0.41502512s;
+          animation-duration: 0.41502512s;
+  -webkit-animation-delay: 1.23064029s;
+          animation-delay: 1.23064029s;
+}
+.spiral.two .light-wrapper.light-wrapper-1 {
+  -webkit-transform: translate3d(0px, 0.08333333px, 0.14285714px) rotateX(90deg) rotateZ(0deg) rotateY(0deg);
+          transform: translate3d(0px, 0.08333333px, 0.14285714px) rotateX(90deg) rotateZ(0deg) rotateY(0deg);
+  width: 0.34883721px;
+  height: 0.34883721px;
+}
+.spiral.two .light-wrapper.light-wrapper-1 .light {
+  -webkit-animation-duration: 1.02452238s;
+          animation-duration: 1.02452238s;
+  -webkit-animation-delay: 0.59435702s;
+          animation-delay: 0.59435702s;
+}
+.spiral.two .light-wrapper.light-wrapper-2 {
+  -webkit-transform: translate3d(0.05788273px, 0.32826925px, 0.57142857px) rotateX(90deg) rotateZ(0deg) rotateY(-10deg);
+          transform: translate3d(0.05788273px, 0.32826925px, 0.57142857px) rotateX(90deg) rotateZ(0deg) rotateY(-10deg);
+  width: 0.69767442px;
+  height: 0.69767442px;
+}
+.spiral.two .light-wrapper.light-wrapper-2 .light {
+  -webkit-animation-duration: 0.69481043s;
+          animation-duration: 0.69481043s;
+  -webkit-animation-delay: 0.68373832s;
+          animation-delay: 0.68373832s;
+}
+.spiral.two .light-wrapper.light-wrapper-3 {
+  -webkit-transform: translate3d(0.25651511px, 0.70476947px, 1.28571429px) rotateX(90deg) rotateZ(0deg) rotateY(-20deg);
+          transform: translate3d(0.25651511px, 0.70476947px, 1.28571429px) rotateX(90deg) rotateZ(0deg) rotateY(-20deg);
+  width: 1.04651163px;
+  height: 1.04651163px;
+}
+.spiral.two .light-wrapper.light-wrapper-3 .light {
+  -webkit-animation-duration: 0.66804176s;
+          animation-duration: 0.66804176s;
+  -webkit-animation-delay: 1.06654763s;
+          animation-delay: 1.06654763s;
+}
+.spiral.two .light-wrapper.light-wrapper-4 {
+  -webkit-transform: translate3d(0.66666667px, 1.15470054px, 2.28571429px) rotateX(90deg) rotateZ(0deg) rotateY(-30deg);
+          transform: translate3d(0.66666667px, 1.15470054px, 2.28571429px) rotateX(90deg) rotateZ(0deg) rotateY(-30deg);
+  width: 1.39534884px;
+  height: 1.39534884px;
+}
+.spiral.two .light-wrapper.light-wrapper-4 .light {
+  -webkit-animation-duration: 0.4309541s;
+          animation-duration: 0.4309541s;
+  -webkit-animation-delay: 0.38892447s;
+          animation-delay: 0.38892447s;
+}
+.spiral.two .light-wrapper.light-wrapper-5 {
+  -webkit-transform: translate3d(1.33914085px, 1.59592592px, 3.57142857px) rotateX(90deg) rotateZ(0deg) rotateY(-40deg);
+          transform: translate3d(1.33914085px, 1.59592592px, 3.57142857px) rotateX(90deg) rotateZ(0deg) rotateY(-40deg);
+  width: 1.74418605px;
+  height: 1.74418605px;
+}
+.spiral.two .light-wrapper.light-wrapper-5 .light {
+  -webkit-animation-duration: 0.54650055s;
+          animation-duration: 0.54650055s;
+  -webkit-animation-delay: 0.78735312s;
+          animation-delay: 0.78735312s;
+}
+.spiral.two .light-wrapper.light-wrapper-6 {
+  -webkit-transform: translate3d(2.29813333px, 1.92836283px, 5.14285714px) rotateX(90deg) rotateZ(0deg) rotateY(-50deg);
+          transform: translate3d(2.29813333px, 1.92836283px, 5.14285714px) rotateX(90deg) rotateZ(0deg) rotateY(-50deg);
+  width: 2.09302326px;
+  height: 2.09302326px;
+}
+.spiral.two .light-wrapper.light-wrapper-6 .light {
+  -webkit-animation-duration: 0.44006109s;
+          animation-duration: 0.44006109s;
+  -webkit-animation-delay: 0.81783198s;
+          animation-delay: 0.81783198s;
+}
+.spiral.two .light-wrapper.light-wrapper-7 {
+  -webkit-transform: translate3d(3.5362704px, 2.04166667px, 7px) rotateX(90deg) rotateZ(0deg) rotateY(-60deg);
+          transform: translate3d(3.5362704px, 2.04166667px, 7px) rotateX(90deg) rotateZ(0deg) rotateY(-60deg);
+  width: 2.44186047px;
+  height: 2.44186047px;
+}
+.spiral.two .light-wrapper.light-wrapper-7 .light {
+  -webkit-animation-duration: 1.12619918s;
+          animation-duration: 1.12619918s;
+  -webkit-animation-delay: 0.61054887s;
+          animation-delay: 0.61054887s;
+}
+.spiral.two .light-wrapper.light-wrapper-8 {
+  -webkit-transform: translate3d(5.01169398px, 1.82410743px, 9.14285714px) rotateX(90deg) rotateZ(0deg) rotateY(-70deg);
+          transform: translate3d(5.01169398px, 1.82410743px, 9.14285714px) rotateX(90deg) rotateZ(0deg) rotateY(-70deg);
+  width: 2.79069767px;
+  height: 2.79069767px;
+}
+.spiral.two .light-wrapper.light-wrapper-8 .light {
+  -webkit-animation-duration: 0.5120031s;
+          animation-duration: 0.5120031s;
+  -webkit-animation-delay: 0.57494623s;
+          animation-delay: 0.57494623s;
+}
+.spiral.two .light-wrapper.light-wrapper-9 {
+  -webkit-transform: translate3d(6.64745233px, 1.1721252px, 11.57142857px) rotateX(90deg) rotateZ(0deg) rotateY(-80deg);
+          transform: translate3d(6.64745233px, 1.1721252px, 11.57142857px) rotateX(90deg) rotateZ(0deg) rotateY(-80deg);
+  width: 3.13953488px;
+  height: 3.13953488px;
+}
+.spiral.two .light-wrapper.light-wrapper-9 .light {
+  -webkit-animation-duration: 0.92403283s;
+          animation-duration: 0.92403283s;
+  -webkit-animation-delay: 0.49598345s;
+          animation-delay: 0.49598345s;
+}
+.spiral.two .light-wrapper.light-wrapper-10 {
+  -webkit-transform: translate3d(8.33333333px, 0px, 14.28571429px) rotateX(90deg) rotateZ(0deg) rotateY(-90deg);
+          transform: translate3d(8.33333333px, 0px, 14.28571429px) rotateX(90deg) rotateZ(0deg) rotateY(-90deg);
+  width: 3.48837209px;
+  height: 3.48837209px;
+}
+.spiral.two .light-wrapper.light-wrapper-10 .light {
+  -webkit-animation-duration: 1.27154047s;
+          animation-duration: 1.27154047s;
+  -webkit-animation-delay: 0.95448945s;
+          animation-delay: 0.95448945s;
+}
+.spiral.two .light-wrapper.light-wrapper-11 {
+  -webkit-transform: translate3d(9.93014484px, -1.75095246px, 17.28571429px) rotateX(90deg) rotateZ(0deg) rotateY(-100deg);
+          transform: translate3d(9.93014484px, -1.75095246px, 17.28571429px) rotateX(90deg) rotateZ(0deg) rotateY(-100deg);
+  width: 3.8372093px;
+  height: 3.8372093px;
+}
+.spiral.two .light-wrapper.light-wrapper-11 .light {
+  -webkit-animation-duration: 1.04200462s;
+          animation-duration: 1.04200462s;
+  -webkit-animation-delay: 0.76720993s;
+          animation-delay: 0.76720993s;
+}
+.spiral.two .light-wrapper.light-wrapper-12 {
+  -webkit-transform: translate3d(11.27631145px, -4.10424172px, 20.57142857px) rotateX(90deg) rotateZ(0deg) rotateY(-110deg);
+          transform: translate3d(11.27631145px, -4.10424172px, 20.57142857px) rotateX(90deg) rotateZ(0deg) rotateY(-110deg);
+  width: 4.18604651px;
+  height: 4.18604651px;
+}
+.spiral.two .light-wrapper.light-wrapper-12 .light {
+  -webkit-animation-duration: 1.08904519s;
+          animation-duration: 1.08904519s;
+  -webkit-animation-delay: 0.61991082s;
+          animation-delay: 0.61991082s;
+}
+.spiral.two .light-wrapper.light-wrapper-13 {
+  -webkit-transform: translate3d(12.19652444px, -7.04166667px, 24.14285714px) rotateX(90deg) rotateZ(0deg) rotateY(-120deg);
+          transform: translate3d(12.19652444px, -7.04166667px, 24.14285714px) rotateX(90deg) rotateZ(0deg) rotateY(-120deg);
+  width: 4.53488372px;
+  height: 4.53488372px;
+}
+.spiral.two .light-wrapper.light-wrapper-13 .light {
+  -webkit-animation-duration: 0.54239113s;
+          animation-duration: 0.54239113s;
+  -webkit-animation-delay: 0.72095822s;
+          animation-delay: 0.72095822s;
+}
+.spiral.two .light-wrapper.light-wrapper-14 {
+  -webkit-transform: translate3d(12.51205924px, -10.49886429px, 28px) rotateX(90deg) rotateZ(0deg) rotateY(-130deg);
+          transform: translate3d(12.51205924px, -10.49886429px, 28px) rotateX(90deg) rotateZ(0deg) rotateY(-130deg);
+  width: 4.88372093px;
+  height: 4.88372093px;
+}
+.spiral.two .light-wrapper.light-wrapper-14 .light {
+  -webkit-animation-duration: 0.5049223s;
+          animation-duration: 0.5049223s;
+  -webkit-animation-delay: 0.97240107s;
+          animation-delay: 0.97240107s;
+}
+.spiral.two .light-wrapper.light-wrapper-15 {
+  -webkit-transform: translate3d(12.05226768px, -14.36333331px, 32.14285714px) rotateX(90deg) rotateZ(0deg) rotateY(-140deg);
+          transform: translate3d(12.05226768px, -14.36333331px, 32.14285714px) rotateX(90deg) rotateZ(0deg) rotateY(-140deg);
+  width: 5.23255814px;
+  height: 5.23255814px;
+}
+.spiral.two .light-wrapper.light-wrapper-15 .light {
+  -webkit-animation-duration: 1.15365289s;
+          animation-duration: 1.15365289s;
+  -webkit-animation-delay: 0.46541406s;
+          animation-delay: 0.46541406s;
+}
+.spiral.two .light-wrapper.light-wrapper-16 {
+  -webkit-transform: translate3d(10.66666667px, -18.47520861px, 36.57142857px) rotateX(90deg) rotateZ(0deg) rotateY(-150deg);
+          transform: translate3d(10.66666667px, -18.47520861px, 36.57142857px) rotateX(90deg) rotateZ(0deg) rotateY(-150deg);
+  width: 5.58139535px;
+  height: 5.58139535px;
+}
+.spiral.two .light-wrapper.light-wrapper-16 .light {
+  -webkit-animation-duration: 0.93866059s;
+          animation-duration: 0.93866059s;
+  -webkit-animation-delay: 0.41514685s;
+          animation-delay: 0.41514685s;
+}
+.spiral.two .light-wrapper.light-wrapper-17 {
+  -webkit-transform: translate3d(8.23698512px, -22.63093062px, 41.28571429px) rotateX(90deg) rotateZ(0deg) rotateY(-160deg);
+          transform: translate3d(8.23698512px, -22.63093062px, 41.28571429px) rotateX(90deg) rotateZ(0deg) rotateY(-160deg);
+  width: 5.93023256px;
+  height: 5.93023256px;
+}
+.spiral.two .light-wrapper.light-wrapper-17 .light {
+  -webkit-animation-duration: 1.12485356s;
+          animation-duration: 1.12485356s;
+  -webkit-animation-delay: 0.31880082s;
+          animation-delay: 0.31880082s;
+}
+.spiral.two .light-wrapper.light-wrapper-18 {
+  -webkit-transform: translate3d(4.6885008px, -26.58980933px, 46.28571429px) rotateX(90deg) rotateZ(0deg) rotateY(-170deg);
+          transform: translate3d(4.6885008px, -26.58980933px, 46.28571429px) rotateX(90deg) rotateZ(0deg) rotateY(-170deg);
+  width: 6.27906977px;
+  height: 6.27906977px;
+}
+.spiral.two .light-wrapper.light-wrapper-18 .light {
+  -webkit-animation-duration: 0.82624561s;
+          animation-duration: 0.82624561s;
+  -webkit-animation-delay: 0.62726871s;
+          animation-delay: 0.62726871s;
+}
+.spiral.two .light-wrapper.light-wrapper-19 {
+  -webkit-transform: translate3d(0px, -30.08333333px, 51.57142857px) rotateX(90deg) rotateZ(0deg) rotateY(-180deg);
+          transform: translate3d(0px, -30.08333333px, 51.57142857px) rotateX(90deg) rotateZ(0deg) rotateY(-180deg);
+  width: 6.62790698px;
+  height: 6.62790698px;
+}
+.spiral.two .light-wrapper.light-wrapper-19 .light {
+  -webkit-animation-duration: 0.3438499s;
+          animation-duration: 0.3438499s;
+  -webkit-animation-delay: 0.8242159s;
+          animation-delay: 0.8242159s;
+}
+.spiral.two .light-wrapper.light-wrapper-20 {
+  -webkit-transform: translate3d(-5.78827259px, -32.8269251px, 57.14285714px) rotateX(90deg) rotateZ(0deg) rotateY(-190deg);
+          transform: translate3d(-5.78827259px, -32.8269251px, 57.14285714px) rotateX(90deg) rotateZ(0deg) rotateY(-190deg);
+  width: 6.97674419px;
+  height: 6.97674419px;
+}
+.spiral.two .light-wrapper.light-wrapper-20 .light {
+  -webkit-animation-duration: 0.36291235s;
+          animation-duration: 0.36291235s;
+  -webkit-animation-delay: 0.69218671s;
+          animation-delay: 0.69218671s;
+}
+.spiral.two .light-wrapper.light-wrapper-21 {
+  -webkit-transform: translate3d(-12.56924027px, -34.53370381px, 63px) rotateX(90deg) rotateZ(0deg) rotateY(-200deg);
+          transform: translate3d(-12.56924027px, -34.53370381px, 63px) rotateX(90deg) rotateZ(0deg) rotateY(-200deg);
+  width: 7.3255814px;
+  height: 7.3255814px;
+}
+.spiral.two .light-wrapper.light-wrapper-21 .light {
+  -webkit-animation-duration: 1.05326025s;
+          animation-duration: 1.05326025s;
+  -webkit-animation-delay: 0.58214726s;
+          animation-delay: 0.58214726s;
+}
+.spiral.two .light-wrapper.light-wrapper-22 {
+  -webkit-transform: translate3d(-20.16666667px, -34.92969129px, 69.14285714px) rotateX(90deg) rotateZ(0deg) rotateY(-210deg);
+          transform: translate3d(-20.16666667px, -34.92969129px, 69.14285714px) rotateX(90deg) rotateZ(0deg) rotateY(-210deg);
+  width: 7.6744186px;
+  height: 7.6744186px;
+}
+.spiral.two .light-wrapper.light-wrapper-22 .light {
+  -webkit-animation-duration: 0.38857662s;
+          animation-duration: 0.38857662s;
+  -webkit-animation-delay: 1.2804132s;
+          animation-delay: 1.2804132s;
+}
+.spiral.two .light-wrapper.light-wrapper-23 {
+  -webkit-transform: translate3d(-28.33622046px, -33.76979253px, 75.57142857px) rotateX(90deg) rotateZ(0deg) rotateY(-220deg);
+          transform: translate3d(-28.33622046px, -33.76979253px, 75.57142857px) rotateX(90deg) rotateZ(0deg) rotateY(-220deg);
+  width: 8.02325581px;
+  height: 8.02325581px;
+}
+.spiral.two .light-wrapper.light-wrapper-23 .light {
+  -webkit-animation-duration: 0.8871912s;
+          animation-duration: 0.8871912s;
+  -webkit-animation-delay: 0.52920116s;
+          animation-delay: 0.52920116s;
+}
+.spiral.two .light-wrapper.light-wrapper-24 {
+  -webkit-transform: translate3d(-36.77013327px, -30.85380526px, 82.28571429px) rotateX(90deg) rotateZ(0deg) rotateY(-230deg);
+          transform: translate3d(-36.77013327px, -30.85380526px, 82.28571429px) rotateX(90deg) rotateZ(0deg) rotateY(-230deg);
+  width: 8.37209302px;
+  height: 8.37209302px;
+}
+.spiral.two .light-wrapper.light-wrapper-24 .light {
+  -webkit-animation-duration: 0.75212051s;
+          animation-duration: 0.75212051s;
+  -webkit-animation-delay: 1.00779736s;
+          animation-delay: 1.00779736s;
+}
+.spiral.two .light-wrapper.light-wrapper-25 {
+  -webkit-transform: translate3d(-45.10548978px, -26.04166667px, 89.28571429px) rotateX(90deg) rotateZ(0deg) rotateY(-240deg);
+          transform: translate3d(-45.10548978px, -26.04166667px, 89.28571429px) rotateX(90deg) rotateZ(0deg) rotateY(-240deg);
+  width: 8.72093023px;
+  height: 8.72093023px;
+}
+.spiral.two .light-wrapper.light-wrapper-25 .light {
+  -webkit-animation-duration: 0.98528535s;
+          animation-duration: 0.98528535s;
+  -webkit-animation-delay: 0.91965914s;
+          animation-delay: 0.91965914s;
+}
+.spiral.two .light-wrapper.light-wrapper-26 {
+  -webkit-transform: translate3d(-52.93601764px, -19.26713474px, 96.57142857px) rotateX(90deg) rotateZ(0deg) rotateY(-250deg);
+          transform: translate3d(-52.93601764px, -19.26713474px, 96.57142857px) rotateX(90deg) rotateZ(0deg) rotateY(-250deg);
+  width: 9.06976744px;
+  height: 9.06976744px;
+}
+.spiral.two .light-wrapper.light-wrapper-26 .light {
+  -webkit-animation-duration: 0.37172993s;
+          animation-duration: 0.37172993s;
+  -webkit-animation-delay: 0.59539146s;
+          animation-delay: 0.59539146s;
+}
+.spiral.two .light-wrapper.light-wrapper-27 {
+  -webkit-transform: translate3d(-59.827071px, -10.54912679px, 104.14285714px) rotateX(90deg) rotateZ(0deg) rotateY(-260deg);
+          transform: translate3d(-59.827071px, -10.54912679px, 104.14285714px) rotateX(90deg) rotateZ(0deg) rotateY(-260deg);
+  width: 9.41860465px;
+  height: 9.41860465px;
+}
+.spiral.two .light-wrapper.light-wrapper-27 .light {
+  -webkit-animation-duration: 0.31864918s;
+          animation-duration: 0.31864918s;
+  -webkit-animation-delay: 0.7164905s;
+          animation-delay: 0.7164905s;
+}
+.spiral.two .light-wrapper.light-wrapper-28 {
+  -webkit-transform: translate3d(-65.33333333px, 0px, 112px) rotateX(90deg) rotateZ(0deg) rotateY(-270deg);
+          transform: translate3d(-65.33333333px, 0px, 112px) rotateX(90deg) rotateZ(0deg) rotateY(-270deg);
+  width: 9.76744186px;
+  height: 9.76744186px;
+}
+.spiral.two .light-wrapper.light-wrapper-28 .light {
+  -webkit-animation-duration: 0.96930122s;
+          animation-duration: 0.96930122s;
+  -webkit-animation-delay: 0.8791892s;
+          animation-delay: 0.8791892s;
+}
+.spiral.two .light-wrapper.light-wrapper-29 {
+  -webkit-transform: translate3d(-69.01861002px, 12.16984312px, 120.14285714px) rotateX(90deg) rotateZ(0deg) rotateY(-280deg);
+          transform: translate3d(-69.01861002px, 12.16984312px, 120.14285714px) rotateX(90deg) rotateZ(0deg) rotateY(-280deg);
+  width: 10.11627907px;
+  height: 10.11627907px;
+}
+.spiral.two .light-wrapper.light-wrapper-29 .light {
+  -webkit-animation-duration: 0.96126517s;
+          animation-duration: 0.96126517s;
+  -webkit-animation-delay: 0.77483025s;
+          animation-delay: 0.77483025s;
+}
+.spiral.two .light-wrapper.light-wrapper-30 {
+  -webkit-transform: translate3d(-70.47694656px, 25.65151075px, 128.57142857px) rotateX(90deg) rotateZ(0deg) rotateY(-290deg);
+          transform: translate3d(-70.47694656px, 25.65151075px, 128.57142857px) rotateX(90deg) rotateZ(0deg) rotateY(-290deg);
+  width: 10.46511628px;
+  height: 10.46511628px;
+}
+.spiral.two .light-wrapper.light-wrapper-30 .light {
+  -webkit-animation-duration: 0.4968916s;
+          animation-duration: 0.4968916s;
+  -webkit-animation-delay: 1.24448652s;
+          animation-delay: 1.24448652s;
+}
+.spiral.two .light-wrapper.light-wrapper-31 {
+  -webkit-transform: translate3d(-69.35420109px, 40.04166667px, 137.28571429px) rotateX(90deg) rotateZ(0deg) rotateY(-300deg);
+          transform: translate3d(-69.35420109px, 40.04166667px, 137.28571429px) rotateX(90deg) rotateZ(0deg) rotateY(-300deg);
+  width: 10.81395349px;
+  height: 10.81395349px;
+}
+.spiral.two .light-wrapper.light-wrapper-31 .light {
+  -webkit-animation-duration: 0.70363896s;
+          animation-duration: 0.70363896s;
+  -webkit-animation-delay: 0.71439063s;
+          animation-delay: 0.71439063s;
+}
+.spiral.two .light-wrapper.light-wrapper-32 {
+  -webkit-transform: translate3d(-65.36912581px, 54.85120936px, 146.28571429px) rotateX(90deg) rotateZ(0deg) rotateY(-310deg);
+          transform: translate3d(-65.36912581px, 54.85120936px, 146.28571429px) rotateX(90deg) rotateZ(0deg) rotateY(-310deg);
+  width: 11.1627907px;
+  height: 11.1627907px;
+}
+.spiral.two .light-wrapper.light-wrapper-32 .light {
+  -webkit-animation-duration: 1.17039793s;
+          animation-duration: 1.17039793s;
+  -webkit-animation-delay: 0.6517863s;
+          animation-delay: 0.6517863s;
+}
+.spiral.two .light-wrapper.light-wrapper-33 {
+  -webkit-transform: translate3d(-58.33297558px, 69.51853321px, 155.57142857px) rotateX(90deg) rotateZ(0deg) rotateY(-320deg);
+          transform: translate3d(-58.33297558px, 69.51853321px, 155.57142857px) rotateX(90deg) rotateZ(0deg) rotateY(-320deg);
+  width: 11.51162791px;
+  height: 11.51162791px;
+}
+.spiral.two .light-wrapper.light-wrapper-33 .light {
+  -webkit-animation-duration: 0.42202155s;
+          animation-duration: 0.42202155s;
+  -webkit-animation-delay: 1.23149514s;
+          animation-delay: 1.23149514s;
+}
+.spiral.two .light-wrapper.light-wrapper-34 {
+  -webkit-transform: translate3d(-48.16666667px, 83.4271139px, 165.14285714px) rotateX(90deg) rotateZ(0deg) rotateY(-330deg);
+          transform: translate3d(-48.16666667px, 83.4271139px, 165.14285714px) rotateX(90deg) rotateZ(0deg) rotateY(-330deg);
+  width: 11.86046512px;
+  height: 11.86046512px;
+}
+.spiral.two .light-wrapper.light-wrapper-34 .light {
+  -webkit-animation-duration: 0.71660799s;
+          animation-duration: 0.71660799s;
+  -webkit-animation-delay: 0.6057395s;
+          animation-delay: 0.6057395s;
+}
+.spiral.two .light-wrapper.light-wrapper-35 {
+  -webkit-transform: translate3d(-34.9145563px, 95.92695504px, 175px) rotateX(90deg) rotateZ(0deg) rotateY(-340deg);
+          transform: translate3d(-34.9145563px, 95.92695504px, 175px) rotateX(90deg) rotateZ(0deg) rotateY(-340deg);
+  width: 12.20930233px;
+  height: 12.20930233px;
+}
+.spiral.two .light-wrapper.light-wrapper-35 .light {
+  -webkit-animation-duration: 0.87931072s;
+          animation-duration: 0.87931072s;
+  -webkit-animation-delay: 1.18902474s;
+          animation-delay: 1.18902474s;
+}
+.spiral.two .light-wrapper.light-wrapper-36 {
+  -webkit-transform: translate3d(-18.75400319px, 106.35923733px, 185.14285714px) rotateX(90deg) rotateZ(0deg) rotateY(-350deg);
+          transform: translate3d(-18.75400319px, 106.35923733px, 185.14285714px) rotateX(90deg) rotateZ(0deg) rotateY(-350deg);
+  width: 12.55813953px;
+  height: 12.55813953px;
+}
+.spiral.two .light-wrapper.light-wrapper-36 .light {
+  -webkit-animation-duration: 0.43319664s;
+          animation-duration: 0.43319664s;
+  -webkit-animation-delay: 0.79404287s;
+          animation-delay: 0.79404287s;
+}
+.spiral.two .light-wrapper.light-wrapper-37 {
+  -webkit-transform: translate3d(0px, 114.08333333px, 195.57142857px) rotateX(90deg) rotateZ(0deg) rotateY(-360deg);
+          transform: translate3d(0px, 114.08333333px, 195.57142857px) rotateX(90deg) rotateZ(0deg) rotateY(-360deg);
+  width: 12.90697674px;
+  height: 12.90697674px;
+}
+.spiral.two .light-wrapper.light-wrapper-37 .light {
+  -webkit-animation-duration: 1.25772378s;
+          animation-duration: 1.25772378s;
+  -webkit-animation-delay: 1.10602755s;
+          animation-delay: 1.10602755s;
+}
+.spiral.two .light-wrapper.light-wrapper-38 {
+  -webkit-transform: translate3d(20.89566405px, 118.50519961px, 206.28571429px) rotateX(90deg) rotateZ(0deg) rotateY(-370deg);
+          transform: translate3d(20.89566405px, 118.50519961px, 206.28571429px) rotateX(90deg) rotateZ(0deg) rotateY(-370deg);
+  width: 13.25581395px;
+  height: 13.25581395px;
+}
+.spiral.two .light-wrapper.light-wrapper-38 .light {
+  -webkit-animation-duration: 0.90874891s;
+          animation-duration: 0.90874891s;
+  -webkit-animation-delay: 1.02364113s;
+          animation-delay: 1.02364113s;
+}
+.spiral.two .light-wrapper.light-wrapper-39 {
+  -webkit-transform: translate3d(43.35105317px, 119.10603968px, 217.28571429px) rotateX(90deg) rotateZ(0deg) rotateY(-380deg);
+          transform: translate3d(43.35105317px, 119.10603968px, 217.28571429px) rotateX(90deg) rotateZ(0deg) rotateY(-380deg);
+  width: 13.60465116px;
+  height: 13.60465116px;
+}
+.spiral.two .light-wrapper.light-wrapper-39 .light {
+  -webkit-animation-duration: 0.45659318s;
+          animation-duration: 0.45659318s;
+  -webkit-animation-delay: 0.6116511s;
+          animation-delay: 0.6116511s;
+}
+.spiral.two .light-wrapper.light-wrapper-40 {
+  -webkit-transform: translate3d(66.66666667px, 115.47005384px, 228.57142857px) rotateX(90deg) rotateZ(0deg) rotateY(-390deg);
+          transform: translate3d(66.66666667px, 115.47005384px, 228.57142857px) rotateX(90deg) rotateZ(0deg) rotateY(-390deg);
+  width: 13.95348837px;
+  height: 13.95348837px;
+}
+.spiral.two .light-wrapper.light-wrapper-40 .light {
+  -webkit-animation-duration: 0.80160931s;
+          animation-duration: 0.80160931s;
+  -webkit-animation-delay: 0.38980937s;
+          animation-delay: 0.38980937s;
+}
+.spiral.two .light-wrapper.light-wrapper-41 {
+  -webkit-transform: translate3d(90.04383099px, 107.31005907px, 240.14285714px) rotateX(90deg) rotateZ(0deg) rotateY(-400deg);
+          transform: translate3d(90.04383099px, 107.31005907px, 240.14285714px) rotateX(90deg) rotateZ(0deg) rotateY(-400deg);
+  width: 14.30232558px;
+  height: 14.30232558px;
+}
+.spiral.two .light-wrapper.light-wrapper-41 .light {
+  -webkit-animation-duration: 1.17884829s;
+          animation-duration: 1.17884829s;
+  -webkit-animation-delay: 1.10923864s;
+          animation-delay: 1.10923864s;
+}
+.spiral.two .light-wrapper.light-wrapper-42 {
+  -webkit-transform: translate3d(112.60853314px, 94.48977862px, 252px) rotateX(90deg) rotateZ(0deg) rotateY(-410deg);
+          transform: translate3d(112.60853314px, 94.48977862px, 252px) rotateX(90deg) rotateZ(0deg) rotateY(-410deg);
+  width: 14.65116279px;
+  height: 14.65116279px;
+}
+.spiral.two .light-wrapper.light-wrapper-42 .light {
+  -webkit-animation-duration: 0.40979851s;
+          animation-duration: 0.40979851s;
+  -webkit-animation-delay: 0.80387268s;
+          animation-delay: 0.80387268s;
+}
+.spiral.two .light-wrapper.light-wrapper-43 {
+  -webkit-transform: translate3d(133.44008097px, 77.04166667px, 264.14285714px) rotateX(90deg) rotateZ(0deg) rotateY(-420deg);
+          transform: translate3d(133.44008097px, 77.04166667px, 264.14285714px) rotateX(90deg) rotateZ(0deg) rotateY(-420deg);
+  width: 15px;
+  height: 15px;
+}
+.spiral.two .light-wrapper.light-wrapper-43 .light {
+  -webkit-animation-duration: 0.87799982s;
+          animation-duration: 0.87799982s;
+  -webkit-animation-delay: 0.52329198s;
+          animation-delay: 0.52329198s;
+}
+.spiral.three .light-wrapper.light-wrapper-1 {
+  -webkit-transform: translate3d(0px, 0.08333333px, 0.14285714px) rotateX(90deg) rotateZ(0deg) rotateY(0deg);
+          transform: translate3d(0px, 0.08333333px, 0.14285714px) rotateX(90deg) rotateZ(0deg) rotateY(0deg);
+  width: 0.23255814px;
+  height: 0.23255814px;
+}
+.spiral.three .light-wrapper.light-wrapper-1 .light {
+  -webkit-animation-duration: 1.26801929s;
+          animation-duration: 1.26801929s;
+  -webkit-animation-delay: 0.78725075s;
+          animation-delay: 0.78725075s;
+}
+.spiral.three .light-wrapper.light-wrapper-2 {
+  -webkit-transform: translate3d(0.05788273px, 0.32826925px, 0.57142857px) rotateX(90deg) rotateZ(0deg) rotateY(-10deg);
+          transform: translate3d(0.05788273px, 0.32826925px, 0.57142857px) rotateX(90deg) rotateZ(0deg) rotateY(-10deg);
+  width: 0.46511628px;
+  height: 0.46511628px;
+}
+.spiral.three .light-wrapper.light-wrapper-2 .light {
+  -webkit-animation-duration: 0.85869168s;
+          animation-duration: 0.85869168s;
+  -webkit-animation-delay: 0.6513597s;
+          animation-delay: 0.6513597s;
+}
+.spiral.three .light-wrapper.light-wrapper-3 {
+  -webkit-transform: translate3d(0.25651511px, 0.70476947px, 1.28571429px) rotateX(90deg) rotateZ(0deg) rotateY(-20deg);
+          transform: translate3d(0.25651511px, 0.70476947px, 1.28571429px) rotateX(90deg) rotateZ(0deg) rotateY(-20deg);
+  width: 0.69767442px;
+  height: 0.69767442px;
+}
+.spiral.three .light-wrapper.light-wrapper-3 .light {
+  -webkit-animation-duration: 0.45786553s;
+          animation-duration: 0.45786553s;
+  -webkit-animation-delay: 0.56929919s;
+          animation-delay: 0.56929919s;
+}
+.spiral.three .light-wrapper.light-wrapper-4 {
+  -webkit-transform: translate3d(0.66666667px, 1.15470054px, 2.28571429px) rotateX(90deg) rotateZ(0deg) rotateY(-30deg);
+          transform: translate3d(0.66666667px, 1.15470054px, 2.28571429px) rotateX(90deg) rotateZ(0deg) rotateY(-30deg);
+  width: 0.93023256px;
+  height: 0.93023256px;
+}
+.spiral.three .light-wrapper.light-wrapper-4 .light {
+  -webkit-animation-duration: 0.30823514s;
+          animation-duration: 0.30823514s;
+  -webkit-animation-delay: 0.80712494s;
+          animation-delay: 0.80712494s;
+}
+.spiral.three .light-wrapper.light-wrapper-5 {
+  -webkit-transform: translate3d(1.33914085px, 1.59592592px, 3.57142857px) rotateX(90deg) rotateZ(0deg) rotateY(-40deg);
+          transform: translate3d(1.33914085px, 1.59592592px, 3.57142857px) rotateX(90deg) rotateZ(0deg) rotateY(-40deg);
+  width: 1.1627907px;
+  height: 1.1627907px;
+}
+.spiral.three .light-wrapper.light-wrapper-5 .light {
+  -webkit-animation-duration: 1.00338665s;
+          animation-duration: 1.00338665s;
+  -webkit-animation-delay: 0.41473083s;
+          animation-delay: 0.41473083s;
+}
+.spiral.three .light-wrapper.light-wrapper-6 {
+  -webkit-transform: translate3d(2.29813333px, 1.92836283px, 5.14285714px) rotateX(90deg) rotateZ(0deg) rotateY(-50deg);
+          transform: translate3d(2.29813333px, 1.92836283px, 5.14285714px) rotateX(90deg) rotateZ(0deg) rotateY(-50deg);
+  width: 1.39534884px;
+  height: 1.39534884px;
+}
+.spiral.three .light-wrapper.light-wrapper-6 .light {
+  -webkit-animation-duration: 0.35793288s;
+          animation-duration: 0.35793288s;
+  -webkit-animation-delay: 0.73733512s;
+          animation-delay: 0.73733512s;
+}
+.spiral.three .light-wrapper.light-wrapper-7 {
+  -webkit-transform: translate3d(3.5362704px, 2.04166667px, 7px) rotateX(90deg) rotateZ(0deg) rotateY(-60deg);
+          transform: translate3d(3.5362704px, 2.04166667px, 7px) rotateX(90deg) rotateZ(0deg) rotateY(-60deg);
+  width: 1.62790698px;
+  height: 1.62790698px;
+}
+.spiral.three .light-wrapper.light-wrapper-7 .light {
+  -webkit-animation-duration: 0.34368022s;
+          animation-duration: 0.34368022s;
+  -webkit-animation-delay: 0.92130512s;
+          animation-delay: 0.92130512s;
+}
+.spiral.three .light-wrapper.light-wrapper-8 {
+  -webkit-transform: translate3d(5.01169398px, 1.82410743px, 9.14285714px) rotateX(90deg) rotateZ(0deg) rotateY(-70deg);
+          transform: translate3d(5.01169398px, 1.82410743px, 9.14285714px) rotateX(90deg) rotateZ(0deg) rotateY(-70deg);
+  width: 1.86046512px;
+  height: 1.86046512px;
+}
+.spiral.three .light-wrapper.light-wrapper-8 .light {
+  -webkit-animation-duration: 0.33078503s;
+          animation-duration: 0.33078503s;
+  -webkit-animation-delay: 0.46268365s;
+          animation-delay: 0.46268365s;
+}
+.spiral.three .light-wrapper.light-wrapper-9 {
+  -webkit-transform: translate3d(6.64745233px, 1.1721252px, 11.57142857px) rotateX(90deg) rotateZ(0deg) rotateY(-80deg);
+          transform: translate3d(6.64745233px, 1.1721252px, 11.57142857px) rotateX(90deg) rotateZ(0deg) rotateY(-80deg);
+  width: 2.09302326px;
+  height: 2.09302326px;
+}
+.spiral.three .light-wrapper.light-wrapper-9 .light {
+  -webkit-animation-duration: 1.09077753s;
+          animation-duration: 1.09077753s;
+  -webkit-animation-delay: 1.10804427s;
+          animation-delay: 1.10804427s;
+}
+.spiral.three .light-wrapper.light-wrapper-10 {
+  -webkit-transform: translate3d(8.33333333px, 0px, 14.28571429px) rotateX(90deg) rotateZ(0deg) rotateY(-90deg);
+          transform: translate3d(8.33333333px, 0px, 14.28571429px) rotateX(90deg) rotateZ(0deg) rotateY(-90deg);
+  width: 2.3255814px;
+  height: 2.3255814px;
+}
+.spiral.three .light-wrapper.light-wrapper-10 .light {
+  -webkit-animation-duration: 0.93114609s;
+          animation-duration: 0.93114609s;
+  -webkit-animation-delay: 0.78997647s;
+          animation-delay: 0.78997647s;
+}
+.spiral.three .light-wrapper.light-wrapper-11 {
+  -webkit-transform: translate3d(9.93014484px, -1.75095246px, 17.28571429px) rotateX(90deg) rotateZ(0deg) rotateY(-100deg);
+          transform: translate3d(9.93014484px, -1.75095246px, 17.28571429px) rotateX(90deg) rotateZ(0deg) rotateY(-100deg);
+  width: 2.55813953px;
+  height: 2.55813953px;
+}
+.spiral.three .light-wrapper.light-wrapper-11 .light {
+  -webkit-animation-duration: 0.3460336s;
+          animation-duration: 0.3460336s;
+  -webkit-animation-delay: 1.09831302s;
+          animation-delay: 1.09831302s;
+}
+.spiral.three .light-wrapper.light-wrapper-12 {
+  -webkit-transform: translate3d(11.27631145px, -4.10424172px, 20.57142857px) rotateX(90deg) rotateZ(0deg) rotateY(-110deg);
+          transform: translate3d(11.27631145px, -4.10424172px, 20.57142857px) rotateX(90deg) rotateZ(0deg) rotateY(-110deg);
+  width: 2.79069767px;
+  height: 2.79069767px;
+}
+.spiral.three .light-wrapper.light-wrapper-12 .light {
+  -webkit-animation-duration: 0.74905896s;
+          animation-duration: 0.74905896s;
+  -webkit-animation-delay: 0.7145422s;
+          animation-delay: 0.7145422s;
+}
+.spiral.three .light-wrapper.light-wrapper-13 {
+  -webkit-transform: translate3d(12.19652444px, -7.04166667px, 24.14285714px) rotateX(90deg) rotateZ(0deg) rotateY(-120deg);
+          transform: translate3d(12.19652444px, -7.04166667px, 24.14285714px) rotateX(90deg) rotateZ(0deg) rotateY(-120deg);
+  width: 3.02325581px;
+  height: 3.02325581px;
+}
+.spiral.three .light-wrapper.light-wrapper-13 .light {
+  -webkit-animation-duration: 0.86781615s;
+          animation-duration: 0.86781615s;
+  -webkit-animation-delay: 1.00191814s;
+          animation-delay: 1.00191814s;
+}
+.spiral.three .light-wrapper.light-wrapper-14 {
+  -webkit-transform: translate3d(12.51205924px, -10.49886429px, 28px) rotateX(90deg) rotateZ(0deg) rotateY(-130deg);
+          transform: translate3d(12.51205924px, -10.49886429px, 28px) rotateX(90deg) rotateZ(0deg) rotateY(-130deg);
+  width: 3.25581395px;
+  height: 3.25581395px;
+}
+.spiral.three .light-wrapper.light-wrapper-14 .light {
+  -webkit-animation-duration: 0.49585143s;
+          animation-duration: 0.49585143s;
+  -webkit-animation-delay: 0.56915419s;
+          animation-delay: 0.56915419s;
+}
+.spiral.three .light-wrapper.light-wrapper-15 {
+  -webkit-transform: translate3d(12.05226768px, -14.36333331px, 32.14285714px) rotateX(90deg) rotateZ(0deg) rotateY(-140deg);
+          transform: translate3d(12.05226768px, -14.36333331px, 32.14285714px) rotateX(90deg) rotateZ(0deg) rotateY(-140deg);
+  width: 3.48837209px;
+  height: 3.48837209px;
+}
+.spiral.three .light-wrapper.light-wrapper-15 .light {
+  -webkit-animation-duration: 0.85124673s;
+          animation-duration: 0.85124673s;
+  -webkit-animation-delay: 1.19263174s;
+          animation-delay: 1.19263174s;
+}
+.spiral.three .light-wrapper.light-wrapper-16 {
+  -webkit-transform: translate3d(10.66666667px, -18.47520861px, 36.57142857px) rotateX(90deg) rotateZ(0deg) rotateY(-150deg);
+          transform: translate3d(10.66666667px, -18.47520861px, 36.57142857px) rotateX(90deg) rotateZ(0deg) rotateY(-150deg);
+  width: 3.72093023px;
+  height: 3.72093023px;
+}
+.spiral.three .light-wrapper.light-wrapper-16 .light {
+  -webkit-animation-duration: 0.60223483s;
+          animation-duration: 0.60223483s;
+  -webkit-animation-delay: 0.52377362s;
+          animation-delay: 0.52377362s;
+}
+.spiral.three .light-wrapper.light-wrapper-17 {
+  -webkit-transform: translate3d(8.23698512px, -22.63093062px, 41.28571429px) rotateX(90deg) rotateZ(0deg) rotateY(-160deg);
+          transform: translate3d(8.23698512px, -22.63093062px, 41.28571429px) rotateX(90deg) rotateZ(0deg) rotateY(-160deg);
+  width: 3.95348837px;
+  height: 3.95348837px;
+}
+.spiral.three .light-wrapper.light-wrapper-17 .light {
+  -webkit-animation-duration: 0.47923886s;
+          animation-duration: 0.47923886s;
+  -webkit-animation-delay: 0.99660516s;
+          animation-delay: 0.99660516s;
+}
+.spiral.three .light-wrapper.light-wrapper-18 {
+  -webkit-transform: translate3d(4.6885008px, -26.58980933px, 46.28571429px) rotateX(90deg) rotateZ(0deg) rotateY(-170deg);
+          transform: translate3d(4.6885008px, -26.58980933px, 46.28571429px) rotateX(90deg) rotateZ(0deg) rotateY(-170deg);
+  width: 4.18604651px;
+  height: 4.18604651px;
+}
+.spiral.three .light-wrapper.light-wrapper-18 .light {
+  -webkit-animation-duration: 1.28871984s;
+          animation-duration: 1.28871984s;
+  -webkit-animation-delay: 0.74273209s;
+          animation-delay: 0.74273209s;
+}
+.spiral.three .light-wrapper.light-wrapper-19 {
+  -webkit-transform: translate3d(0px, -30.08333333px, 51.57142857px) rotateX(90deg) rotateZ(0deg) rotateY(-180deg);
+          transform: translate3d(0px, -30.08333333px, 51.57142857px) rotateX(90deg) rotateZ(0deg) rotateY(-180deg);
+  width: 4.41860465px;
+  height: 4.41860465px;
+}
+.spiral.three .light-wrapper.light-wrapper-19 .light {
+  -webkit-animation-duration: 0.50802908s;
+          animation-duration: 0.50802908s;
+  -webkit-animation-delay: 1.118464s;
+          animation-delay: 1.118464s;
+}
+.spiral.three .light-wrapper.light-wrapper-20 {
+  -webkit-transform: translate3d(-5.78827259px, -32.8269251px, 57.14285714px) rotateX(90deg) rotateZ(0deg) rotateY(-190deg);
+          transform: translate3d(-5.78827259px, -32.8269251px, 57.14285714px) rotateX(90deg) rotateZ(0deg) rotateY(-190deg);
+  width: 4.65116279px;
+  height: 4.65116279px;
+}
+.spiral.three .light-wrapper.light-wrapper-20 .light {
+  -webkit-animation-duration: 0.97236789s;
+          animation-duration: 0.97236789s;
+  -webkit-animation-delay: 1.15526665s;
+          animation-delay: 1.15526665s;
+}
+.spiral.three .light-wrapper.light-wrapper-21 {
+  -webkit-transform: translate3d(-12.56924027px, -34.53370381px, 63px) rotateX(90deg) rotateZ(0deg) rotateY(-200deg);
+          transform: translate3d(-12.56924027px, -34.53370381px, 63px) rotateX(90deg) rotateZ(0deg) rotateY(-200deg);
+  width: 4.88372093px;
+  height: 4.88372093px;
+}
+.spiral.three .light-wrapper.light-wrapper-21 .light {
+  -webkit-animation-duration: 1.20648283s;
+          animation-duration: 1.20648283s;
+  -webkit-animation-delay: 1.20512039s;
+          animation-delay: 1.20512039s;
+}
+.spiral.three .light-wrapper.light-wrapper-22 {
+  -webkit-transform: translate3d(-20.16666667px, -34.92969129px, 69.14285714px) rotateX(90deg) rotateZ(0deg) rotateY(-210deg);
+          transform: translate3d(-20.16666667px, -34.92969129px, 69.14285714px) rotateX(90deg) rotateZ(0deg) rotateY(-210deg);
+  width: 5.11627907px;
+  height: 5.11627907px;
+}
+.spiral.three .light-wrapper.light-wrapper-22 .light {
+  -webkit-animation-duration: 0.77908861s;
+          animation-duration: 0.77908861s;
+  -webkit-animation-delay: 1.172481s;
+          animation-delay: 1.172481s;
+}
+.spiral.three .light-wrapper.light-wrapper-23 {
+  -webkit-transform: translate3d(-28.33622046px, -33.76979253px, 75.57142857px) rotateX(90deg) rotateZ(0deg) rotateY(-220deg);
+          transform: translate3d(-28.33622046px, -33.76979253px, 75.57142857px) rotateX(90deg) rotateZ(0deg) rotateY(-220deg);
+  width: 5.34883721px;
+  height: 5.34883721px;
+}
+.spiral.three .light-wrapper.light-wrapper-23 .light {
+  -webkit-animation-duration: 0.99265062s;
+          animation-duration: 0.99265062s;
+  -webkit-animation-delay: 0.76381137s;
+          animation-delay: 0.76381137s;
+}
+.spiral.three .light-wrapper.light-wrapper-24 {
+  -webkit-transform: translate3d(-36.77013327px, -30.85380526px, 82.28571429px) rotateX(90deg) rotateZ(0deg) rotateY(-230deg);
+          transform: translate3d(-36.77013327px, -30.85380526px, 82.28571429px) rotateX(90deg) rotateZ(0deg) rotateY(-230deg);
+  width: 5.58139535px;
+  height: 5.58139535px;
+}
+.spiral.three .light-wrapper.light-wrapper-24 .light {
+  -webkit-animation-duration: 0.82109124s;
+          animation-duration: 0.82109124s;
+  -webkit-animation-delay: 0.58705583s;
+          animation-delay: 0.58705583s;
+}
+.spiral.three .light-wrapper.light-wrapper-25 {
+  -webkit-transform: translate3d(-45.10548978px, -26.04166667px, 89.28571429px) rotateX(90deg) rotateZ(0deg) rotateY(-240deg);
+          transform: translate3d(-45.10548978px, -26.04166667px, 89.28571429px) rotateX(90deg) rotateZ(0deg) rotateY(-240deg);
+  width: 5.81395349px;
+  height: 5.81395349px;
+}
+.spiral.three .light-wrapper.light-wrapper-25 .light {
+  -webkit-animation-duration: 0.92140686s;
+          animation-duration: 0.92140686s;
+  -webkit-animation-delay: 0.37788335s;
+          animation-delay: 0.37788335s;
+}
+.spiral.three .light-wrapper.light-wrapper-26 {
+  -webkit-transform: translate3d(-52.93601764px, -19.26713474px, 96.57142857px) rotateX(90deg) rotateZ(0deg) rotateY(-250deg);
+          transform: translate3d(-52.93601764px, -19.26713474px, 96.57142857px) rotateX(90deg) rotateZ(0deg) rotateY(-250deg);
+  width: 6.04651163px;
+  height: 6.04651163px;
+}
+.spiral.three .light-wrapper.light-wrapper-26 .light {
+  -webkit-animation-duration: 1.04242781s;
+          animation-duration: 1.04242781s;
+  -webkit-animation-delay: 1.08023516s;
+          animation-delay: 1.08023516s;
+}
+.spiral.three .light-wrapper.light-wrapper-27 {
+  -webkit-transform: translate3d(-59.827071px, -10.54912679px, 104.14285714px) rotateX(90deg) rotateZ(0deg) rotateY(-260deg);
+          transform: translate3d(-59.827071px, -10.54912679px, 104.14285714px) rotateX(90deg) rotateZ(0deg) rotateY(-260deg);
+  width: 6.27906977px;
+  height: 6.27906977px;
+}
+.spiral.three .light-wrapper.light-wrapper-27 .light {
+  -webkit-animation-duration: 0.48955261s;
+          animation-duration: 0.48955261s;
+  -webkit-animation-delay: 0.94919869s;
+          animation-delay: 0.94919869s;
+}
+.spiral.three .light-wrapper.light-wrapper-28 {
+  -webkit-transform: translate3d(-65.33333333px, 0px, 112px) rotateX(90deg) rotateZ(0deg) rotateY(-270deg);
+          transform: translate3d(-65.33333333px, 0px, 112px) rotateX(90deg) rotateZ(0deg) rotateY(-270deg);
+  width: 6.51162791px;
+  height: 6.51162791px;
+}
+.spiral.three .light-wrapper.light-wrapper-28 .light {
+  -webkit-animation-duration: 1.20840096s;
+          animation-duration: 1.20840096s;
+  -webkit-animation-delay: 0.60925506s;
+          animation-delay: 0.60925506s;
+}
+.spiral.three .light-wrapper.light-wrapper-29 {
+  -webkit-transform: translate3d(-69.01861002px, 12.16984312px, 120.14285714px) rotateX(90deg) rotateZ(0deg) rotateY(-280deg);
+          transform: translate3d(-69.01861002px, 12.16984312px, 120.14285714px) rotateX(90deg) rotateZ(0deg) rotateY(-280deg);
+  width: 6.74418605px;
+  height: 6.74418605px;
+}
+.spiral.three .light-wrapper.light-wrapper-29 .light {
+  -webkit-animation-duration: 0.55375476s;
+          animation-duration: 0.55375476s;
+  -webkit-animation-delay: 0.53517081s;
+          animation-delay: 0.53517081s;
+}
+.spiral.three .light-wrapper.light-wrapper-30 {
+  -webkit-transform: translate3d(-70.47694656px, 25.65151075px, 128.57142857px) rotateX(90deg) rotateZ(0deg) rotateY(-290deg);
+          transform: translate3d(-70.47694656px, 25.65151075px, 128.57142857px) rotateX(90deg) rotateZ(0deg) rotateY(-290deg);
+  width: 6.97674419px;
+  height: 6.97674419px;
+}
+.spiral.three .light-wrapper.light-wrapper-30 .light {
+  -webkit-animation-duration: 1.15801941s;
+          animation-duration: 1.15801941s;
+  -webkit-animation-delay: 0.50439564s;
+          animation-delay: 0.50439564s;
+}
+.spiral.three .light-wrapper.light-wrapper-31 {
+  -webkit-transform: translate3d(-69.35420109px, 40.04166667px, 137.28571429px) rotateX(90deg) rotateZ(0deg) rotateY(-300deg);
+          transform: translate3d(-69.35420109px, 40.04166667px, 137.28571429px) rotateX(90deg) rotateZ(0deg) rotateY(-300deg);
+  width: 7.20930233px;
+  height: 7.20930233px;
+}
+.spiral.three .light-wrapper.light-wrapper-31 .light {
+  -webkit-animation-duration: 0.6084488s;
+          animation-duration: 0.6084488s;
+  -webkit-animation-delay: 0.62594359s;
+          animation-delay: 0.62594359s;
+}
+.spiral.three .light-wrapper.light-wrapper-32 {
+  -webkit-transform: translate3d(-65.36912581px, 54.85120936px, 146.28571429px) rotateX(90deg) rotateZ(0deg) rotateY(-310deg);
+          transform: translate3d(-65.36912581px, 54.85120936px, 146.28571429px) rotateX(90deg) rotateZ(0deg) rotateY(-310deg);
+  width: 7.44186047px;
+  height: 7.44186047px;
+}
+.spiral.three .light-wrapper.light-wrapper-32 .light {
+  -webkit-animation-duration: 0.82749051s;
+          animation-duration: 0.82749051s;
+  -webkit-animation-delay: 1.02828806s;
+          animation-delay: 1.02828806s;
+}
+.spiral.three .light-wrapper.light-wrapper-33 {
+  -webkit-transform: translate3d(-58.33297558px, 69.51853321px, 155.57142857px) rotateX(90deg) rotateZ(0deg) rotateY(-320deg);
+          transform: translate3d(-58.33297558px, 69.51853321px, 155.57142857px) rotateX(90deg) rotateZ(0deg) rotateY(-320deg);
+  width: 7.6744186px;
+  height: 7.6744186px;
+}
+.spiral.three .light-wrapper.light-wrapper-33 .light {
+  -webkit-animation-duration: 1.23272587s;
+          animation-duration: 1.23272587s;
+  -webkit-animation-delay: 0.45342403s;
+          animation-delay: 0.45342403s;
+}
+.spiral.three .light-wrapper.light-wrapper-34 {
+  -webkit-transform: translate3d(-48.16666667px, 83.4271139px, 165.14285714px) rotateX(90deg) rotateZ(0deg) rotateY(-330deg);
+          transform: translate3d(-48.16666667px, 83.4271139px, 165.14285714px) rotateX(90deg) rotateZ(0deg) rotateY(-330deg);
+  width: 7.90697674px;
+  height: 7.90697674px;
+}
+.spiral.three .light-wrapper.light-wrapper-34 .light {
+  -webkit-animation-duration: 1.16937442s;
+          animation-duration: 1.16937442s;
+  -webkit-animation-delay: 1.05162298s;
+          animation-delay: 1.05162298s;
+}
+.spiral.three .light-wrapper.light-wrapper-35 {
+  -webkit-transform: translate3d(-34.9145563px, 95.92695504px, 175px) rotateX(90deg) rotateZ(0deg) rotateY(-340deg);
+          transform: translate3d(-34.9145563px, 95.92695504px, 175px) rotateX(90deg) rotateZ(0deg) rotateY(-340deg);
+  width: 8.13953488px;
+  height: 8.13953488px;
+}
+.spiral.three .light-wrapper.light-wrapper-35 .light {
+  -webkit-animation-duration: 1.07642061s;
+          animation-duration: 1.07642061s;
+  -webkit-animation-delay: 1.27384921s;
+          animation-delay: 1.27384921s;
+}
+.spiral.three .light-wrapper.light-wrapper-36 {
+  -webkit-transform: translate3d(-18.75400319px, 106.35923733px, 185.14285714px) rotateX(90deg) rotateZ(0deg) rotateY(-350deg);
+          transform: translate3d(-18.75400319px, 106.35923733px, 185.14285714px) rotateX(90deg) rotateZ(0deg) rotateY(-350deg);
+  width: 8.37209302px;
+  height: 8.37209302px;
+}
+.spiral.three .light-wrapper.light-wrapper-36 .light {
+  -webkit-animation-duration: 0.35844572s;
+          animation-duration: 0.35844572s;
+  -webkit-animation-delay: 1.10995055s;
+          animation-delay: 1.10995055s;
+}
+.spiral.three .light-wrapper.light-wrapper-37 {
+  -webkit-transform: translate3d(0px, 114.08333333px, 195.57142857px) rotateX(90deg) rotateZ(0deg) rotateY(-360deg);
+          transform: translate3d(0px, 114.08333333px, 195.57142857px) rotateX(90deg) rotateZ(0deg) rotateY(-360deg);
+  width: 8.60465116px;
+  height: 8.60465116px;
+}
+.spiral.three .light-wrapper.light-wrapper-37 .light {
+  -webkit-animation-duration: 1.02068877s;
+          animation-duration: 1.02068877s;
+  -webkit-animation-delay: 0.5678452s;
+          animation-delay: 0.5678452s;
+}
+.spiral.three .light-wrapper.light-wrapper-38 {
+  -webkit-transform: translate3d(20.89566405px, 118.50519961px, 206.28571429px) rotateX(90deg) rotateZ(0deg) rotateY(-370deg);
+          transform: translate3d(20.89566405px, 118.50519961px, 206.28571429px) rotateX(90deg) rotateZ(0deg) rotateY(-370deg);
+  width: 8.8372093px;
+  height: 8.8372093px;
+}
+.spiral.three .light-wrapper.light-wrapper-38 .light {
+  -webkit-animation-duration: 1.17840801s;
+          animation-duration: 1.17840801s;
+  -webkit-animation-delay: 0.94848032s;
+          animation-delay: 0.94848032s;
+}
+.spiral.three .light-wrapper.light-wrapper-39 {
+  -webkit-transform: translate3d(43.35105317px, 119.10603968px, 217.28571429px) rotateX(90deg) rotateZ(0deg) rotateY(-380deg);
+          transform: translate3d(43.35105317px, 119.10603968px, 217.28571429px) rotateX(90deg) rotateZ(0deg) rotateY(-380deg);
+  width: 9.06976744px;
+  height: 9.06976744px;
+}
+.spiral.three .light-wrapper.light-wrapper-39 .light {
+  -webkit-animation-duration: 1.2580163s;
+          animation-duration: 1.2580163s;
+  -webkit-animation-delay: 0.38573626s;
+          animation-delay: 0.38573626s;
+}
+.spiral.three .light-wrapper.light-wrapper-40 {
+  -webkit-transform: translate3d(66.66666667px, 115.47005384px, 228.57142857px) rotateX(90deg) rotateZ(0deg) rotateY(-390deg);
+          transform: translate3d(66.66666667px, 115.47005384px, 228.57142857px) rotateX(90deg) rotateZ(0deg) rotateY(-390deg);
+  width: 9.30232558px;
+  height: 9.30232558px;
+}
+.spiral.three .light-wrapper.light-wrapper-40 .light {
+  -webkit-animation-duration: 1.16241935s;
+          animation-duration: 1.16241935s;
+  -webkit-animation-delay: 0.80774004s;
+          animation-delay: 0.80774004s;
+}
+.spiral.three .light-wrapper.light-wrapper-41 {
+  -webkit-transform: translate3d(90.04383099px, 107.31005907px, 240.14285714px) rotateX(90deg) rotateZ(0deg) rotateY(-400deg);
+          transform: translate3d(90.04383099px, 107.31005907px, 240.14285714px) rotateX(90deg) rotateZ(0deg) rotateY(-400deg);
+  width: 9.53488372px;
+  height: 9.53488372px;
+}
+.spiral.three .light-wrapper.light-wrapper-41 .light {
+  -webkit-animation-duration: 0.96078274s;
+          animation-duration: 0.96078274s;
+  -webkit-animation-delay: 0.32444921s;
+          animation-delay: 0.32444921s;
+}
+.spiral.three .light-wrapper.light-wrapper-42 {
+  -webkit-transform: translate3d(112.60853314px, 94.48977862px, 252px) rotateX(90deg) rotateZ(0deg) rotateY(-410deg);
+          transform: translate3d(112.60853314px, 94.48977862px, 252px) rotateX(90deg) rotateZ(0deg) rotateY(-410deg);
+  width: 9.76744186px;
+  height: 9.76744186px;
+}
+.spiral.three .light-wrapper.light-wrapper-42 .light {
+  -webkit-animation-duration: 0.91251822s;
+          animation-duration: 0.91251822s;
+  -webkit-animation-delay: 0.92234728s;
+          animation-delay: 0.92234728s;
+}
+.spiral.three .light-wrapper.light-wrapper-43 {
+  -webkit-transform: translate3d(133.44008097px, 77.04166667px, 264.14285714px) rotateX(90deg) rotateZ(0deg) rotateY(-420deg);
+          transform: translate3d(133.44008097px, 77.04166667px, 264.14285714px) rotateX(90deg) rotateZ(0deg) rotateY(-420deg);
+  width: 10px;
+  height: 10px;
+}
+.spiral.three .light-wrapper.light-wrapper-43 .light {
+  -webkit-animation-duration: 0.8938321s;
+          animation-duration: 0.8938321s;
+  -webkit-animation-delay: 1.13170363s;
+          animation-delay: 1.13170363s;
+}
+@-webkit-keyframes pulsate {
+  0% {
+    -webkit-transform: scale(0.5);
+            transform: scale(0.5);
+    opacity: .4;
+  }
+  100% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+  }
+}
+@keyframes pulsate {
+  0% {
+    -webkit-transform: scale(0.5);
+            transform: scale(0.5);
+    opacity: .4;
+  }
+  100% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+  }
+}
+@-webkit-keyframes pulsate-star {
+  0% {
+    -webkit-transform: scale(0.94);
+            transform: scale(0.94);
+    opacity: .8;
+  }
+  100% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+    opacity: 1;
+  }
+}
+@keyframes pulsate-star {
+  0% {
+    -webkit-transform: scale(0.94);
+            transform: scale(0.94);
+    opacity: .8;
+  }
+  100% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+    opacity: 1;
+  }
+}
+@-webkit-keyframes rotate-tree {
+  0% {
+    -webkit-transform: rotateX(-90deg) rotateZ(0deg) rotateY(0deg);
+            transform: rotateX(-90deg) rotateZ(0deg) rotateY(0deg);
+  }
+  100% {
+    -webkit-transform: rotateX(-90deg) rotateZ(360deg) rotateY(0deg);
+            transform: rotateX(-90deg) rotateZ(360deg) rotateY(0deg);
+  }
+}
+@keyframes rotate-tree {
+  0% {
+    -webkit-transform: rotateX(-90deg) rotateZ(0deg) rotateY(0deg);
+            transform: rotateX(-90deg) rotateZ(0deg) rotateY(0deg);
+  }
+  100% {
+    -webkit-transform: rotateX(-90deg) rotateZ(360deg) rotateY(0deg);
+            transform: rotateX(-90deg) rotateZ(360deg) rotateY(0deg);
+  }
+}
+
+    </style>
+
+  <script>
+  window.console = window.console || function(t) {};
+</script>
+
+  
+  
+  <script>
+  if (document.location.search.match(/type=embed/gi)) {
+    window.parent.postMessage("resize", "*");
+  }
+</script>
+
+</head>
+
+<body translate="no" >
+
+  
+<div class="main-wrapper">
+  <div class="tree-container">
+    <div class="star"></div>
+    <div class="spiral-container">
+      <ul class="spiral one">
+        <li class="light-wrapper light-wrapper-1">
+          <div class="stabilise">
+            <div class="light"></div>
+          </div>
+        </li>
+        <li class="light-wrapper light-wrapper-2">
+          <div class="stabilise">
+            <div class="light"></div>
+          </div>
+        </li>
+        <li class="light-wrapper light-wrapper-3">
+          <div class="stabilise">
+            <div class="light"></div>
+          </div>
+        </li>
+        <li class="light-wrapper light-wrapper-4">
+          <div class="stabilise">
+            <div class="light"></div>
+          </div>
+        </li>
+        <li class="light-wrapper light-wrapper-5">
+          <div class="stabilise">
+            <div class="light"></div>
+          </div>
+        </li>
+        <li class="light-wrapper light-wrapper-6">
+          <div class="stabilise">
+            <div class="light"></div>
+          </div>
+        </li>
+        <li class="light-wrapper light-wrapper-7">
+          <div class="stabilise">
+            <div class="light"></div>
+          </div>
+        </li>
+        <li class="light-wrapper light-wrapper-8">
+          <div class="stabilise">
+            <div class="light"></div>
+          </div>
+        </li>
+        <li class="light-wrapper light-wrapper-9">
+          <div class="stabilise">
+            <div class="light"></div>
+          </div>
+        </li>
+        <li class="light-wrapper light-wrapper-10">
+          <div class="stabilise">
+            <div class="light"></div>
+          </div>
+        </li>
+        <li class="light-wrapper light-wrapper-11">
+          <div class="stabilise">
+            <div class="light"></div>
+          </div>
+        </li>
+        <li class="light-wrapper light-wrapper-12">
+          <div class="stabilise">
+            <div class="light"></div>
+          </div>
+        </li>
+        <li class="light-wrapper light-wrapper-13">
+          <div class="stabilise">
+            <div class="light"></div>
+          </div>
+        </li>
+        <li class="light-wrapper light-wrapper-14">
+          <div class="stabilise">
+            <div class="light"></div>
+          </div>
+        </li>
+        <li class="light-wrapper light-wrapper-15">
+          <div class="stabilise">
+            <div class="light"></div>
+          </div>
+        </li>
+        <li class="light-wrapper light-wrapper-16">
+          <div class="stabilise">
+            <div class="light"></div>
+          </div>
+        </li>
+        <li class="light-wrapper light-wrapper-17">
+          <div class="stabilise">
+            <div class="light"></div>
+          </div>
+        </li>
+        <li class="light-wrapper light-wrapper-18">
+          <div class="stabilise">
+            <div class="light"></div>
+          </div>
+        </li>
+        <li class="light-wrapper light-wrapper-19">
+          <div class="stabilise">
+            <div class="light"></div>
+          </div>
+        </li>
+        <li class="light-wrapper light-wrapper-20">
+          <div class="stabilise">
+            <div class="light"></div>
+          </div>
+        </li>
+        <li class="light-wrapper light-wrapper-21">
+          <div class="stabilise">
+            <div class="light"></div>
+          </div>
+        </li>
+        <li class="light-wrapper light-wrapper-22">
+          <div class="stabilise">
+            <div class="light"></div>
+          </div>
+        </li>
+        <li class="light-wrapper light-wrapper-23">
+          <div class="stabilise">
+            <div class="light"></div>
+          </div>
+        </li>
+        <li class="light-wrapper light-wrapper-24">
+          <div class="stabilise">
+            <div class="light"></div>
+          </div>
+        </li>
+        <li class="light-wrapper light-wrapper-25">
+          <div class="stabilise">
+            <div class="light"></div>
+          </div>
+        </li>
+        <li class="light-wrapper light-wrapper-26">
+          <div class="stabilise">
+            <div class="light"></div>
+          </div>
+        </li>
+        <li class="light-wrapper light-wrapper-27">
+          <div class="stabilise">
+            <div class="light"></div>
+          </div>
+        </li>
+        <li class="light-wrapper light-wrapper-28">
+          <div class="stabilise">
+            <div class="light"></div>
+          </div>
+        </li>
+        <li class="light-wrapper light-wrapper-29">
+          <div class="stabilise">
+            <div class="light"></div>
+          </div>
+        </li>
+        <li class="light-wrapper light-wrapper-30">
+          <div class="stabilise">
+            <div class="light"></div>
+          </div>
+        </li>
+        <li class="light-wrapper light-wrapper-31">
+          <div class="stabilise">
+            <div class="light"></div>
+          </div>
+        </li>
+        <li class="light-wrapper light-wrapper-32">
+          <div class="stabilise">
+            <div class="light"></div>
+          </div>
+        </li>
+        <li class="light-wrapper light-wrapper-33">
+          <div class="stabilise">
+            <div class="light"></div>
+          </div>
+        </li>
+        <li class="light-wrapper light-wrapper-34">
+          <div class="stabilise">
+            <div class="light"></div>
+          </div>
+        </li>
+        <li class="light-wrapper light-wrapper-35">
+          <div class="stabilise">
+            <div class="light"></div>
+          </div>
+        </li>
+        <li class="light-wrapper light-wrapper-36">
+          <div class="stabilise">
+            <div class="light"></div>
+          </div>
+        </li>
+        <li class="light-wrapper light-wrapper-37">
+          <div class="stabilise">
+            <div class="light"></div>
+          </div>
+        </li>
+        <li class="light-wrapper light-wrapper-38">
+          <div class="stabilise">
+            <div class="light"></div>
+          </div>
+        </li>
+        <li class="light-wrapper light-wrapper-39">
+          <div class="stabilise">
+            <div class="light"></div>
+          </div>
+        </li>
+        <li class="light-wrapper light-wrapper-40">
+          <div class="stabilise">
+            <div class="light"></div>
+          </div>
+        </li>
+        <li class="light-wrapper light-wrapper-41">
+          <div class="stabilise">
+            <div class="light"></div>
+          </div>
+        </li>
+        <li class="light-wrapper light-wrapper-42">
+          <div class="stabilise">
+            <div class="light"></div>
+          </div>
+        </li>
+        <li class="light-wrapper light-wrapper-43">
+          <div class="stabilise">
+            <div class="light"></div>
+          </div>
+        </li>
+      </ul>
+      <ul class="spiral two">
+        <li class="light-wrapper light-wrapper-1">
+          <div class="stabilise">
+            <div class="light"></div>
+          </div>
+        </li>
+        <li class="light-wrapper light-wrapper-2">
+          <div class="stabilise">
+            <div class="light"></div>
+          </div>
+        </li>
+        <li class="light-wrapper light-wrapper-3">
+          <div class="stabilise">
+            <div class="light"></div>
+          </div>
+        </li>
+        <li class="light-wrapper light-wrapper-4">
+          <div class="stabilise">
+            <div class="light"></div>
+          </div>
+        </li>
+        <li class="light-wrapper light-wrapper-5">
+          <div class="stabilise">
+            <div class="light"></div>
+          </div>
+        </li>
+        <li class="light-wrapper light-wrapper-6">
+          <div class="stabilise">
+            <div class="light"></div>
+          </div>
+        </li>
+        <li class="light-wrapper light-wrapper-7">
+          <div class="stabilise">
+            <div class="light"></div>
+          </div>
+        </li>
+        <li class="light-wrapper light-wrapper-8">
+          <div class="stabilise">
+            <div class="light"></div>
+          </div>
+        </li>
+        <li class="light-wrapper light-wrapper-9">
+          <div class="stabilise">
+            <div class="light"></div>
+          </div>
+        </li>
+        <li class="light-wrapper light-wrapper-10">
+          <div class="stabilise">
+            <div class="light"></div>
+          </div>
+        </li>
+        <li class="light-wrapper light-wrapper-11">
+          <div class="stabilise">
+            <div class="light"></div>
+          </div>
+        </li>
+        <li class="light-wrapper light-wrapper-12">
+          <div class="stabilise">
+            <div class="light"></div>
+          </div>
+        </li>
+        <li class="light-wrapper light-wrapper-13">
+          <div class="stabilise">
+            <div class="light"></div>
+          </div>
+        </li>
+        <li class="light-wrapper light-wrapper-14">
+          <div class="stabilise">
+            <div class="light"></div>
+          </div>
+        </li>
+        <li class="light-wrapper light-wrapper-15">
+          <div class="stabilise">
+            <div class="light"></div>
+          </div>
+        </li>
+        <li class="light-wrapper light-wrapper-16">
+          <div class="stabilise">
+            <div class="light"></div>
+          </div>
+        </li>
+        <li class="light-wrapper light-wrapper-17">
+          <div class="stabilise">
+            <div class="light"></div>
+          </div>
+        </li>
+        <li class="light-wrapper light-wrapper-18">
+          <div class="stabilise">
+            <div class="light"></div>
+          </div>
+        </li>
+        <li class="light-wrapper light-wrapper-19">
+          <div class="stabilise">
+            <div class="light"></div>
+          </div>
+        </li>
+        <li class="light-wrapper light-wrapper-20">
+          <div class="stabilise">
+            <div class="light"></div>
+          </div>
+        </li>
+        <li class="light-wrapper light-wrapper-21">
+          <div class="stabilise">
+            <div class="light"></div>
+          </div>
+        </li>
+        <li class="light-wrapper light-wrapper-22">
+          <div class="stabilise">
+            <div class="light"></div>
+          </div>
+        </li>
+        <li class="light-wrapper light-wrapper-23">
+          <div class="stabilise">
+            <div class="light"></div>
+          </div>
+        </li>
+        <li class="light-wrapper light-wrapper-24">
+          <div class="stabilise">
+            <div class="light"></div>
+          </div>
+        </li>
+        <li class="light-wrapper light-wrapper-25">
+          <div class="stabilise">
+            <div class="light"></div>
+          </div>
+        </li>
+        <li class="light-wrapper light-wrapper-26">
+          <div class="stabilise">
+            <div class="light"></div>
+          </div>
+        </li>
+        <li class="light-wrapper light-wrapper-27">
+          <div class="stabilise">
+            <div class="light"></div>
+          </div>
+        </li>
+        <li class="light-wrapper light-wrapper-28">
+          <div class="stabilise">
+            <div class="light"></div>
+          </div>
+        </li>
+        <li class="light-wrapper light-wrapper-29">
+          <div class="stabilise">
+            <div class="light"></div>
+          </div>
+        </li>
+        <li class="light-wrapper light-wrapper-30">
+          <div class="stabilise">
+            <div class="light"></div>
+          </div>
+        </li>
+        <li class="light-wrapper light-wrapper-31">
+          <div class="stabilise">
+            <div class="light"></div>
+          </div>
+        </li>
+        <li class="light-wrapper light-wrapper-32">
+          <div class="stabilise">
+            <div class="light"></div>
+          </div>
+        </li>
+        <li class="light-wrapper light-wrapper-33">
+          <div class="stabilise">
+            <div class="light"></div>
+          </div>
+        </li>
+        <li class="light-wrapper light-wrapper-34">
+          <div class="stabilise">
+            <div class="light"></div>
+          </div>
+        </li>
+        <li class="light-wrapper light-wrapper-35">
+          <div class="stabilise">
+            <div class="light"></div>
+          </div>
+        </li>
+        <li class="light-wrapper light-wrapper-36">
+          <div class="stabilise">
+            <div class="light"></div>
+          </div>
+        </li>
+        <li class="light-wrapper light-wrapper-37">
+          <div class="stabilise">
+            <div class="light"></div>
+          </div>
+        </li>
+        <li class="light-wrapper light-wrapper-38">
+          <div class="stabilise">
+            <div class="light"></div>
+          </div>
+        </li>
+        <li class="light-wrapper light-wrapper-39">
+          <div class="stabilise">
+            <div class="light"></div>
+          </div>
+        </li>
+        <li class="light-wrapper light-wrapper-40">
+          <div class="stabilise">
+            <div class="light"></div>
+          </div>
+        </li>
+        <li class="light-wrapper light-wrapper-41">
+          <div class="stabilise">
+            <div class="light"></div>
+          </div>
+        </li>
+        <li class="light-wrapper light-wrapper-42">
+          <div class="stabilise">
+            <div class="light"></div>
+          </div>
+        </li>
+        <li class="light-wrapper light-wrapper-43">
+          <div class="stabilise">
+            <div class="light"></div>
+          </div>
+        </li>
+      </ul>
+      <ul class="spiral three">
+        <li class="light-wrapper light-wrapper-1">
+          <div class="stabilise">
+            <div class="light"></div>
+          </div>
+        </li>
+        <li class="light-wrapper light-wrapper-2">
+          <div class="stabilise">
+            <div class="light"></div>
+          </div>
+        </li>
+        <li class="light-wrapper light-wrapper-3">
+          <div class="stabilise">
+            <div class="light"></div>
+          </div>
+        </li>
+        <li class="light-wrapper light-wrapper-4">
+          <div class="stabilise">
+            <div class="light"></div>
+          </div>
+        </li>
+        <li class="light-wrapper light-wrapper-5">
+          <div class="stabilise">
+            <div class="light"></div>
+          </div>
+        </li>
+        <li class="light-wrapper light-wrapper-6">
+          <div class="stabilise">
+            <div class="light"></div>
+          </div>
+        </li>
+        <li class="light-wrapper light-wrapper-7">
+          <div class="stabilise">
+            <div class="light"></div>
+          </div>
+        </li>
+        <li class="light-wrapper light-wrapper-8">
+          <div class="stabilise">
+            <div class="light"></div>
+          </div>
+        </li>
+        <li class="light-wrapper light-wrapper-9">
+          <div class="stabilise">
+            <div class="light"></div>
+          </div>
+        </li>
+        <li class="light-wrapper light-wrapper-10">
+          <div class="stabilise">
+            <div class="light"></div>
+          </div>
+        </li>
+        <li class="light-wrapper light-wrapper-11">
+          <div class="stabilise">
+            <div class="light"></div>
+          </div>
+        </li>
+        <li class="light-wrapper light-wrapper-12">
+          <div class="stabilise">
+            <div class="light"></div>
+          </div>
+        </li>
+        <li class="light-wrapper light-wrapper-13">
+          <div class="stabilise">
+            <div class="light"></div>
+          </div>
+        </li>
+        <li class="light-wrapper light-wrapper-14">
+          <div class="stabilise">
+            <div class="light"></div>
+          </div>
+        </li>
+        <li class="light-wrapper light-wrapper-15">
+          <div class="stabilise">
+            <div class="light"></div>
+          </div>
+        </li>
+        <li class="light-wrapper light-wrapper-16">
+          <div class="stabilise">
+            <div class="light"></div>
+          </div>
+        </li>
+        <li class="light-wrapper light-wrapper-17">
+          <div class="stabilise">
+            <div class="light"></div>
+          </div>
+        </li>
+        <li class="light-wrapper light-wrapper-18">
+          <div class="stabilise">
+            <div class="light"></div>
+          </div>
+        </li>
+        <li class="light-wrapper light-wrapper-19">
+          <div class="stabilise">
+            <div class="light"></div>
+          </div>
+        </li>
+        <li class="light-wrapper light-wrapper-20">
+          <div class="stabilise">
+            <div class="light"></div>
+          </div>
+        </li>
+        <li class="light-wrapper light-wrapper-21">
+          <div class="stabilise">
+            <div class="light"></div>
+          </div>
+        </li>
+        <li class="light-wrapper light-wrapper-22">
+          <div class="stabilise">
+            <div class="light"></div>
+          </div>
+        </li>
+        <li class="light-wrapper light-wrapper-23">
+          <div class="stabilise">
+            <div class="light"></div>
+          </div>
+        </li>
+        <li class="light-wrapper light-wrapper-24">
+          <div class="stabilise">
+            <div class="light"></div>
+          </div>
+        </li>
+        <li class="light-wrapper light-wrapper-25">
+          <div class="stabilise">
+            <div class="light"></div>
+          </div>
+        </li>
+        <li class="light-wrapper light-wrapper-26">
+          <div class="stabilise">
+            <div class="light"></div>
+          </div>
+        </li>
+        <li class="light-wrapper light-wrapper-27">
+          <div class="stabilise">
+            <div class="light"></div>
+          </div>
+        </li>
+        <li class="light-wrapper light-wrapper-28">
+          <div class="stabilise">
+            <div class="light"></div>
+          </div>
+        </li>
+        <li class="light-wrapper light-wrapper-29">
+          <div class="stabilise">
+            <div class="light"></div>
+          </div>
+        </li>
+        <li class="light-wrapper light-wrapper-30">
+          <div class="stabilise">
+            <div class="light"></div>
+          </div>
+        </li>
+        <li class="light-wrapper light-wrapper-31">
+          <div class="stabilise">
+            <div class="light"></div>
+          </div>
+        </li>
+        <li class="light-wrapper light-wrapper-32">
+          <div class="stabilise">
+            <div class="light"></div>
+          </div>
+        </li>
+        <li class="light-wrapper light-wrapper-33">
+          <div class="stabilise">
+            <div class="light"></div>
+          </div>
+        </li>
+        <li class="light-wrapper light-wrapper-34">
+          <div class="stabilise">
+            <div class="light"></div>
+          </div>
+        </li>
+        <li class="light-wrapper light-wrapper-35">
+          <div class="stabilise">
+            <div class="light"></div>
+          </div>
+        </li>
+        <li class="light-wrapper light-wrapper-36">
+          <div class="stabilise">
+            <div class="light"></div>
+          </div>
+        </li>
+        <li class="light-wrapper light-wrapper-37">
+          <div class="stabilise">
+            <div class="light"></div>
+          </div>
+        </li>
+        <li class="light-wrapper light-wrapper-38">
+          <div class="stabilise">
+            <div class="light"></div>
+          </div>
+        </li>
+        <li class="light-wrapper light-wrapper-39">
+          <div class="stabilise">
+            <div class="light"></div>
+          </div>
+        </li>
+        <li class="light-wrapper light-wrapper-40">
+          <div class="stabilise">
+            <div class="light"></div>
+          </div>
+        </li>
+        <li class="light-wrapper light-wrapper-41">
+          <div class="stabilise">
+            <div class="light"></div>
+          </div>
+        </li>
+        <li class="light-wrapper light-wrapper-42">
+          <div class="stabilise">
+            <div class="light"></div>
+          </div>
+        </li>
+        <li class="light-wrapper light-wrapper-43">
+          <div class="stabilise">
+            <div class="light"></div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="text-container">
+    <h2>Merry Christmas</h2>
+	<h2>&</h2>
+    <h2 class="happy">Happy Holidays</h2>
+  </div>
+</div>
+    
+
+  
+    <script>
+    // ------------------------------
+// Sorry, no JS here :)
+// Happy Holidays from C2
+// http://wearec2.com
+// ------------------------------
+  //# sourceURL=pen.js
+  </script>
+
+  
+  
+
+</body>
+</html>
+ 
